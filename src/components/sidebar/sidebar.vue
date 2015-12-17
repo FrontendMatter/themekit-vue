@@ -452,8 +452,5 @@ module.exports = {
     @import "~themekit-less/src/sidebar-elements/media";
     @import "~themekit-less/src/sidebar-elements/panel";
     @import "~themekit-less/src/sidebar-elements/progress";
-    @import "~themekit-less/src/sidebar-elements/media";
-    @import "~themekit-less/src/sidebar-elements/panel";
-    @import "~themekit-less/src/sidebar-elements/progress";
     @import "~themekit-less/src/sidebar-elements/slider";
 </style>
