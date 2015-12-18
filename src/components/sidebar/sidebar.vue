@@ -33,7 +33,7 @@
                                 :icon="dd.icon"
                                 :active="dd.active"
                                 :link="dd.link"
-                                @click="dropdown=null">
+                                v-on:click="dropdown=null">
                             </sidebar-menu-item>
                         </ul>
                     </li>

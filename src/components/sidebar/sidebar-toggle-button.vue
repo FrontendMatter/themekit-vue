@@ -1,5 +1,5 @@
 <template>
-    <a :href="'#' + sidebarId" @click.stop.prevent="toggle" :class="buttonClass">
+    <a :href="'#' + sidebarId" v-on:click.stop.prevent="toggle" :class="buttonClass">
         <template v-if="!toggleBar"><i class="{{ icon }}"></i></template>
     </a>
 </template>
