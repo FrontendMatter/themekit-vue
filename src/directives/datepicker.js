@@ -1,6 +1,7 @@
-require('bootstrap-datepicker');
-module.exports = {
-    bind: function() {
-        $(this.el).addClass('datepicker').datepicker();
-    }
-};
+import 'bootstrap-datepicker'
+
+export default {
+	bind () {
+		$(this.el).addClass('datepicker').datepicker()
+	}
+}
