@@ -9,7 +9,7 @@
 </template>
 
 <script>
-	module.exports = {
+	export default {
 		props: {
 			panelTitle: {
 				type: String,

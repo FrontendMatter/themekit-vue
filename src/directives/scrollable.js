@@ -19,10 +19,10 @@ module.exports = {
         $(this.el).simplebar().on('scroll', function() {
             var scrollable = $(this);
             clearTimeout(this.scrollTimer);
-            vm.$dispatch('scrollable.scrolling');
+            vm.$dispatch('scrolling.tk.scrollable');
             this.scrollTimer = setTimeout(function() {
                 var scrollTop = scrollable.simplebar('getScrollElement').scrollTop();
-                vm.$dispatch('scrollable.scrolling.end', scrollTop);
+                vm.$dispatch('end-scrolling.tk.scrollable', scrollTop);
             }, 100);
         });
     },

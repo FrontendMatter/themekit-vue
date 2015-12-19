@@ -1,7 +1,8 @@
 <script>
-	require('load_image/load_image');
-	module.exports = {
-		data: function() {
+	import 'load_image/load_image'
+
+	export default {
+		data () {
 			return {
 				layoutTimer: null
 			}
@@ -17,179 +18,180 @@
 			 * @param {Number} maxHeight Fittable area maximum available height
 			 * @return {Object} { width, heigth }
 			 */
-			aspectRatioFit: function (srcWidth, srcHeight, maxWidth, maxHeight) {
+			aspectRatioFit (srcWidth, srcHeight, maxWidth, maxHeight) {
 
-				var wRatio = maxWidth / srcWidth,
-				hRatio = maxHeight / srcHeight,
-				width = srcWidth,
-				height = srcHeight;
+				var wRatio = maxWidth / srcWidth
+				var hRatio = maxHeight / srcHeight
+				var width = srcWidth
+				var height = srcHeight
 
 				if (srcWidth / maxWidth < srcHeight / maxHeight) {
-					width = maxWidth;
-					height = srcHeight * wRatio;
-				} else {
-					width = srcWidth * hRatio;
-					height = maxHeight;
+					width = maxWidth
+					height = srcHeight * wRatio
+				} 
+				else {
+					width = srcWidth * hRatio
+					height = maxHeight
 				}
 
-				return {width: width, height: height};
+				return { width: width, height: height }
 			},
-			cover: function() {
-				var self = this;
-				var img = $(this.$els.image);
-				if (! img) return;
+			cover () {
+				var self = this
+				var img = $(this.$els.image)
+				if (!img) return
 
-				var cover = $(this.$els.cover);
+				var cover = $(this.$els.cover)
 
 				// select all overlays
-				var overlay = cover.find('> .overlay');
+				var overlay = cover.find('> .overlay')
 
 				// filter only the overlays that should have the full height of the cover container
-				var overlayFull = overlay.filter(function() {
-					return $(this).is('.overlay-hover') || $(this).is('.overlay-full');
-				});
+				var overlayFull = overlay.filter(function () {
+					return $(this).is('.overlay-hover') || $(this).is('.overlay-full')
+				})
 
 				// reset the cover height
-				cover.removeAttr('style');
+				cover.removeAttr('style')
 
 				// reset overlays height
 				if (img.is('img')) {
-					overlay.css('height', 'auto');
+					overlay.css('height', 'auto')
 				}
 
 				var bodyPadding = {
-		            top: parseInt($(document.body).css('padding-top')),
-		            bottom: parseInt($(document.body).css('padding-bottom'))
-		        };
-		        var $contentScrollable = $('.st-content-inner');
-		        var $scrollable = $contentScrollable.length ? $contentScrollable : $(window);
-		        var wHeight = $scrollable.innerHeight() - (bodyPadding.top + bodyPadding.bottom);
+					top: parseInt($(document.body).css('padding-top'), 10),
+					bottom: parseInt($(document.body).css('padding-bottom'), 10)
+				}
+				var $contentScrollable = $('.st-content-inner')
+				var $scrollable = $contentScrollable.length ? $contentScrollable : $(window)
+				var wHeight = $scrollable.innerHeight() - (bodyPadding.top + bodyPadding.bottom)
+				var changed = false
+				var oWidth
+				var oHeight
 
-				if (! cover.is('[class*="height"]')) {
+				if (!cover.is('[class*="height"]')) {
 
-					var changed = false;
-					var tHeight = cover.height();
+					var tHeight = cover.height()
 
 					// store the current image sizes
-					var oWidth = img.width();
-					var oHeight = img.height();
+					oWidth = img.width()
+					oHeight = img.height()
 
 					// reset image style
-					img.removeAttr('style');
+					img.removeAttr('style')
 
 					// the new image height
-					var height = img.height();
+					var height = img.height()
 
 					// cover overlay sizes
 					if (overlay.length) {
-						var overlayHeight = overlay.innerHeight();
+						var overlayHeight = overlay.innerHeight()
 
 						// if the overlay is taller than the cover container
 						// increase the cover container height to the overlay's height
 						if (overlayHeight > height) {
-							height = overlayHeight;
+							height = overlayHeight
 						}
 
 						// if the overlay is overlay-hover or overlay-full
 						// make sure the overlay is equally tall with the cover image
 						if (overlay.is('.overlay-hover') || overlay.is('.overlay-full')) {
-							height = img.height();
+							height = img.height()
 						}
 					}
 
 					// make sure the cover is never taller than the visible viewport
 					if (height > wHeight) {
-						height = wHeight;
+						height = wHeight
 					}
 
 					// set the overlay height
 					if (overlay.length) {
-						overlayFull.innerHeight(height);
+						overlayFull.innerHeight(height)
 					}
 
 					// set the cover height
-					cover.height(height);
+					cover.height(height)
 
 					// set the image sizes
-					img.css(self.aspectRatioFit(img.width(), img.height(), cover.width(), cover.height()));
+					img.css(self.aspectRatioFit(img.width(), img.height(), cover.width(), cover.height()))
 
 					// test for the cover or images sizes changes
-					changed = tHeight !== cover.height();
-					if (! changed) {
-						changed = (oWidth !== img.width() || oHeight !== img.height());
+					changed = tHeight !== cover.height()
+					if (!changed) {
+						changed = (oWidth !== img.width() || oHeight !== img.height())
 					}
 
 					// notify other components about size changes
 					if (changed) {
-						self.$dispatch('isotope.layout', self);
+						self.$dispatch('layout.tk.isotope', self)
 					}
 				}
 				else {
 
 					// make sure the cover is never taller than the visible viewport
 					if (cover.height() > wHeight) {
-						cover.height(wHeight);
+						cover.height(wHeight)
 					}
 
-					var changed = false;
-					var oWidth = img.width();
-					var oHeight = img.height();
+					oWidth = img.width()
+					oHeight = img.height()
 
-					img.removeAttr('style');
-					img.css(self.aspectRatioFit(img.width(), img.height(), cover.width(), cover.height()));
+					img.removeAttr('style')
+					img.css(self.aspectRatioFit(img.width(), img.height(), cover.width(), cover.height()))
 
-					changed = (oWidth !== img.width() || oHeight !== img.height());
+					changed = (oWidth !== img.width() || oHeight !== img.height())
 					if (changed) {
-						self.$dispatch('isotope.layout', self);
+						self.$dispatch('layout.tk.isotope', self)
 					}
 				}
 			},
-			initCover: function() {
-				var img = $(this.$els.image);
-				if (! img) 
-					return this.cover();
-
+			initCover () {
+				var img = $(this.$els.image)
+				if (!img) { 
+					return this.cover()
+				}
 				$.loadImage(img.attr('src')).done(function (image) {
-					this.cover();
-				}.bind(this));
+					this.cover()
+				}.bind(this))
 			},
-			handleCover: function() {
-				clearTimeout(this.layoutTimer);
-				this.layoutTimer = setTimeout(this.cover, 10);
+			handleCover () {
+				clearTimeout(this.layoutTimer)
+				this.layoutTimer = setTimeout(this.cover, 10)
 			}
 		},
-		ready: function() {
-			this.initCover();
-			window.addEventListener('resize', this.handleCover);
+		ready () {
+			this.initCover()
+			window.addEventListener('resize', this.handleCover)
 		},
 		events: {
-			'isotope.layout': function() {
-				this.handleCover();
+			'layout.tk.isotope': function () {
+				this.handleCover()
 			}
 		},
-		beforeDestroy: function() {
-			window.removeEventListener('resize', this.handleCover);
+		beforeDestroy () {
+			window.removeEventListener('resize', this.handleCover)
 		},
 		computed: {
-			coverClass: function() {
+			coverClass () {
 				return {
 					'cover': true,
 					'overlay': true,
 					'hover': this.hover, 
 					'cover-image-full': this.imageFull
-				};
+				}
 			},
-			overlayClass: function() {
+			overlayClass () {
 				var classes = { 
 					'overlay': true,
 					'overlay-full': this.overlayFull, 
 					'overlay-hover': this.hover 
-				};
-
-				if (this.overlayBg)
-					classes['overlay-bg-' + this.overlayBg] = true;
-
-				return classes;
+				}
+				if (this.overlayBg) {
+					classes['overlay-bg-' + this.overlayBg] = true
+				}
+				return classes
 			}
 		},
 		props: {

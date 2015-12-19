@@ -16,8 +16,9 @@
 </template>
 
 <script>
-	var Cover = require('./cover.vue');
-	module.exports = {
+	import Cover from './cover.vue'
+	
+	export default {
 		mixins: [ Cover ]
 	}
 </script>

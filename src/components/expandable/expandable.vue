@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	module.exports = {
+	export default {
 		props: {
 			open: {
 				type: Boolean
@@ -21,26 +21,29 @@
 			}
 		},
 		computed: {
-			expandableClass: function() {
+			expandableClass () {
 				var obj = {
 					'expandable-open': this.open
-				};
-				if (this.indicatorColor)
-					obj['expandable-indicator-' + this.indicatorColor] = true;
-				return obj;
+				}
+				if (this.indicatorColor) {
+					obj['expandable-indicator-' + this.indicatorColor] = true
+				}
+				return obj
 			},
-			contentClass: function() {
-				var obj = {};
-				if (this.contentSize)
-					obj['expandable-content-' + this.contentSize] = true;
-				return obj;
+			contentClass () {
+				var obj = {}
+				if (this.contentSize) {
+					obj['expandable-content-' + this.contentSize] = true
+				}
+				return obj
 			}
 		},
 		methods: {
-			toggle: function(e) {
-				if (e && e.currentTarget !== this.$els.indicator && this.open) 
-					return;
-				this.open = !this.open;
+			toggle (e) {
+				if (e && e.currentTarget !== this.$els.indicator && this.open) {
+					return
+				}
+				this.open = !this.open
 			}
 		}
 	}

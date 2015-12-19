@@ -23,7 +23,7 @@
 </template>
 
 <script>
-	module.exports = {
+	export default {
 		props: {
 			id: {
 				type: String,
@@ -50,9 +50,9 @@
 			slideDirection: {
 				type: String,
 				default: 'down',
-				validator: function(value) {
-					return ['left', 'right', 'up', 'down'].indexOf(value) !== -1;
-				} 
+				validator (value) {
+					return ['left', 'right', 'up', 'down'].indexOf(value) !== -1
+				}
 			},
 			attach: {
 				type: Boolean,
@@ -68,15 +68,15 @@
 			sidebarSize: {
 				type: String,
 				default: '3',
-				validator: function(value) {
-					return ['1', '2', '3'].indexOf(value) !== -1;
-				} 
+				validator (value) {
+					return ['1', '2', '3'].indexOf(value) !== -1
+				}
 			},
 			sidebarSizeXs: {
 				type: String,
 				default: '1',
-				validator: function(value) {
-					return ['1', '2', '3'].indexOf(value) !== -1;
+				validator (value) {
+					return ['1', '2', '3'].indexOf(value) !== -1
 				}
 			},
 			grow: {
@@ -93,87 +93,84 @@
 			},
 			size: {
 				type: String,
-				validator: function(value) {
-					return ['small', 'large'].indexOf(value) !== -1;
-				} 
+				validator (value) {
+					return ['small', 'large'].indexOf(value) !== -1
+				}
 			}
 		},
 		computed: {
-			isFade: function() {
-				return this.fade || this.slide || this.sidebar;
+			isFade () {
+				return this.fade || this.slide || this.sidebar
 			},
-			computedSlideDirection: function() {
+			computedSlideDirection () {
 				if (this.sidebar && ['left', 'right'].indexOf(this.slideDirection) === -1) {
-					return 'left';
+					return 'left'
 				}
-				return this.slideDirection;
+				return this.slideDirection
 			},
-			slideDirectionClass: function() {
-				return 'slide-' + this.computedSlideDirection;
+			slideDirectionClass () {
+				return 'slide-' + this.computedSlideDirection
 			},
-			modal: function() {
+			modal () {
 				var obj = {
 					'modal': true,
 					'fade': this.isFade,
 					'grow': this.grow,
 					'modal-overlay': this.overlay
-				};
-				
-				if (this.sidebar || this.slide)
-					obj[this.slideDirectionClass] = true;
-
-				if (this.backdrop)
-					obj['modal-backdrop-' + this.backdrop] = true;
-
-				if (this.panel)
-					obj['modal-panel-default'] = true;
-
-				return obj;
-			},
-			dialog: function() {
-				var obj = {};
-
-				if (this.sidebar) {
-					obj['sidebar'] = true;
-					obj[this.computedSlideDirection] = true;
-					obj['sidebar-offset-0'] = true;
-					obj['sidebar-size-' + this.sidebarSize] = true;
-					obj['sidebar-size-xs-' + this.sidebarSizeXs] = true;
 				}
-
-				return obj;
+				if (this.sidebar || this.slide) {
+					obj[this.slideDirectionClass] = true
+				}
+				if (this.backdrop) {
+					obj['modal-backdrop-' + this.backdrop] = true
+				}
+				if (this.panel) {
+					obj['modal-panel-default'] = true
+				}
+				return obj
 			},
-			content: function() {
+			dialog () {
+				var obj = {}
+				if (this.sidebar) {
+					obj['sidebar'] = true
+					obj[this.computedSlideDirection] = true
+					obj['sidebar-offset-0'] = true
+					obj['sidebar-size-' + this.sidebarSize] = true
+					obj['sidebar-size-xs-' + this.sidebarSizeXs] = true
+				}
+				return obj
+			},
+			content () {
 				var obj = {
-					'modal-sm': this.size == 'small',
-					'h-center': this.size == 'small',
-					'modal-lg': this.size == 'large'
-				};
-				return obj;
+					'modal-sm': this.size === 'small',
+					'h-center': this.size === 'small',
+					'modal-lg': this.size === 'large'
+				}
+				return obj
 			}
 		},
 		methods: {
-			showBackdrop: function () {
-	        	if (this.backdrop) {
-	            	$('body').addClass('modal-backdrop-' + this.backdrop);
-	        	}
-	        },
-	        hideBackdrop: function () {
-	        	if (this.backdrop) {
-	            	$('body').removeClass('modal-backdrop-' + this.backdrop);
-	        	}
-	        }
+			showBackdrop () {
+				if (this.backdrop) {
+					$('body').addClass('modal-backdrop-' + this.backdrop)
+				}
+			},
+			hideBackdrop () {
+				if (this.backdrop) {
+					$('body').removeClass('modal-backdrop-' + this.backdrop)
+				}
+			}
 		},
-		ready: function() {
+		ready () {
 			if (this.attach && this.attachTo && $(this.attachTo).length) {
-				$(this.$el).appendTo(this.attachTo);
+				$(this.$el).appendTo(this.attachTo)
 			}
 			$(this.$el)
 				.on('show.bs.modal', this.showBackdrop)
-		        .on('hidden.bs.modal', this.hideBackdrop);
+				.on('hidden.bs.modal', this.hideBackdrop)
 		},
-		beforeDestroy: function() {
-			$(this.$el).remove();
+		beforeDestroy () {
+			$(this.$el).remove()
 		}
 	}
 </script>

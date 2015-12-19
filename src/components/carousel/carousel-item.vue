@@ -5,14 +5,14 @@
 </template>
 
 <script>
-	module.exports = {
+	export default {
 		props: {
 			active: {
 				type: Boolean
 			}
 		},
-		ready: function() {
-			this.$dispatch('carousel-item', this);
+		ready () {
+			this.$dispatch('item.tk.carousel', this)
 		}
 	}
 </script>

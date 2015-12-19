@@ -1,6 +1,7 @@
 <script>
-	var TabPane = require('../tabs/tab-pane.vue');
-	module.exports = {
+	import TabPane from '../tabs/tab-pane.vue'
+
+	export default {
 		mixins: [ TabPane ],
 		props: {
 			scrollable: {

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-	module.exports = {
+	export default {
 		props: {
 			heading: {
 				type: String
@@ -16,19 +16,20 @@
 			}
 		},
 		computed: {
-			sidebarBlockClass: function() {
-				var obj = {};
-				if (this.padding == 'equal')
-					obj['equal-padding'] = true;
-				if (this.padding == 'none')
-					obj['padding-none'] = true;
-
-				return obj;
+			sidebarBlockClass () {
+				var obj = {}
+				if (this.padding === 'equal') {
+					obj['equal-padding'] = true
+				}
+				if (this.padding === 'none') {
+					obj['padding-none'] = true
+				}
+				return obj
 			}
 		}
 	}
 </script>
 
 <style lang="less">
-    @import "~themekit-less/src/sidebar-elements/sidebar-block";
+	@import "~themekit-less/src/sidebar-elements/sidebar-block";
 </style>

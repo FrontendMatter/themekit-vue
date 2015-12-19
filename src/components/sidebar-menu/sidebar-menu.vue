@@ -5,7 +5,7 @@
 	</ul>
 </template>
 <script>
-	module.exports = {
+	export default {
 		props: {
 			icons: {
 				type: String
@@ -18,19 +18,19 @@
 			}
 		},
 		computed: {
-			menuClasses: function() {
-				var obj = {};
+			menuClasses () {
+				var obj = {}
 				if (this.menu) {
-					this.menu.split(" ").forEach(function(className) {
-						obj['sidebar-menu-' + className] = true;
-					});
+					this.menu.split(' ').forEach(function (className) {
+						obj['sidebar-menu-' + className] = true
+					})
 				}
 				if (this.icons) {
-					this.icons.split(" ").forEach(function(icon) {
-						obj['sidebar-menu-icons-' + icon] = true;
-					});
+					this.icons.split(' ').forEach(function (icon) {
+						obj['sidebar-menu-icons-' + icon] = true
+					})
 				}
-				return obj;
+				return obj
 			}
 		}
 	}

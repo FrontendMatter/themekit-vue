@@ -10,8 +10,9 @@
 </template>
 
 <script>
-	var Expandable = require('./expandable.vue');
-	module.exports = {
+	import Expandable from './expandable.vue'
+
+	export default {
 		mixins: [ Expandable ]
 	}
 </script>
