@@ -11,6 +11,7 @@
 				<span v-if="note" class="note">{{ noteContent }}</span>
 			</template>
 		</div>
+		<div class="dropzone-previews" v-el:dropzone-previews></div>
 	</div>
 </template>
 
@@ -87,30 +88,29 @@
 			options () {
 				return {
 					url: this.action,
-					autoQueue: this.autoQueue
+					autoQueue: this.autoQueue,
+					previewsContainer: this.$els.dropzonePreviews
 				}
 			}
 		},
 		methods: {
 			broadcast () {
 				var self = this
-				if (!this.requests.length) {
-					this.requests.push({ 
-						context: this, 
-						dropzoneId: this.id 
-					})
-				}
-				this.requests.forEach(function (data) {
-					this.$root.$broadcast('control.tk.dropzone', {
-						context: self,
-						dropzoneId: data.dropzoneId,
-						controlId: data.controlId
-					})
-				}, this)
+				this.$root.$broadcast('control.tk.dropzone', { 
+					context: self, 
+					dropzoneId: self.id
+				})
+			},
+			updateLayout () {
+				this.$dispatch('layout.tk.isotope', this)
 			}
 		},
 		ready () {
 			this.dropzone = new Dropzone(this.$el, this.options)
+			const events = ['addedfile', 'removedfile', 'complete', 'sending', 'queuecomplete']
+			events.forEach(function (eventName) {
+				this.dropzone.on(eventName, this.updateLayout)
+			}, this)
 
 			this.files.forEach(function (file) {
 				// Call the default addedfile event handler
@@ -128,7 +128,6 @@
 			var self = this
 			this.$root.$on('request-control.tk.dropzone', function (data) {
 				if (self.id === data.dropzoneId) {
-					self.requests.push(data)
 					self.broadcast()
 				}
 			})

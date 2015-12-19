@@ -7,12 +7,10 @@
 
 <script>
 	import Dropzone from 'dropzone/dist/dropzone'
-	import shortid from 'shortid'
 
 	export default {
 		data () {
 			return {
-				id: 'dropzone-control-' + shortid.generate(),
 				show: true
 			}
 		},
@@ -50,8 +48,7 @@
 		methods: {
 			dispatchControl () {
 				this.$dispatch('request-control.tk.dropzone', {
-					dropzoneId: this.dropzoneId,
-					controlId: this.id
+					dropzoneId: this.dropzoneId
 				})
 			},
 			handleControl () {
