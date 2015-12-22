@@ -1,6 +1,7 @@
 <template>
 	<a :href="'#' + sidebarId" @click.stop.prevent="toggle" :class="buttonClass">
-		<template v-if="!toggleBar"><i class="{{ icon }}"></i></template>
+		<i v-if="icon" class="{{ icon }}"></i>
+		<span v-if="label">{{ label }}</span>
 	</a>
 </template>
 
@@ -11,12 +12,11 @@
 				type: String,
 				required: true
 			},
-			toggleBar: {
-				type: Boolean
-			},
 			icon: {
-				type: String,
-				default: 'fa fa-bars'
+				type: String
+			},
+			label: {
+				type: String
 			}
 		},
 		computed: {
@@ -28,16 +28,13 @@
 						classObj[className] = true
 					})
 				}
-				if (this.toggleBar) {
-					classObj['sidebar-toggle-bar'] = true
-				}
 				return classObj
 			}
 		},
-		ready () {
-			this.button = $(this.$el)
-		},
 		methods: {
+			button () {
+				return $(this.$el)
+			},
 			toggle () {
 				this.$dispatch('toggle.tk.sidebar', this.sidebarId)
 			},
@@ -50,7 +47,7 @@
 				if (this.sidebarId !== sidebarId) {
 					return
 				}
-				this.button
+				this.button()
 					.addClass('active')
 					.closest('li')
 					.addClass('active')
@@ -59,7 +56,7 @@
 				if (this.sidebarId !== sidebarId) {
 					return
 				}
-				this.button
+				this.button()
 					.removeClass('active')
 					.closest('li')
 					.removeClass('active')

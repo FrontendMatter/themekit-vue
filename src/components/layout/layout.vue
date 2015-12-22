@@ -1,88 +1,69 @@
 <template>
 
-	<template v-if="sidebarTransitions">
-		<div class="st-container">
+	<!-- Navbar -->
+	<slot name="navbar"></slot>
 
-			<!-- Navbar -->
-			<slot name="navbar"></slot>
+	<!-- Sidebars -->
+	<slot name="sidebar"></slot>
 
-			<!-- Sidebars -->
-			<slot name="sidebar"></slot>
-
-			<!-- sidebar effects OUTSIDE of st-pusher: -->
-			<!-- st-effect-1, st-effect-2, st-effect-4, st-effect-5, st-effect-9, st-effect-10, st-effect-11, st-effect-12, st-effect-13 -->
-
-			<!-- content push wrapper -->
-			<div class="st-pusher">
-
-				<!-- Sidebars -->
-				<slot name="sidebar-push"></slot>
-
-				<!-- sidebar effects INSIDE of st-pusher: -->
-				<!-- st-effect-3, st-effect-6, st-effect-7, st-effect-8, st-effect-14 -->
-
-				<!-- this is the wrapper for the content -->
-				<div class="st-content">
-
-					<!-- extra div for emulating position:fixed of the menu -->
-					<div class="layout-content st-content-inner" v-scrollable>
-
-						<!-- Content -->
-						<slot></slot>
-
-					</div>
-					<!-- /st-content-inner -->
-
-				</div>
-				<!-- /st-content -->
-
-			</div>
-			<!-- /st-pusher -->
-
-		</div>
-	</template>
-
-	<template v-else>
-
-		<!-- Navbar -->
-		<slot name="navbar"></slot>
-
-		<!-- Sidebars -->
-		<slot name="sidebar"></slot>
-
-		<!-- Content -->
-		<div class="layout-content">
-			<slot></slot>
-		</div>
-
-	</template>
+	<!-- Content -->
+	<div class="layout-content">
+		<slot></slot>
+	</div>
 
 </template>
 
 <script>
 	export default {
-		props: {
-			sidebarTransitions: {
-				type: Boolean
+		data () {
+			return {
+				queue: []
 			}
 		},
 		methods: {
-			applySidebarTransitions () {
-				if (!this.sidebarTransitions) {
-					return
-				}
-				document.querySelector('html').classList.add('st-layout')
+			onToggleSidebar (sidebarId) {
+				clearInterval(this.toggleInterval)
+				this.toggleInterval = setInterval(function () {
+					var visible = this.queue.filter(function (sidebar) {
+						return sidebar.sidebarId !== sidebarId
+					})
+					.filter(function (sidebar) {
+						return sidebar.isVisible
+					})
+					if (!visible.length) {
+						this.toggleSidebar(sidebarId)
+						clearInterval(this.toggleInterval)
+					}
+				}.bind(this), 100)
+				this.queue.filter(function (sidebar) {
+					return sidebar.sidebarId !== sidebarId
+				})
+				.forEach(function (sidebar) {
+					sidebar.show = false
+				})
 			},
-			applyLayoutSpacing () {
-				if (document.querySelector('[slot="navbar"]')) {
-					document.querySelector('html').classList.add('ls-top-navbar')
-				}
+			toggleSidebar (sidebarId) {
+				this.queue.filter((s) => sidebarId === s.sidebarId).forEach(function (sidebar) {
+					sidebar.show = !sidebar.show
+				}, this)
+			},
+			registerSidebar (sidebar) {
+				this.queue.push(sidebar)
+			},
+			unregisterSidebar (sidebar) {
+				this.queue = this.queue.filter((s) => s.sidebarId !== sidebar.sidebarId)
+			},
+			hasNavbar () {
+				return document.querySelector('[slot="navbar"]')
 			}
 		},
+		beforeDestroy () {
+			clearInterval(this.toggleInterval)
+			this.$root.$off('toggle.tk.sidebar', this.onToggleSidebar)
+		},
 		ready () {
-			this.applySidebarTransitions()
-			this.applyLayoutSpacing()
 			this.$root.$broadcast('context.tk.layout', this)
+			this.$root.$on('toggle.tk.sidebar', this.onToggleSidebar)
 		}
 	}
 </script>

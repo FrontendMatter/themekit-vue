@@ -1,5 +1,5 @@
 <template>
-	<div :class="sidebarClass">
+	<div v-show="isVisible" :class="sidebarClass">
 		
 		<!-- Scrollable -->
 		<template v-if="scrollable">
@@ -14,12 +14,12 @@
 		</template>
 		
 		<!-- Toggle Bar -->
-		<template v-if="toggleBar">
-			<sidebar-toggle-button 
-				:sidebar-id="sidebarId" 
-				:toggle-bar="toggleBar">
-			</sidebar-toggle-button>
-		</template>
+		<sidebar-toggle-button
+			v-if="toggleBar" 
+			:sidebar-id="sidebarId" 
+			:toggle-bar="toggleBar"
+			class="sidebar-toggle-bar">
+		</sidebar-toggle-button>
 
 		<!-- Dropdown Menu Type -->
 		<template v-if="dropdown">
@@ -46,18 +46,38 @@
 <script>
 	import SidebarToggleButton from './sidebar-toggle-button.vue'
 	import SidebarMenuItem from '../sidebar-menu/sidebar-menu-item.vue'
-	import 'jquery.breakpoints/breakpoints.js'
+	import 'jquery.breakpoints/breakpoints'
+	import camelCase from 'mout/string/camelCase'
+	import objectKeys from 'mout/object/keys'
+	import objectValues from 'mout/object/values'
+	import forOwn from 'mout/object/forOwn'
+
+	const sizes = ['1', '2', '3']
+	const screens = ['xs', 'sm', 'md', 'lg']
+	const breakpoints = {
+		320: [],
+		480: ['xs', 'xs-up'],
+		768: ['sm', 'sm-up'],
+		992: ['md', 'md-up'],
+		1200: ['lg', 'lg-up'],
+		1600: ['xl', 'xl-up']
+	}
+	const breakpointValues = objectKeys(breakpoints).map((v) => parseInt(v, 10))
+	const breakpointClasses = []
+	objectValues(breakpoints).forEach(function (v) {
+		breakpointClasses.push.apply(breakpointClasses, v)
+	})
 
 	export default {
 		data () {
 			return {
 				transformed: false,
-				containerSelector: '.st-container',
 				dropdown: null,
 				scrolling: false,
-				sidebarTransitions: false,
 				dropdownContainerOffsetTop: null,
-				animating: false
+				sizes: sizes,
+				screens: screens,
+				isVisible: false
 			}
 		},
 		props: {
@@ -65,28 +85,56 @@
 				type: Boolean,
 				default: true
 			},
-			effect: {
-				type: String,
-				default: '1'
-			},
 			position: {
 				type: String,
 				default: 'left'
 			},
 			size: {
 				type: String,
-				default: '2'
+				validator (value) {
+					return sizes.indexOf(value) !== -1
+				}
+			},
+			sizeXs: {
+				type: String,
+				validator (value) {
+					return sizes.indexOf(value) !== -1
+				}
+			},
+			sizeSm: {
+				type: String,
+				validator (value) {
+					return sizes.indexOf(value) !== -1
+				}
+			},
+			sizeMd: {
+				type: String,
+				validator (value) {
+					return sizes.indexOf(value) !== -1
+				}
+			},
+			sizeLg: {
+				type: String,
+				validator (value) {
+					return sizes.indexOf(value) !== -1
+				}
 			},
 			skin: {
 				type: String,
 				default: 'dark'
 			},
-			desktop: {
-				type: Boolean,
-				default: true
-			},
-			mobile: {
-				type: Boolean
+			visible: {
+				type: String,
+				validator (value) {
+					let values = value.split(' ')
+					return values.filter((v) => breakpointClasses.indexOf(v) !== -1).length
+				},
+				coerce (value) {
+					if (value) {
+						let values = value.split(' ')
+						return values.filter((v) => breakpointClasses.indexOf(v) !== -1).join(' ')
+					}
+				}
 			},
 			menuType: {
 				type: String,
@@ -103,19 +151,11 @@
 				type: String,
 				default: 'sidebar'
 			},
-			duration: {
-				type: Number,
-				default: 550
-			},
-			overlay: {
-				type: Boolean
-			},
 			toggleLayout: {
 				type: String
 			},
 			show: {
-				type: Boolean,
-				default: true
+				type: Boolean
 			},
 			mini: {
 				type: Boolean
@@ -132,62 +172,74 @@
 			}
 		},
 		computed: {
-			sizeClass () {
-				return 'sidebar-size-' + this.size
+			sidebarSizeClasses () {
+				var classes = []
+				if (this.size) {
+					classes.push(this.sidebarSizeClass(this.size))
+				}
+				screens.forEach(function (screen) {
+					let sizeProperty = camelCase('size-' + screen)
+					if (this[sizeProperty]) {
+						classes.push(this.sidebarSizeClass(this[sizeProperty], screen))
+					}
+				}, this)
+				return classes
 			},
-			layoutClass () {
-				var baseClass = 'sidebar-'
-				baseClass += this.position.charAt(0)
-				baseClass += this.size
-				return baseClass
+			layoutClasses () {
+				var classes = [
+					'show-sidebar'
+				]
+				if (this.size) {
+					classes.push(this.layoutClass(this.size))
+				}
+				screens.forEach(function (screen) {
+					let sizeProperty = camelCase('size-' + screen)
+					if (this[sizeProperty]) {
+						classes.push(this.layoutClass(this[sizeProperty], screen))
+					}
+				}, this)
+				return classes
 			},
-			sidebarClass () {
+			visibleOptions () {
+				if (!this.visible) {
+					return []
+				}
+				return this.visible.split(' ')
+			},
+			sidebarVisibleClass () {
+				return this.visibleOptions.map(function (className) {
+					return `sidebar-visible-${ className }`
+				})
+			},
+			sidebarBaseClass () {
 				var classes = {
 					'sidebar': true,
 					'sidebar-mini': this.mini && !this.reveal,
-					'sidebar-mini-reveal': this.mini && this.reveal
+					'sidebar-mini-reveal': this.mini && this.reveal,
+					'sidebar-visible': this.isVisible
 				}
 				if (this.miniRevealSize) {
 					classes['sidebar-mini-reveal-size-' + this.miniRevealSize] = this.mini && this.reveal
 				}
-				if (this.desktop) {
-					classes['sidebar-visible-desktop'] = true
-				}
-				if (this.mobile) {
-					classes['sidebar-visible-mobile'] = true
-				}
+				this.sidebarVisibleClass.forEach(function (className) {
+					classes[className] = true
+				})
+				this.sidebarSizeClasses.forEach(function (className) {
+					classes[className] = true
+				}, this)
 				classes[this.position] = true
-				classes[this.sizeClass] = true
 				classes['sidebar-skin-' + this.skin] = true
 				classes['sidebar-offset-' + this.offset] = true
-
-				if (this.show && this.sidebarTransitions) {
-					classes[this.sidebarTransitionsEffectClass] = true
-				}
 				if (this.scrolling) {
 					classes['scrolling'] = true
 				}
 				return classes
 			},
+			sidebarClass () {
+				return this.sidebarBaseClass
+			},
 			direction () {
 				return this.position.charAt(0)
-			},
-			layoutSidebarTransitionEffectClass () {
-				return 'st-effect-' + this.direction + this.size
-			},
-			sidebarTransitionsEffectClass () {
-				return 'st-effect-' + this.effect
-			},
-			toggleLayoutClasses () {
-				if (this.toggleLayout !== 'auto') {
-					return this.toggleLayout.split(',').join(' ')
-				}
-				var match = new RegExp('sidebar-' + this.direction + '(\\S+)', 'ig')
-				var layoutClasses = $('html').get(0).className.match(match)
-				if (layoutClasses !== null && layoutClasses.length) {
-					return layoutClasses.join(' ')
-				}
-				return false
 			},
 			dropdownMenuStyle () {
 				var top = (this.dropdown.offsetTop - this.dropdownContainerOffsetTop) + 'px'
@@ -200,14 +252,22 @@
 					style.right = '100%'
 				}
 				return style
+			},
+			toggleLayoutClasses () {
+				if (this.toggleLayout !== 'auto') {
+					return this.toggleLayout.split(',').join(' ')
+				}
+				var match = new RegExp('sidebar-' + this.direction + '(\\S+)', 'ig')
+				var layoutClasses = $('html').get(0).className.match(match)
+				if (layoutClasses !== null && layoutClasses.length) {
+					return layoutClasses.join(' ')
+				}
+				return false
 			}
 		},
 		methods: {
 			sidebar () {
 				return $(this.$el)
-			},
-			container () {
-				return $(this.containerSelector)
 			},
 			dropdownContainer () {
 				return $(this.$els.dropdownContainer)
@@ -215,38 +275,76 @@
 			dropdownMenuContainer () {
 				return $(this.$els.dropdownMenuContainer)
 			},
+			broadcast () {
+				this.$broadcast('context.tk.sidebar', this)
+			},
+			layoutClass (size, screen) {
+				var baseClass = 'sidebar-'
+				baseClass += this.direction
+				baseClass += size
+				if (screen) {
+					baseClass += '-' + screen
+				}
+				return baseClass
+			},
+			sidebarSizeClass (size, screen) {
+				var className = 'sidebar-size'
+				if (screen) {
+					className += '-' + screen
+				}
+				className += '-' + size
+				return className
+			},
 			makeCollapse () {
-				if (this.menuType === 'collapse') return
 				this.menuType = 'collapse'
 			},
 			makeDropdown () {
-				if (this.menuType === 'dropdown') return
 				this.menuType = 'dropdown'
 			},
 			setBreakpoints () {
-				$(window).setBreakpoints()
-				$(window).bind('enterBreakpoint480', this.makeCollapse)
-				$(window).bind('enterBreakpoint768', this.makeDropdown)
-				$(window).bind('enterBreakpoint1024', this.makeDropdown)
-				$(window).bind('enterBreakpoint768', this.open)
-				$(window).bind('enterBreakpoint1024', this.open)
-				$(window).bind('enterBreakpoint480', this.close)
-				if ($(window).width() <= 480) {
-					this.close()
-				}
-			},
-			isAnimating () {
-				if (!this.sidebarTransitions) {
-					return false
-				}
-				if (this.animating) {
-					return true
-				}
-				this.animating = true
-				setTimeout(function () {
-					this.animating = false
-				}.bind(this), this.duration)
-				return false
+				$(window).setBreakpoints({
+					breakpoints: breakpointValues
+				})
+				breakpointValues.forEach(function (breakpoint) {
+					let breakpointName = `enterBreakpoint${ breakpoint }`
+					if (breakpoint <= 480) {
+						$(window).bind(breakpointName, this.makeCollapse)
+						$(window).bind(`exitBreakpoint${ breakpoint }`, this.makeCollapse)
+					}
+					else {
+						$(window).bind(breakpointName, this.makeDropdown)
+					}
+				}, this)
+
+				// always close on xs
+				$(window).bind('enterBreakpoint320', this.close)
+
+				forOwn(breakpoints, function (values, key, object) {
+					this.visibleOptions.forEach(function (visible) {
+						if (values.indexOf(visible) !== -1) {
+							let isUp = visible.indexOf('up') !== -1
+							let up = breakpointValues.filter((v) => v > key)
+							if (isUp) {
+								up.unshift(key)
+								up.forEach(function (breakpoint) {
+									let breakpointName = `enterBreakpoint${ breakpoint }`
+									$(window).bind(breakpointName, this.open)
+									console.log(`${ breakpointName }:open`)
+								}, this)
+							}
+							else {
+								let breakpointName = `enterBreakpoint${ key }`
+								$(window).bind(breakpointName, this.open)
+								console.log(`${ breakpointName }:open`)
+								up.forEach(function (breakpoint) {
+									let breakpointName = `enterBreakpoint${ breakpoint }`
+									$(window).bind(breakpointName, this.close)
+									console.log(`${ breakpointName }:close`)
+								}, this)
+							}
+						}
+					}, this)
+				}.bind(this))
 			},
 			open () {
 				this.show = true
@@ -255,73 +353,23 @@
 				this.show = false
 			},
 			toggle () {
-				if (this.isAnimating()) {
-					return false
-				}
 				this.show = !this.show
 			},
 			onOpen () {
-				clearTimeout(this.resetTimer)
-
-				// on mobile, allow only one sidebar to be open at the same time
-				if ($(window).width() < 768 && this.container().hasClass('st-menu-open')) {
-					return this.close()
-				}
-
-				var transitions = this.sidebarTransitions
-
-				if (this.sidebar().hasClass('sidebar-visible-desktop') && $(window).width() >= 768) {
-					transitions = false
-				}
-
-				this.$root.$broadcast('open.tk.sidebar', this.sidebarId)
-
-				this.sidebar().show()
-
-				if (!transitions) {
-					$('html').addClass('show-sidebar')
-					$('html').removeClass(this.layoutSidebarTransitionEffectClass)
-					this.sidebar().removeClass(this.sidebarTransitionsEffectClass)
-					this.sidebar().css('display', 'block')
-					if (this.toggleLayout) $('html').removeClass(this.toggleLayoutClasses)
-				}
-				else {
-					$('html').addClass(this.layoutSidebarTransitionEffectClass)
-					if (this.toggleLayout) $('html').addClass(this.toggleLayoutClasses)
-					this.sidebar().addClass(this.sidebarTransitionsEffectClass)
-					this.container().addClass(this.sidebarTransitionsEffectClass)
-					if (this.overlay) this.container().addClass('st-pusher-overlay')
-
-					this.openTimer = setTimeout(function () {
-						this.container().addClass('st-menu-open')
-						this.sidebar().find('.simplebar').simplebar('recalculate')
-					}.bind(this), 25)
-				}
+				this.notifyOpen()
+				this.addLayoutClasses()
+				this.isVisible = true
 			},
 			onClose () {
-				clearTimeout(this.openTimer)
-
-				if (!this.sidebarTransitions) {
-					$('html').removeClass('show-sidebar')
-					this.sidebar().css('display', 'none')
-				}
-
-				this.$root.$broadcast('close.tk.sidebar', this.sidebarId)
-
-				if (!this.sidebarTransitions) return
-
-				this.container().removeClass('st-menu-open')
-
-				this.resetTimer = setTimeout(function () {
-					$('html').removeClass(this.layoutSidebarTransitionEffectClass)
-					this.sidebar().removeClass(this.sidebarTransitionsEffectClass)
-					this.container().get(0).className = 'st-container'
-					this.sidebar().hide()
-					if (this.toggleLayout) $('html').removeClass(this.toggleLayoutClasses)
-				}.bind(this), this.duration)
+				this.notifyClose()
+				this.removeLayoutClasses()
+				this.isVisible = false
 			},
-			broadcast () {
-				this.$broadcast('context.tk.sidebar', this)
+			notifyOpen () {
+				this.$root.$broadcast('open.tk.sidebar', this.sidebarId)
+			},
+			notifyClose () {
+				this.$root.$broadcast('close.tk.sidebar', this.sidebarId)
 			},
 			initDropdown () {
 				var self = this
@@ -340,36 +388,51 @@
 			},
 			removeDropdown () {
 				this.sidebar().off('mouseleave')
+			},
+			addLayoutClasses () {
+				if (this.show) {
+					this.layoutClasses.map(function (className) {
+						document.querySelector('html').classList.add(className)
+					})
+				}
+			},
+			removeLayoutClasses () {
+				if (this.layoutClasses) {
+					this.layoutClasses.map(function (className) {
+						document.querySelector('html').classList.remove(className)
+					})
+				}
 			}
 		},
 		ready () {
-			var self = this
 			if (this.mini) {
 				this.size = '1'
 			}
-			['show-sidebar', this.layoutClass].map(function (className) {
-				document.querySelector('html').classList.add(className)
-			})
+			if (this.show) {
+				this.addLayoutClasses()
+			}
 			this.setBreakpoints()
-			this.$root.$on('toggle.tk.sidebar', function (sidebarId) {
-				if (self.sidebarId !== sidebarId) return
-				self.toggle()
-			})
 			if (this.menuType === 'dropdown') {
 				this.initDropdown()
 			}
 			this.broadcast()
+			this.$parent.registerSidebar(this)
+			if (this.show) {
+				this.onOpen()
+			}
+		},
+		beforeDestroy () {
+			this.removeLayoutClasses()
+			this.$parent.unregisterSidebar(this)
 		},
 		watch: {
 			dropdown (value) {
-				if (value) {
-					this.$nextTick(function () {
-						this.dropdownContainerOffsetTop = this.dropdownContainer().offset().top
-					})
+				if (!value) {
+					return this.sidebar().find('.open').removeClass('open')
 				}
-				else {
-					this.sidebar().find('.open').removeClass('open')
-				}
+				this.$nextTick(function () {
+					this.dropdownContainerOffsetTop = this.dropdownContainer().offset().top
+				})
 			},
 			menuType (value) {
 				this.broadcast()
@@ -400,9 +463,6 @@
 			}
 		},
 		events: {
-			'context.tk.layout': function (context) {
-				this.sidebarTransitions = context.sidebarTransitions
-			},
 			'request-context.tk.sidebar': function () {
 				this.broadcast()
 			},
@@ -433,7 +493,6 @@
 <style lang="less">
 	// CORE
 	@import "~themekit-less/src/sidebar/layout";
-	@import "~themekit-less/src/sidebar/transitions";
 	@import "~themekit-less/src/sidebar/scrollable";
 	@import "~themekit-less/src/sidebar/sidebar-mini";
 	@import "~themekit-less/src/sidebar/toggle-bar";

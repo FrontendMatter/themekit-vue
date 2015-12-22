@@ -1,6 +1,7 @@
 <template>
-	<div class="split-vertical" v-show="tabs.length">
-		<div class="sidebar-block" :class="sidebarTabsClass">
+	<div class="split-vertical">
+		<slot name="brand"></slot>
+		<div class="sidebar-block" :class="sidebarTabsClass" v-show="tabs.length">
 			<ul :class="navClass">
 				<li v-for="tab in tabs" :class="{ active: tab.active }">
 					<a href="#{{ tab.tabId }}" data-toggle="tab">

@@ -20,6 +20,7 @@
 
 <script>
 	import shortid from 'shortid'
+	import 'jquery.breakpoints/breakpoints'
 
 	export default {
 		data () {
@@ -47,6 +48,9 @@
 			size: {
 				type: String,
 				required: false
+			},
+			inContent: {
+				type: Boolean
 			}
 		},
 		computed: {
@@ -72,10 +76,93 @@
 				}
 				return classes
 			}
+		},
+		methods: {
+			addInContentLayoutClass () {
+				document.querySelector('html').classList.add('navbar-content')
+			},
+			removeInContentLayoutClass () {
+				document.querySelector('html').classList.remove('navbar-content')
+			},
+			enableInContent () {
+				this.addInContentLayoutClass()
+			},
+			inContentSlot () {
+				return $(this.$el).is('[slot="navbar-content"]')
+			},
+			enableFixed () {
+				if (this.fixed === 'top') {
+					document.querySelector('html').classList.add('ls-top-navbar')
+				}
+			},
+			disableFixed () {
+				document.querySelector('html').classList.remove('ls-top-navbar')
+			},
+			sidebarTransitionsEnabled () {
+				return this.$parent.$options.name === 'layout-transition'
+			},
+			breakpoints () {
+				// @TODO: setBreakpoints overrides previous breakpoints
+				// $(window).setBreakpoints({
+				// 	breakpoints: ['320', '480']
+				// })
+				$(window).bind('enterBreakpoint320', function () {
+					this.lastFixed = this.fixed
+					this.fixed = 'top'
+					if (!this.sidebarTransitionsEnabled() || !this.inContentSlot()) {
+						this.lastInContent = this.inContent
+						this.inContent = false
+					}
+				}.bind(this))
+
+				// @TODO: shared breakpoints
+				let breakpoints = [480, 768, 990, 1200, 1600]
+				breakpoints.forEach(function (breakpoint) {
+					$(window).bind(`enterBreakpoint${ breakpoint }`, function () {
+						if (typeof this.lastFixed !== 'undefined') {
+							this.fixed = this.lastFixed
+						}
+						if (typeof this.lastInContent !== 'undefined') {
+							this.inContent = this.lastInContent
+						}
+					}.bind(this))
+				}, this)
+			}
+		},
+		ready () {
+			if (this.inContent) {
+				this.enableInContent()
+			}
+			if (this.fixed) {
+				this.enableFixed()
+			}
+			if (this.inContentSlot() && !this.inContent) {
+				this.inContent = true
+			}
+			this.breakpoints()
+		},
+		watch: {
+			inContent (value) {
+				if (value) {
+					return this.enableInContent()
+				}
+				this.removeInContentLayoutClass()
+			},
+			fixed (value) {
+				if (value) {
+					return this.enableFixed()
+				}
+				this.disableFixed()
+			}
+		},
+		beforeDestroy () {
+			this.removeInContentLayoutClass()
+			this.disableFixed()
 		}
 	}
 </script>
 
 <style lang="less">
 	@import "~themekit-less/src/navbar/navbar";
+	@import "~themekit-less/src/layout/navbar";
 </style>
