@@ -21,49 +21,69 @@
 			}
 		},
 		methods: {
-			onToggleSidebar (sidebarId) {
-				clearInterval(this.toggleInterval)
-				this.toggleInterval = setInterval(function () {
-					var visible = this.queue.filter(function (sidebar) {
-						return sidebar.sidebarId !== sidebarId
-					})
-					.filter(function (sidebar) {
-						return sidebar.isVisible
-					})
-					if (!visible.length) {
-						this.toggleSidebar(sidebarId)
-						clearInterval(this.toggleInterval)
-					}
-				}.bind(this), 100)
-				this.queue.filter(function (sidebar) {
-					return sidebar.sidebarId !== sidebarId
-				})
-				.forEach(function (sidebar) {
-					sidebar.show = false
-				})
+			getSidebar (sidebarId) {
+				let matches = this.queue.filter((s) => s.sidebarId === sidebarId)
+				return matches.length ? matches[0] : false
 			},
-			toggleSidebar (sidebarId) {
-				this.queue.filter((s) => sidebarId === s.sidebarId).forEach(function (sidebar) {
-					sidebar.show = !sidebar.show
-				}, this)
+			getSidebarsExcept (sidebarId) {
+				return this.queue.filter((s) => s.sidebarId !== sidebarId)
+			},
+			filterVisible (sidebars) {
+				return sidebars.filter((s) => s.isVisible === true)
 			},
 			registerSidebar (sidebar) {
 				this.queue.push(sidebar)
 			},
 			unregisterSidebar (sidebar) {
-				this.queue = this.queue.filter((s) => s.sidebarId !== sidebar.sidebarId)
+				this.queue = this.getSidebarsExcept(sidebar.sidebarId)
 			},
-			hasNavbar () {
-				return document.querySelector('[slot="navbar"]')
+			toggleSidebar (sidebarId) {
+				let sidebar = this.getSidebar(sidebarId)
+				if (sidebar) {
+					sidebar.toggle()
+				}
+			},
+			openSidebar (sidebarId) {
+				let sidebar = this.getSidebar(sidebarId)
+				if (sidebar) {
+					sidebar.open()
+				}
+			},
+			queueToggleSidebar (sidebarId) {
+				clearInterval(this.queueToggleInterval)
+				this.queueToggleInterval = setInterval(function () {
+					let sidebars = this.filterVisible(this.getSidebarsExcept(sidebarId))
+					if (!sidebars.length) {
+						this.toggleSidebar(sidebarId)
+						clearInterval(this.queueToggleInterval)
+					}
+				}.bind(this), 50)
+				this.getSidebarsExcept(sidebarId).forEach(function (sidebar) {
+					sidebar.close()
+				})
+			},
+			queueOpenSidebar (sidebarId) {
+				this.openSidebar(sidebarId)
 			}
 		},
 		beforeDestroy () {
-			clearInterval(this.toggleInterval)
-			this.$root.$off('toggle.tk.sidebar', this.onToggleSidebar)
+			clearInterval(this.queueToggleInterval)
+			this.$root.$off('toggle.tk.sidebar', this.queueToggleSidebar)
 		},
 		ready () {
 			this.$root.$broadcast('context.tk.layout', this)
-			this.$root.$on('toggle.tk.sidebar', this.onToggleSidebar)
+			this.$root.$on('toggle.tk.sidebar', this.queueToggleSidebar)
+		},
+		events: {
+			'register-sidebar.tk.layout': function (sidebar) {
+				this.registerSidebar(sidebar)
+			},
+			'unregister-sidebar.tk.layout': function (sidebar) {
+				this.unregisterSidebar(sidebar)
+			},
+			'open-sidebar.tk.layout': function (sidebarId) {
+				this.queueOpenSidebar(sidebarId)
+			}
 		}
 	}
 </script>

@@ -9,17 +9,7 @@
 		<slot name="sidebar"></slot>
 
 		<!-- sidebar effects OUTSIDE of st-pusher: -->
-		<!-- 
-		reveal, 
-		slide-in, 
-		slide-along, 
-		slide-out-reverse, 
-		scale-down, 
-		scale-up, 
-		scale-rotate, 
-		open-door, 
-		fall-down 
-		-->
+		<!-- reveal, slide-in, slide-along, slide-out-reverse, scale-down, scale-up, scale-rotate, open-door, fall-down -->
 
 		<!-- content push wrapper -->
 		<div class="st-pusher">
@@ -28,13 +18,7 @@
 			<slot name="sidebar-push"></slot>
 
 			<!-- sidebar effects INSIDE of st-pusher: -->
-			<!-- 
-			push, 
-			push-rotate, 
-			push-3d-rotate-in, 
-			push-3d-rotate-out, 
-			push-3d-rotate-delay 
-			-->
+			<!-- push, push-rotate, push-3d-rotate-in, push-3d-rotate-out, push-3d-rotate-delay -->
 
 			<!-- this is the wrapper for the content -->
 			<div class="st-content">
@@ -77,7 +61,23 @@
 			},
 			disableSidebarTransitions () {
 				document.querySelector('html').classList.remove('st-layout')
+			},
+			filterAnimating (sidebars) {
+				return sidebars.filter((s) => s.animating && s.sidebarTransitionsEnabled() && s.isAnimating())
+			},
+			queueOpenSidebar (sidebarId) {
+				clearInterval(this.queueOpenInterval)
+				this.queueOpenInterval = setInterval(function () {
+					let sidebars = this.filterAnimating(this.getSidebarsExcept(sidebarId))
+					if (!sidebars.length) {
+						this.openSidebar(sidebarId)
+						clearInterval(this.queueOpenInterval)
+					}
+				}.bind(this), 50)
 			}
+		},
+		beforeDestroy () {
+			clearInterval(this.queueOpenInterval)
 		},
 		watch: {
 			sidebarTransitions (value) {

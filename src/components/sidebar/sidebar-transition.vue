@@ -61,6 +61,17 @@
 			},
 			sidebarEffectClass () {
 				return 'st-' + this.effect
+			},
+			toggleLayoutClasses () {
+				if (this.toggleLayout !== 'auto') {
+					return this.toggleLayout.split(',').join(' ')
+				}
+				var match = new RegExp('sidebar-' + this.direction + '(\\S+)', 'ig')
+				var layoutClasses = $('html').get(0).className.match(match)
+				if (layoutClasses !== null && layoutClasses.length) {
+					return layoutClasses.join(' ')
+				}
+				return false
 			}
 		},
 		methods: {
@@ -87,14 +98,7 @@
 				if (!this.sidebarTransitionsEnabled()) {
 					return false
 				}
-				if (this.animating) {
-					return true
-				}
-				this.animating = true
-				setTimeout(function () {
-					this.animating = false
-				}.bind(this), this.duration)
-				return false
+				return this.animating
 			},
 			onOpen () {
 				Sidebar.methods.onOpen.call(this)
@@ -112,7 +116,7 @@
 				}
 			},
 			onEnter () {
-				clearTimeout(this.resetTimer)
+				clearTimeout(this.leaveTimer)
 				$('html').addClass(this.layoutSidebarTransitionClasses)
 				if (this.toggleLayout) {
 					$('html').addClass(this.toggleLayoutClasses)
@@ -123,15 +127,22 @@
 					this.container().addClass('st-pusher-overlay')
 				}
 				this.isVisible = true
-				this.openTimer = setTimeout(function () {
+				this.enterTimer = setTimeout(function () {
 					this.container().addClass('st-menu-open')
 					this.sidebar().find('.simplebar').simplebar('recalculate')
 				}.bind(this), 10)
+
+				this.animating = false
+				this.animatingTimer = setTimeout(function () {
+					this.animating = false
+				}, this.duration)
 			},
 			onLeave () {
-				clearTimeout(this.openTimer)
+				clearTimeout(this.enterTimer)
+				clearTimeout(this.animatingTimer)
 				this.container().removeClass('st-menu-open')
-				this.resetTimer = setTimeout(function () {
+				this.animating = true
+				this.leaveTimer = setTimeout(function () {
 					this.removeLayoutClasses()
 					this.container().get(0).className = 'st-container'
 					$('html').removeClass(this.layoutSidebarTransitionClasses)
@@ -139,6 +150,7 @@
 						$('html').removeClass(this.toggleLayoutClasses)
 					}
 					this.isVisible = false
+					this.animating = false
 				}.bind(this), this.duration)
 			}
 		},

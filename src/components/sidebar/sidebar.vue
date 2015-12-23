@@ -252,17 +252,6 @@
 					style.right = '100%'
 				}
 				return style
-			},
-			toggleLayoutClasses () {
-				if (this.toggleLayout !== 'auto') {
-					return this.toggleLayout.split(',').join(' ')
-				}
-				var match = new RegExp('sidebar-' + this.direction + '(\\S+)', 'ig')
-				var layoutClasses = $('html').get(0).className.match(match)
-				if (layoutClasses !== null && layoutClasses.length) {
-					return layoutClasses.join(' ')
-				}
-				return false
 			}
 		},
 		methods: {
@@ -296,15 +285,21 @@
 				return className
 			},
 			makeCollapse () {
-				this.menuType = 'collapse'
+				if (this.menuType !== 'collapse') {
+					this.menuType = 'collapse'
+				}
 			},
 			makeDropdown () {
-				this.menuType = 'dropdown'
+				if (this.menuType !== 'dropdown') {
+					this.menuType = 'dropdown'
+				}
 			},
-			setBreakpoints () {
+			breakpoints () {
 				$(window).setBreakpoints({
 					breakpoints: breakpointValues
 				})
+
+				// @TODO: provide options for menuType breakpoints
 				breakpointValues.forEach(function (breakpoint) {
 					let breakpointName = `enterBreakpoint${ breakpoint }`
 					if (breakpoint <= 480) {
@@ -327,19 +322,17 @@
 							if (isUp) {
 								up.unshift(key)
 								up.forEach(function (breakpoint) {
-									let breakpointName = `enterBreakpoint${ breakpoint }`
-									$(window).bind(breakpointName, this.open)
-									console.log(`${ breakpointName }:open`)
+									$(window).bind(`enterBreakpoint${ breakpoint }`, this.queueOpen)
 								}, this)
 							}
 							else {
-								let breakpointName = `enterBreakpoint${ key }`
-								$(window).bind(breakpointName, this.open)
-								console.log(`${ breakpointName }:open`)
+								let down = breakpointValues.filter((v) => v < key)
+								down.forEach(function (breakpoint) {
+									$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
+								}, this)
+								$(window).bind(`enterBreakpoint${ key }`, this.queueOpen)
 								up.forEach(function (breakpoint) {
-									let breakpointName = `enterBreakpoint${ breakpoint }`
-									$(window).bind(breakpointName, this.close)
-									console.log(`${ breakpointName }:close`)
+									$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
 								}, this)
 							}
 						}
@@ -354,6 +347,11 @@
 			},
 			toggle () {
 				this.show = !this.show
+			},
+			queueOpen () {
+				setTimeout(function () {
+					this.$dispatch('open-sidebar.tk.layout', this.sidebarId)
+				}.bind(this), 10)
 			},
 			onOpen () {
 				this.notifyOpen()
@@ -402,28 +400,31 @@
 						document.querySelector('html').classList.remove(className)
 					})
 				}
+			},
+			registerSidebar () {
+				this.$dispatch('register-sidebar.tk.layout', this)
+			},
+			unregisterSidebar () {
+				this.$dispatch('unregister-sidebar.tk.layout', this)
 			}
 		},
 		ready () {
 			if (this.mini) {
 				this.size = '1'
 			}
-			if (this.show) {
-				this.addLayoutClasses()
-			}
-			this.setBreakpoints()
 			if (this.menuType === 'dropdown') {
 				this.initDropdown()
 			}
+			this.breakpoints()
 			this.broadcast()
-			this.$parent.registerSidebar(this)
+			this.registerSidebar()
 			if (this.show) {
 				this.onOpen()
 			}
 		},
 		beforeDestroy () {
 			this.removeLayoutClasses()
-			this.$parent.unregisterSidebar(this)
+			this.unregisterSidebar()
 		},
 		watch: {
 			dropdown (value) {
