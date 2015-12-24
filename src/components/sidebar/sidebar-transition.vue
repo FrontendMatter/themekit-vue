@@ -8,7 +8,7 @@
 			return {
 				sidebarTransitions: false,
 				animating: false,
-				duration: 450
+				duration: 500
 			}
 		},
 		props: {
@@ -135,12 +135,17 @@
 				this.animating = false
 				this.animatingTimer = setTimeout(function () {
 					this.animating = false
-				}, this.duration)
+				}.bind(this), this.duration)
+
+				this.doneTimer = setTimeout(function () {
+					this.container().addClass('st-done')
+				}.bind(this), this.duration + 140)
 			},
 			onLeave () {
 				clearTimeout(this.enterTimer)
 				clearTimeout(this.animatingTimer)
-				this.container().removeClass('st-menu-open')
+				clearTimeout(this.doneTimer)
+				this.container().removeClass('st-menu-open st-done')
 				this.animating = true
 				this.leaveTimer = setTimeout(function () {
 					this.removeLayoutClasses()
@@ -153,6 +158,12 @@
 					this.animating = false
 				}.bind(this), this.duration)
 			}
+		},
+		beforeDestroy () {
+			clearTimeout(this.enterTimer)
+			clearTimeout(this.leaveTimer)
+			clearTimeout(this.animatingTimer)
+			clearTimeout(this.doneTimer)
 		},
 		ready () {
 			if (this.$parent.$options.name === 'layout-transition') {
