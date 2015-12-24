@@ -89,7 +89,7 @@
 			'tab-pane.tk.tabs': function (tab) {
 				this.tabs.push(tab)
 				if (this.navId) {
-					this.$root.$broadcast('tabs-nav.tk.tabs', {
+					this.$root.$broadcast('tabs-nav-item.tk.tabs', {
 						navId: this.navId,
 						tab: tab
 					})	
@@ -98,6 +98,11 @@
 		},
 		components: {
 			TabsNav
+		},
+		beforeDestroy () {
+			if (this.navId) {
+				this.$root.$broadcast('tabs-nav-destroy.tk.tabs', this.navId)
+			}
 		}
 	}
 </script>

@@ -51,9 +51,14 @@
 			})
 		},
 		events: {
-			'tabs-nav.tk.tabs': function (data) {
+			'tabs-nav-item.tk.tabs': function (data) {
 				if (this.navId === data.navId) {
 					this.tabs.push(data.tab)
+				}
+			},
+			'tabs-nav-destroy.tk.tabs': function (navId) {
+				if (this.navId === navId) {
+					this.tabs = []
 				}
 			}
 		}
