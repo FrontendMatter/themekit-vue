@@ -17,7 +17,7 @@
 	export default {
 		data () {
 			return {
-				tabId: shortid.generate()
+				tabId: `tab-${ shortid.generate() }`
 			}
 		},
 		props: {
@@ -37,6 +37,13 @@
 		},
 		created () {
 			this.$dispatch('tab-pane.tk.tabs', this)
+		},
+		events: {
+			'shown.tk.tab': function (tabId) {
+				if (this.tabId === tabId) {
+					this.$broadcast('layout.tk.isotope', this)
+				}
+			}
 		}
 	}
 </script>

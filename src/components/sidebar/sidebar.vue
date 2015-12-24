@@ -77,7 +77,8 @@
 				dropdownContainerOffsetTop: null,
 				sizes: sizes,
 				screens: screens,
-				isVisible: false
+				isVisible: false,
+				offsetValue: null
 			}
 		},
 		props: {
@@ -141,8 +142,7 @@
 				default: 'collapse'
 			},
 			offset: {
-				type: String,
-				default: '0'
+				type: String
 			},
 			toggleBar: {
 				type: Boolean
@@ -186,18 +186,21 @@
 				return classes
 			},
 			layoutClasses () {
-				var classes = [
-					'show-sidebar'
-				]
-				if (this.size) {
-					classes.push(this.layoutClass(this.size))
+				var classes = []
+				if (this.offsetValue) {
+					classes.push(`sidebar-${ this.direction }-sum-${ this.size }${ this.offsetValue }`)
 				}
-				screens.forEach(function (screen) {
-					let sizeProperty = camelCase('size-' + screen)
-					if (this[sizeProperty]) {
-						classes.push(this.layoutClass(this[sizeProperty], screen))
+				else {
+					if (this.size) {
+						classes.push(this.layoutClass(this.size))
 					}
-				}, this)
+					screens.forEach(function (screen) {
+						let sizeProperty = camelCase('size-' + screen)
+						if (this[sizeProperty]) {
+							classes.push(this.layoutClass(this[sizeProperty], screen))
+						}
+					}, this)
+				}
 				return classes
 			},
 			visibleOptions () {
@@ -229,7 +232,9 @@
 				}, this)
 				classes[this.position] = true
 				classes['sidebar-skin-' + this.skin] = true
-				classes['sidebar-offset-' + this.offset] = true
+				if (this.offsetValue) {
+					classes['sidebar-offset-' + this.offsetValue] = true
+				}
 				if (this.scrolling) {
 					classes['scrolling'] = true
 				}
@@ -313,12 +318,19 @@
 
 				// always close on xs
 				$(window).bind('enterBreakpoint320', this.close)
+				$(window).bind('enterBreakpoint480', this.close)
 
 				forOwn(breakpoints, function (values, key, object) {
 					this.visibleOptions.forEach(function (visible) {
 						if (values.indexOf(visible) !== -1) {
 							let isUp = visible.indexOf('up') !== -1
 							let up = breakpointValues.filter((v) => v > key)
+
+							let down = breakpointValues.filter((v) => v < key)
+							down.forEach(function (breakpoint) {
+								$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
+							}, this)
+
 							if (isUp) {
 								up.unshift(key)
 								up.forEach(function (breakpoint) {
@@ -326,10 +338,6 @@
 								}, this)
 							}
 							else {
-								let down = breakpointValues.filter((v) => v < key)
-								down.forEach(function (breakpoint) {
-									$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
-								}, this)
 								$(window).bind(`enterBreakpoint${ key }`, this.queueOpen)
 								up.forEach(function (breakpoint) {
 									$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
@@ -340,6 +348,9 @@
 				}.bind(this))
 			},
 			open () {
+				if (this.show) {
+					return this.onOpen()
+				}
 				this.show = true
 			},
 			close () {
@@ -354,20 +365,25 @@
 				}.bind(this), 10)
 			},
 			onOpen () {
-				this.notifyOpen()
+				this.emitOpen()
 				this.addLayoutClasses()
 				this.isVisible = true
+				this.emitChange()
 			},
 			onClose () {
-				this.notifyClose()
+				this.emitClose()
 				this.removeLayoutClasses()
 				this.isVisible = false
+				this.emitChange()
 			},
-			notifyOpen () {
+			emitOpen () {
 				this.$root.$broadcast('open.tk.sidebar', this.sidebarId)
 			},
-			notifyClose () {
+			emitClose () {
 				this.$root.$broadcast('close.tk.sidebar', this.sidebarId)
+			},
+			emitChange () {
+				this.$root.$broadcast('change.tk.sidebar', this)
 			},
 			initDropdown () {
 				var self = this
@@ -388,17 +404,20 @@
 				this.sidebar().off('mouseleave')
 			},
 			addLayoutClasses () {
-				if (this.show) {
-					this.layoutClasses.map(function (className) {
-						document.querySelector('html').classList.add(className)
-					})
-				}
+				this.layoutClasses.map(function (className) {
+					document.querySelector('html').classList.add(className)
+				})
 			},
 			removeLayoutClasses () {
-				if (this.layoutClasses) {
-					this.layoutClasses.map(function (className) {
-						document.querySelector('html').classList.remove(className)
-					})
+				this.layoutClasses.map(function (className) {
+					document.querySelector('html').classList.remove(className)
+				})
+			},
+			setOffsetValue (sidebar) {
+				this.removeLayoutClasses()
+				this.offsetValue = sidebar.show ? sidebar.size : null
+				if (this.show) {
+					this.addLayoutClasses()
 				}
 			},
 			registerSidebar () {
@@ -409,15 +428,18 @@
 			}
 		},
 		ready () {
+			this.registerSidebar()
+			this.broadcast()
 			if (this.mini) {
 				this.size = '1'
 			}
 			if (this.menuType === 'dropdown') {
 				this.initDropdown()
 			}
+			if (!this.visibleOptions.length) {
+				this.visible = 'xs-up'
+			}
 			this.breakpoints()
-			this.broadcast()
-			this.registerSidebar()
 			if (this.show) {
 				this.onOpen()
 			}
@@ -458,9 +480,7 @@
 				this.broadcast()
 			},
 			show (value) {
-				this.$nextTick(function () {
-					this[ value ? 'onOpen' : 'onClose' ]()
-				})
+				this[ value ? 'onOpen' : 'onClose' ]()
 			}
 		},
 		events: {
@@ -481,6 +501,16 @@
 			'end-scrolling.tk.scrollable': function () {
 				if (this.scrolling) {
 					this.scrolling = false
+				}
+			},
+			'ready.tk.sidebar': function (sidebar) {
+				if (this.offset === sidebar.sidebarId) {
+					this.setOffsetValue(sidebar)
+				}
+			},
+			'change.tk.sidebar': function (sidebar) {
+				if (this.offset === sidebar.sidebarId) {
+					this.setOffsetValue(sidebar)
 				}
 			}
 		},

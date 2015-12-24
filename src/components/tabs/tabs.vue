@@ -1,13 +1,14 @@
 <template>
 	<div v-show="tabs.length" :class="tabsClass">
-		<ul :class="navClass">
-			<li v-for="tab in tabs" :class="{ active: tab.active }">
-				<a href="#{{ tab.tabId }}" data-toggle="tab">
-					<i v-if="tab.icon" :class="tab.icon"></i>
-					<template v-if="tab.label">{{ tab.label }}</template>
-				</a>
-			</li>
-		</ul>
+
+		<!-- Tabs Nav -->
+		<tabs-nav 
+			v-if="!navId"
+			:responsive="responsive" 
+			:tabs="tabs">
+		</tabs-nav>
+		<!-- // END Tabs Nav -->
+
 		<div class="tab-content">
 			<slot></slot>
 		</div>
@@ -15,13 +16,16 @@
 </template>
 
 <script>
+	import TabsNav from './tabs-nav.vue'
+
 	export default {
-		data () {
-			return {
-				tabs: []
-			}
-		},
 		props: {
+			tabs: {
+				type: Array,
+				default () {
+					return []
+				}
+			},
 			responsive: {
 				type: String
 			},
@@ -35,6 +39,9 @@
 			},
 			vertical: {
 				type: Boolean
+			},
+			navId: {
+				type: String
 			}
 		},
 		computed: {
@@ -61,16 +68,6 @@
 				}
 				return obj
 			},
-			navClass () {
-				var obj = {
-					'nav': true,
-					'nav-tabs': true
-				}
-				if (this.responsive) {
-					obj['tabs-responsive-' + this.responsive] = true
-				}
-				return obj
-			},
 			tabsWithIcons () {
 				return this.tabs.filter(function (tab) {
 					return typeof tab.icon !== 'undefined'
@@ -82,10 +79,25 @@
 				})
 			}
 		},
+		methods: {
+			shown (e) {
+				let tabId = e.target.getAttribute('href').split('#')[1]
+				this.$broadcast('shown.tk.tab', tabId)
+			}
+		},
 		events: {
 			'tab-pane.tk.tabs': function (tab) {
 				this.tabs.push(tab)
+				if (this.navId) {
+					this.$root.$broadcast('tabs-nav.tk.tabs', {
+						navId: this.navId,
+						tab: tab
+					})	
+				}
 			}
+		},
+		components: {
+			TabsNav
 		}
 	}
 </script>

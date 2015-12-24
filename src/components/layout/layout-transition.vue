@@ -76,8 +76,13 @@
 				}.bind(this), 50)
 			}
 		},
+		ready () {
+			this.$root.$on('toggle.tk.sidebar', this.queueToggleSidebar)
+		},
 		beforeDestroy () {
+			this.$root.$off('toggle.tk.sidebar', this.queueToggleSidebar)
 			clearInterval(this.queueOpenInterval)
+			this.disableSidebarTransitions()
 		},
 		watch: {
 			sidebarTransitions (value) {
@@ -85,6 +90,11 @@
 					return this.enableSidebarTransitions()
 				}
 				this.disableSidebarTransitions()
+			}
+		},
+		events: {
+			'open-sidebar.tk.layout': function (sidebarId) {
+				this.queueOpenSidebar(sidebarId)
 			}
 		}
 	}

@@ -7,7 +7,7 @@
 	<slot name="sidebar"></slot>
 
 	<!-- Content -->
-	<div class="layout-content">
+	<div class="layout-content" v-scrollable>
 		<slot></slot>
 	</div>
 
@@ -21,6 +21,12 @@
 			}
 		},
 		methods: {
+			registerSidebar (sidebar) {
+				this.queue.push(sidebar)
+			},
+			unregisterSidebar (sidebar) {
+				this.queue = this.getSidebarsExcept(sidebar.sidebarId)
+			},
 			getSidebar (sidebarId) {
 				let matches = this.queue.filter((s) => s.sidebarId === sidebarId)
 				return matches.length ? matches[0] : false
@@ -30,12 +36,6 @@
 			},
 			filterVisible (sidebars) {
 				return sidebars.filter((s) => s.isVisible === true)
-			},
-			registerSidebar (sidebar) {
-				this.queue.push(sidebar)
-			},
-			unregisterSidebar (sidebar) {
-				this.queue = this.getSidebarsExcept(sidebar.sidebarId)
 			},
 			toggleSidebar (sidebarId) {
 				let sidebar = this.getSidebar(sidebarId)
@@ -47,6 +47,14 @@
 				let sidebar = this.getSidebar(sidebarId)
 				if (sidebar) {
 					sidebar.open()
+				}
+			},
+			onOpenSidebar () {
+				document.querySelector('html').classList.add('show-sidebar')
+			},
+			onCloseSidebar (sidebarId) {
+				if (!this.filterVisible(this.getSidebarsExcept(sidebarId)).length) {
+					document.querySelector('html').classList.remove('show-sidebar')
 				}
 			},
 			queueToggleSidebar (sidebarId) {
@@ -62,27 +70,53 @@
 					sidebar.close()
 				})
 			},
-			queueOpenSidebar (sidebarId) {
-				this.openSidebar(sidebarId)
+			enableScrollableContent () {
+				let elements = ['html', 'body']
+				elements.forEach(function (element) {
+					document.querySelector(element).style.overflow = 'hidden'
+					document.querySelector(element).style.height = '100%'	
+				})
+			},
+			disableScrollableContent () {
+				let elements = ['html', 'body']
+				elements.forEach(function (element) {
+					document.querySelector(element).removeAttribute('style')
+				})
+			},
+			emitIsotopeLayout () {
+				this.$broadcast('layout.tk.isotope', this)
 			}
 		},
 		beforeDestroy () {
 			clearInterval(this.queueToggleInterval)
-			this.$root.$off('toggle.tk.sidebar', this.queueToggleSidebar)
+			this.$root.$off('toggle.tk.sidebar', this.toggleSidebar)
+			this.disableScrollableContent()
 		},
 		ready () {
 			this.$root.$broadcast('context.tk.layout', this)
-			this.$root.$on('toggle.tk.sidebar', this.queueToggleSidebar)
+			this.$root.$on('toggle.tk.sidebar', this.toggleSidebar)
+			this.enableScrollableContent()
 		},
 		events: {
 			'register-sidebar.tk.layout': function (sidebar) {
 				this.registerSidebar(sidebar)
+				this.$broadcast('ready.tk.sidebar', sidebar)
 			},
 			'unregister-sidebar.tk.layout': function (sidebar) {
 				this.unregisterSidebar(sidebar)
 			},
 			'open-sidebar.tk.layout': function (sidebarId) {
-				this.queueOpenSidebar(sidebarId)
+				this.openSidebar(sidebarId)
+			},
+			'open.tk.sidebar': function () {
+				this.onOpenSidebar()
+				this.emitIsotopeLayout()
+				return true
+			},
+			'close.tk.sidebar': function (sidebarId) {
+				this.onCloseSidebar(sidebarId)
+				this.emitIsotopeLayout()
+				return true
 			}
 		}
 	}

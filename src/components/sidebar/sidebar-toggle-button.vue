@@ -1,8 +1,8 @@
 <template>
-	<a :href="'#' + sidebarId" @click.stop.prevent="toggle" :class="buttonClass">
+	<button @click.stop.prevent="toggle" :class="buttonClass">
 		<i v-if="icon" class="{{ icon }}"></i>
 		<span v-if="label">{{ label }}</span>
-	</a>
+	</button>
 </template>
 
 <script>

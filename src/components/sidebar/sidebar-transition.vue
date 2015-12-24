@@ -101,14 +101,16 @@
 				return this.animating
 			},
 			onOpen () {
-				Sidebar.methods.onOpen.call(this)
+				this.emitOpen()
+				this.addLayoutClasses()
+				this.isVisible = true
 				if (this.sidebarTransitionsEnabled()) {
 					this.onEnter()
 				}
 			},
 			onClose () {
 				if (this.sidebarTransitionsEnabled()) {
-					this.notifyClose()
+					this.emitClose()
 					this.onLeave()
 				} 
 				else {
@@ -135,6 +137,7 @@
 				this.animating = false
 				this.animatingTimer = setTimeout(function () {
 					this.animating = false
+					this.emitChange()
 				}.bind(this), this.duration)
 
 				this.doneTimer = setTimeout(function () {
@@ -156,6 +159,7 @@
 					}
 					this.isVisible = false
 					this.animating = false
+					this.emitChange()
 				}.bind(this), this.duration)
 			}
 		},
@@ -164,6 +168,11 @@
 			clearTimeout(this.leaveTimer)
 			clearTimeout(this.animatingTimer)
 			clearTimeout(this.doneTimer)
+			this.removeLayoutClasses()
+			$('html').removeClass(this.layoutSidebarTransitionClasses)
+			if (this.toggleLayout) {
+				$('html').removeClass(this.toggleLayoutClasses)
+			}
 		},
 		ready () {
 			if (this.$parent.$options.name === 'layout-transition') {
