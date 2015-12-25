@@ -2,14 +2,15 @@
 	<div class="split-vertical">
 		<slot name="brand"></slot>
 		<div class="sidebar-block" :class="sidebarTabsClass" v-show="tabs.length">
-			<ul :class="navClass">
-				<li v-for="tab in tabs" :class="{ active: tab.active }">
-					<a href="#{{ tab.tabId }}" data-toggle="tab">
-						<i v-if="tab.icon" :class="tab.icon"></i>
-						<template v-if="tab.label">{{ tab.label }}</template>
-					</a>
-				</li>
-			</ul>
+			
+			<!-- Tabs Nav -->
+			<tabs-nav 
+				v-if="!navId"
+				:responsive="responsive" 
+				:tabs="tabs">
+			</tabs-nav>
+			<!-- // END Tabs Nav -->
+
 		</div>
 		<div class="split-vertical-body">
 			<div class="split-vertical-cell">
