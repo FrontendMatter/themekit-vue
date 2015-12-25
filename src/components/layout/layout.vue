@@ -108,14 +108,16 @@
 			'open-sidebar.tk.layout': function (sidebarId) {
 				this.openSidebar(sidebarId)
 			},
-			'open.tk.sidebar': function () {
+			'show.tk.sidebar': function () {
 				this.onOpenSidebar()
+				return true
+			},
+			'change.tk.sidebar': function () {
 				this.emitIsotopeLayout()
 				return true
 			},
-			'close.tk.sidebar': function (sidebarId) {
-				this.onCloseSidebar(sidebarId)
-				this.emitIsotopeLayout()
+			'hidden.tk.sidebar': function (sidebar) {
+				this.onCloseSidebar(sidebar.sidebarId)
 				return true
 			}
 		}

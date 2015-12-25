@@ -79,12 +79,6 @@
 				})
 			}
 		},
-		methods: {
-			shown (e) {
-				let tabId = e.target.getAttribute('href').split('#')[1]
-				this.$broadcast('shown.tk.tab', tabId)
-			}
-		},
 		events: {
 			'tab-pane.tk.tabs': function (tab) {
 				this.tabs.push(tab)
@@ -96,13 +90,13 @@
 				}
 			}
 		},
-		components: {
-			TabsNav
-		},
 		beforeDestroy () {
 			if (this.navId) {
 				this.$root.$broadcast('tabs-nav-destroy.tk.tabs', this.navId)
 			}
+		},
+		components: {
+			TabsNav
 		}
 	}
 </script>

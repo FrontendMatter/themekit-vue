@@ -50,11 +50,6 @@
 
 	export default {
 		mixins: [ Layout ],
-		data () {
-			return {
-				sidebarTransitions: false
-			}
-		},
 		methods: {
 			enableSidebarTransitions () {
 				document.querySelector('html').classList.add('st-layout')
@@ -77,20 +72,14 @@
 			}
 		},
 		ready () {
+			this.$root.$off('toggle.tk.sidebar', this.toggleSidebar)
 			this.$root.$on('toggle.tk.sidebar', this.queueToggleSidebar)
+			this.enableSidebarTransitions()
 		},
 		beforeDestroy () {
 			this.$root.$off('toggle.tk.sidebar', this.queueToggleSidebar)
-			clearInterval(this.queueOpenInterval)
 			this.disableSidebarTransitions()
-		},
-		watch: {
-			sidebarTransitions (value) {
-				if (value) {
-					return this.enableSidebarTransitions()
-				}
-				this.disableSidebarTransitions()
-			}
+			clearInterval(this.queueOpenInterval)
 		},
 		events: {
 			'open-sidebar.tk.layout': function (sidebarId) {

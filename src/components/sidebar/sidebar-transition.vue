@@ -79,11 +79,10 @@
 				return $('.st-container')
 			},
 			sidebarTransitionsEnabled () {
-				var transitions = this.$parent.sidebarTransitions
-				if (transitions && !this.effect) {
-					transitions = false
+				if (!this.effect) {
+					return false
 				}
-				return transitions
+				return document.querySelector('.st-layout')
 			},
 			layoutSidebarTransitionClass (size, screen) {
 				var className = 'st-effect-'
@@ -101,16 +100,18 @@
 				return this.animating
 			},
 			onOpen () {
-				this.emitOpen()
-				this.addLayoutClasses()
-				this.isVisible = true
 				if (this.sidebarTransitionsEnabled()) {
+					this.emit('show')
+					this.addLayoutClasses()
 					this.onEnter()
+				}
+				else {
+					Sidebar.methods.onOpen.call(this)
 				}
 			},
 			onClose () {
 				if (this.sidebarTransitionsEnabled()) {
-					this.emitClose()
+					this.emit('hide')
 					this.onLeave()
 				} 
 				else {
@@ -137,7 +138,8 @@
 				this.animating = false
 				this.animatingTimer = setTimeout(function () {
 					this.animating = false
-					this.emitChange()
+					this.emit('change')
+					this.emit('shown')
 				}.bind(this), this.duration)
 
 				this.doneTimer = setTimeout(function () {
@@ -159,7 +161,8 @@
 					}
 					this.isVisible = false
 					this.animating = false
-					this.emitChange()
+					this.emit('change')
+					this.emit('hidden')
 				}.bind(this), this.duration)
 			}
 		},
@@ -172,16 +175,6 @@
 			$('html').removeClass(this.layoutSidebarTransitionClasses)
 			if (this.toggleLayout) {
 				$('html').removeClass(this.toggleLayoutClasses)
-			}
-		},
-		ready () {
-			if (this.$parent.$options.name === 'layout-transition') {
-				if (this.effect && !this.$parent.sidebarTransitions) {
-					this.$parent.sidebarTransitions = true
-				}
-				if (!this.effect) {
-					this.$parent.sidebarTransitions = false
-				}
 			}
 		}
 	}

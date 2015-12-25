@@ -99,14 +99,15 @@
 				document.querySelector('html').classList.remove('ls-top-navbar')
 			},
 			sidebarTransitionsEnabled () {
-				return this.$parent.$options.name === 'layout-transition'
+				return document.querySelector('.st-layout')
 			},
-			breakpoints () {
+			breakpoints (reset) {
+
 				// @TODO: setBreakpoints overrides previous breakpoints
 				// $(window).setBreakpoints({
 				// 	breakpoints: ['320', '480']
 				// })
-				$(window).bind('enterBreakpoint320', function () {
+				$(window)[reset ? 'off' : 'on']('enterBreakpoint320', function () {
 					this.lastFixed = this.fixed
 					this.fixed = 'top'
 					if (!this.sidebarTransitionsEnabled() || !this.inContentSlot()) {
@@ -116,9 +117,9 @@
 				}.bind(this))
 
 				// @TODO: shared breakpoints
-				let breakpoints = [480, 768, 990, 1200, 1600]
+				let breakpoints = [480, 768, 992, 1200, 1600]
 				breakpoints.forEach(function (breakpoint) {
-					$(window).bind(`enterBreakpoint${ breakpoint }`, function () {
+					$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, function () {
 						if (typeof this.lastFixed !== 'undefined') {
 							this.fixed = this.lastFixed
 						}
@@ -158,6 +159,7 @@
 		beforeDestroy () {
 			this.removeInContentLayoutClass()
 			this.disableFixed()
+			this.breakpoints(true)
 		}
 	}
 </script>

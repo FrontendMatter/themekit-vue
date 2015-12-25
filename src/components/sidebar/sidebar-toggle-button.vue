@@ -1,12 +1,17 @@
 <template>
-	<button @click.stop.prevent="toggle" :class="buttonClass">
+	<a href="#" @click.stop.prevent="toggle" :class="buttonClass">
 		<i v-if="icon" class="{{ icon }}"></i>
 		<span v-if="label">{{ label }}</span>
-	</button>
+	</a>
 </template>
 
 <script>
 	export default {
+		data () {
+			return {
+				active: false
+			}
+		},
 		props: {
 			sidebarId: {
 				type: String,
@@ -28,6 +33,7 @@
 						classObj[className] = true
 					})
 				}
+				classObj['active'] = this.active
 				return classObj
 			}
 		},
@@ -40,26 +46,36 @@
 			},
 			hasParentNavbar () {
 				return this.$parent.$options.name === 'navbar'
+			},
+			show (sidebar) {
+				if (this.sidebarId === sidebar.sidebarId) {
+					this.active = true
+					this.button()
+						.closest('li')
+						.addClass('active')
+				}
+			},
+			hide (sidebar) {
+				if (this.sidebarId === sidebar.sidebarId) {
+					this.active = false
+					this.button()
+						.closest('li')
+						.removeClass('active')
+				}
 			}
 		},
 		events: {
-			'open.tk.sidebar': function (sidebarId) {
-				if (this.sidebarId !== sidebarId) {
-					return
-				}
-				this.button()
-					.addClass('active')
-					.closest('li')
-					.addClass('active')
+			'show.tk.sidebar': function (sidebar) {
+				this.show(sidebar)
 			},
-			'close.tk.sidebar': function (sidebarId) {
-				if (this.sidebarId !== sidebarId) {
-					return
-				}
-				this.button()
-					.removeClass('active')
-					.closest('li')
-					.removeClass('active')
+			'hide.tk.sidebar': function (sidebar) {
+				this.hide(sidebar)
+			},
+			'shown.tk.sidebar': function (sidebar) {
+				this.show(sidebar)
+			},
+			'hidden.tk.sidebar': function (sidebar) {
+				this.hide(sidebar)
 			}
 		}
 	}

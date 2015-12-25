@@ -29,6 +29,10 @@
 		methods: {
 			isNavbar () {
 				return this.$parent.$options.name === 'navbar'
+			},
+			shown (e) {
+				let tabId = e.target.getAttribute('href').split('#')[1]
+				this.$root.$broadcast('shown.tk.tab', tabId)
 			}
 		},
 		computed: {

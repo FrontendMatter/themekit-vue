@@ -78,7 +78,8 @@
 				sizes: sizes,
 				screens: screens,
 				isVisible: false,
-				offsetValue: null
+				offsetValue: null,
+				visibleNotProvided: 'sm-up'
 			}
 		},
 		props: {
@@ -272,6 +273,9 @@
 			broadcast () {
 				this.$broadcast('context.tk.sidebar', this)
 			},
+			sidebarTransitionsEnabled () {
+				return document.querySelector('.st-layout')
+			},
 			layoutClass (size, screen) {
 				var baseClass = 'sidebar-'
 				baseClass += this.direction
@@ -299,7 +303,7 @@
 					this.menuType = 'dropdown'
 				}
 			},
-			breakpoints () {
+			breakpoints (reset) {
 				$(window).setBreakpoints({
 					breakpoints: breakpointValues
 				})
@@ -308,17 +312,17 @@
 				breakpointValues.forEach(function (breakpoint) {
 					let breakpointName = `enterBreakpoint${ breakpoint }`
 					if (breakpoint <= 480) {
-						$(window).bind(breakpointName, this.makeCollapse)
-						$(window).bind(`exitBreakpoint${ breakpoint }`, this.makeCollapse)
+						$(window)[reset ? 'off' : 'on'](breakpointName, this.makeCollapse)
+						$(window)[reset ? 'off' : 'on'](`exitBreakpoint${ breakpoint }`, this.makeCollapse)
 					}
 					else {
-						$(window).bind(breakpointName, this.makeDropdown)
+						$(window)[reset ? 'off' : 'on'](breakpointName, this.makeDropdown)
 					}
 				}, this)
 
 				// always close on xs
-				$(window).bind('enterBreakpoint320', this.close)
-				$(window).bind('enterBreakpoint480', this.close)
+				$(window)[reset ? 'off' : 'on']('enterBreakpoint320', this.close)
+				$(window)[reset ? 'off' : 'on']('enterBreakpoint480', this.close)
 
 				forOwn(breakpoints, function (values, key, object) {
 					this.visibleOptions.forEach(function (visible) {
@@ -328,24 +332,27 @@
 
 							let down = breakpointValues.filter((v) => v < key)
 							down.forEach(function (breakpoint) {
-								$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
+								$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, this.close)
 							}, this)
 
 							if (isUp) {
 								up.unshift(key)
 								up.forEach(function (breakpoint) {
-									$(window).bind(`enterBreakpoint${ breakpoint }`, this.queueOpen)
+									$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, this.queueOpen)
 								}, this)
 							}
 							else {
-								$(window).bind(`enterBreakpoint${ key }`, this.queueOpen)
+								$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ key }`, this.queueOpen)
 								up.forEach(function (breakpoint) {
-									$(window).bind(`enterBreakpoint${ breakpoint }`, this.close)
+									$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, this.close)
 								}, this)
 							}
 						}
 					}, this)
 				}.bind(this))
+			},
+			resetBreakpoints () {
+				this.breakpoints(true)
 			},
 			open () {
 				if (this.show) {
@@ -365,25 +372,21 @@
 				}.bind(this), 10)
 			},
 			onOpen () {
-				this.emitOpen()
+				this.emit('show')
 				this.addLayoutClasses()
 				this.isVisible = true
-				this.emitChange()
+				this.emit('shown')
+				this.emit('change')
 			},
 			onClose () {
-				this.emitClose()
+				this.emit('hide')
 				this.removeLayoutClasses()
 				this.isVisible = false
-				this.emitChange()
+				this.emit('hidden')
+				this.emit('change')
 			},
-			emitOpen () {
-				this.$root.$broadcast('open.tk.sidebar', this.sidebarId)
-			},
-			emitClose () {
-				this.$root.$broadcast('close.tk.sidebar', this.sidebarId)
-			},
-			emitChange () {
-				this.$root.$broadcast('change.tk.sidebar', this)
+			emit (eventName) {
+				this.$root.$broadcast(`${ eventName }.tk.sidebar`, this)
 			},
 			initDropdown () {
 				var self = this
@@ -436,17 +439,20 @@
 			if (this.menuType === 'dropdown') {
 				this.initDropdown()
 			}
-			if (!this.visibleOptions.length) {
-				this.visible = 'xs-up'
-			}
-			this.breakpoints()
-			if (this.show) {
-				this.onOpen()
-			}
+			this.$nextTick(function () {
+				if (!this.visibleOptions.length && !this.sidebarTransitionsEnabled()) {
+					this.visible = this.visibleNotProvided
+				}
+				this.breakpoints()
+				if (this.show) {
+					this.onOpen()
+				}
+			})
 		},
 		beforeDestroy () {
 			this.removeLayoutClasses()
 			this.unregisterSidebar()
+			this.resetBreakpoints()
 		},
 		watch: {
 			dropdown (value) {
