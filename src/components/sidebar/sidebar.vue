@@ -121,10 +121,6 @@
 					return sizes.indexOf(value) !== -1
 				}
 			},
-			skin: {
-				type: String,
-				default: 'dark'
-			},
 			visible: {
 				type: String,
 				validator (value) {
@@ -232,7 +228,6 @@
 					classes[className] = true
 				}, this)
 				classes[this.position] = true
-				classes['sidebar-skin-' + this.skin] = true
 				if (this.offsetValue) {
 					classes['sidebar-offset-' + this.offsetValue] = true
 				}
@@ -309,16 +304,16 @@
 				})
 
 				// @TODO: provide options for menuType breakpoints
-				breakpointValues.forEach(function (breakpoint) {
-					let breakpointName = `enterBreakpoint${ breakpoint }`
-					if (breakpoint <= 480) {
-						$(window)[reset ? 'off' : 'on'](breakpointName, this.makeCollapse)
-						$(window)[reset ? 'off' : 'on'](`exitBreakpoint${ breakpoint }`, this.makeCollapse)
-					}
-					else {
-						$(window)[reset ? 'off' : 'on'](breakpointName, this.makeDropdown)
-					}
-				}, this)
+				// breakpointValues.forEach(function (breakpoint) {
+				// 	let breakpointName = `enterBreakpoint${ breakpoint }`
+				// 	if (breakpoint <= 480) {
+				// 		$(window)[reset ? 'off' : 'on'](breakpointName, this.makeCollapse)
+				// 		$(window)[reset ? 'off' : 'on'](`exitBreakpoint${ breakpoint }`, this.makeCollapse)
+				// 	}
+				// 	else {
+				// 		$(window)[reset ? 'off' : 'on'](breakpointName, this.makeDropdown)
+				// 	}
+				// }, this)
 
 				// always close on xs
 				$(window)[reset ? 'off' : 'on']('enterBreakpoint320', this.close)
@@ -537,7 +532,6 @@
 	// ELEMENTS
 	@import "~themekit-less/src/sidebar-elements/badge";
 	@import "~themekit-less/src/sidebar-elements/brand";
-	@import "~themekit-less/src/sidebar-elements/category";
 	@import "~themekit-less/src/sidebar-elements/datepicker";
 	@import "~themekit-less/src/sidebar-elements/list-group";
 	@import "~themekit-less/src/sidebar-elements/media";

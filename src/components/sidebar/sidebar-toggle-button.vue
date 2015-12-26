@@ -26,15 +26,10 @@
 		},
 		computed: {
 			buttonClass () {
-				var classes = ['toggle', 'pull-left', 'visible-xs']
-				var classObj = {}
-				if (this.hasParentNavbar()) {
-					classes.forEach(function (className) {
-						classObj[className] = true
-					})
+				var classes = {
+					'active': this.active
 				}
-				classObj['active'] = this.active
-				return classObj
+				return classes
 			}
 		},
 		methods: {

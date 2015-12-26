@@ -3,13 +3,13 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<slot name="sidebar-toggle-button"></slot>
+				<slot name="brand"></slot>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse{{ id }}">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<slot name="brand"></slot>
 			</div>
 			<div class="navbar-collapse collapse" id="collapse{{ id }}">
 				<slot></slot>
