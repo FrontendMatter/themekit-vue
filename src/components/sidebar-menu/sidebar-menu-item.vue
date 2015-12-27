@@ -1,27 +1,30 @@
 <template>
-	<li class="sidebar-menu-item" :class="{ active: active, 'hasSubmenu': submenu }">
-		<template v-if="submenu">
+	<li class="sidebar-menu-item" :class="{ active: active, 'hasSubmenu': isSubmenu, open: open }">
+		<template v-if="isSubmenu">
 			<a class="sidebar-menu-button"
 				v-el:submenu-button
 				:href="'#' + submenuId" 
-				:data-toggle="menuType == 'collapse' ? 'collapse' : false">
-				<i class="sidebar-menu-icon" v-if="icon" :class="icon"></i>
-				<span>{{ label }}</span>
+				:data-toggle="menuType == 'collapse' ? 'collapse' : false"
+				:aria-expanded="open">
+				<i class="sidebar-menu-icon" v-if="model.icon" :class="model.icon"></i>
+				<span>{{ model.label }}</span>
 			</a>
 			<ul class="sidebar-submenu"
 				v-el:submenu-element 
 				v-show="menuType == 'collapse'"
 				:id="submenuId" 
-				:class="{ collapse: menuType == 'collapse' }">
-				<slot></slot>
+				:class="{ collapse: menuType == 'collapse', 'in': open }">
+				<sidebar-menu-item 
+					v-for="child in model.children"
+					:model="child">
+				</sidebar-menu-item>
 			</ul>
 		</template>
 		<template v-else>
-			<a class="sidebar-menu-button" v-el:menu-button v-link="link">
-				<i class="sidebar-menu-icon" v-if="icon" :class="icon"></i>
-				<span>{{ label }}</span>
+			<a class="sidebar-menu-button" v-el:menu-button v-link="model.route">
+				<i class="sidebar-menu-icon" v-if="model.icon" :class="model.icon"></i>
+				<span>{{ model.label }}</span>
 			</a>
-			<slot></slot>
 		</template>
 	</li>
 </template>
@@ -30,39 +33,38 @@
 	import camelCase from 'mout/string/camelCase'
 
 	export default {
+		name: 'sidebar-menu-item',
 		data () {
 			return {
-				sidebarEl: null,
-				menuType: null
-			}
-		},
-		computed: {
-			submenuId () {
-				if (!this.submenu) {
-					return null
-				}
-				return shortid.generate()
+				open: false
 			}
 		},
 		props: {
-			link: {
+			model: {
 				type: Object
+			}
+		},
+		computed: {
+			menuType () {
+				if (this.model.type) {
+					return this.model.type
+				}
+				return 'collapse'
 			},
-			href: {
-				type: String
+			submenuId () {
+				if (!this.isSubmenu) {
+					return null
+				}
+				return `sm-${ shortid.generate() }`
 			},
-			label: {
-				type: String,
-				default: 'Menu Item'
+			isSubmenu () {
+				return this.model.children && this.model.children.length
 			},
-			icon: {
-				type: String
+			routeActive () {
+				return this.$route && this.model.route && this.model.route.name && this.model.route.name === this.$route.name
 			},
-			active: {
-				type: Boolean
-			},
-			submenu: {
-				type: Boolean
+			active () {
+				return this.routeActive || this.model.active
 			}
 		},
 		methods: {
@@ -89,7 +91,7 @@
 				return $(this.$els.menuButton)
 			},
 			sidebarElement () {
-				return $(this.sidebarEl)
+				return $(this.$el).parents('.sidebar:first')
 			},
 			initSubmenu (value) {
 				var menuTypeMethod = this.initMenuType(value)
@@ -113,15 +115,12 @@
 				var self = this
 				this.submenuElement().on('show.bs.collapse', function (e) {
 					e.stopPropagation()
-					var parents = $(this).parents('ul:first').find('> li.open > ul')
-					if (parents.length) {
-						parents.collapse('hide').closest('.hasSubmenu').removeClass('open')
-					}
-					self.item().addClass('open')
+					$(this).parents('ul:first').find('> li.open > ul').collapse('hide')
+					self.open = true
 				})
 				this.submenuElement().on('hidden.bs.collapse', function (e) {
 					e.stopPropagation()
-					self.item().removeClass('open')
+					self.open = false
 				})
 			},
 			removeCollapse () {
@@ -134,18 +133,7 @@
 				var self = this
 				this.submenuButton()
 					.on('mouseenter', function () {
-						self.sidebarElement().find('.open').removeClass('open')
-						if (!self.item().hasClass('open') && !self.sidebarElement().is('.scrolling')) {
-							self.item().addClass('open')
-							self.$dispatch('dropdown.tk.sidebar', {
-								label: self.label,
-								icon: self.icon,
-								active: self.active,
-								link: self.link,
-								offsetTop: self.item().offset().top,
-								children: self.$children
-							})
-						}
+						self.open = true
 					})
 					.on('click', function (e) {
 						e.preventDefault()
@@ -153,52 +141,77 @@
 					})
 			},
 			removeDropdown () {
-				if (this.submenu) {
+				if (this.isSubmenu) {
 					this.submenuButton().off()
-					this.item().removeClass('dropdown open')
+					this.open = false
 				}
 				else {
 					this.menuButton().off()
 				}
 			},
-			invalidParent () {
-				return ['sidebar-menu', 'sidebar-menu-item'].indexOf(this.$parent.$options.name) === -1
+			initMenu () {
+				if (this.menuType !== 'dropdown') {
+					this[ this.isSubmenu ? 'submenuButton' : 'menuButton' ]()
+						.on('mouseenter', this.emitDropdownClose)
+				}
+				if (this.isSubmenu) {
+					this.initSubmenu(this.menuType)
+				}
+			},
+			emitDropdown (value) {
+				this.$dispatch('dropdown.tk.sidebar', value)
+			},
+			emitDropdownOpen () {
+				this.emitDropdown({
+					label: this.model.label,
+					icon: this.model.icon,
+					active: this.active,
+					route: this.model.route,
+					offsetTop: this.item().offset().top,
+					children: this.model.children
+				})
+			},
+			emitDropdownClose () {
+				this.emitDropdown(null)
+			},
+			emitActive () {
+				if (this.menuType === 'collapse' && this.active) {
+					this.$dispatch('active.tk.sidebar-menu-item', this)
+				}
 			}
 		},
 		ready () {
-			if (this.invalidParent()) {
-				return
-			}
-			if (this.$children.length && !this.submenu) {
-				this.submenu = true
-				this.$dispatch('request-context.tk.sidebar')
-			}
+			this.initMenu()
+			this.emitActive()
 		},
 		beforeDestroy () {
 			this.removeSubmenu()
 		},
 		watch: {
 			menuType (newValue, oldValue) {
-				var self = this
 				this.removeSubmenu(oldValue)
-				this.sidebarElement().find('.open').removeClass('open')
-				if (!this.submenu && this.menuType === 'dropdown') {
-					this.menuButton().on('mouseenter', function () {
-						self.sidebarElement().find('.open').removeClass('open')
-						self.$dispatch('dropdown.tk.sidebar', null)
-					})
-				}
-				if (this.submenu) {
-					this.$nextTick(function () {
-						this.initSubmenu(newValue)
-					})
+				this.initMenu()
+			},
+			active () {
+				this.emitActive()
+			},
+			open (value) {
+				if (this.menuType === 'dropdown') {
+					this[ value ? 'emitDropdownOpen' : 'emitDropdownClose' ]()
 				}
 			}
 		},
 		events: {
-			'context.tk.sidebar': function (context) {
-				this.sidebarEl = context.$el
-				this.menuType = context.menuType
+			'active.tk.sidebar-menu-item': function (item) {
+				if (this.isSubmenu && this.menuType === 'collapse') {
+					this.open = true
+				}
+				return true
+			},
+			'close.tk.sidebar-menu-item': function () {
+				if (this.menuType === 'dropdown') {
+					this.open = false
+				}
 			}
 		}
 	}

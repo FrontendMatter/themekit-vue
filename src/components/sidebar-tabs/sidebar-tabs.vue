@@ -27,18 +27,15 @@
 
 	export default {
 		mixins: [ Tabs ],
-		events: {
-			'context.tk.sidebar': function (sidebar) {
-				sidebar.scrollable = false
-				return true
-			}
-		},
 		computed: {
 			sidebarTabsClass () {
 				var tabsClass = this.tabsClass
 				tabsClass['sidebar-tabbable'] = true
 				return tabsClass
 			}
+		},
+		ready () {
+			this.$dispatch('scrollable.tk.sidebar', false)
 		}
 	}
 </script>

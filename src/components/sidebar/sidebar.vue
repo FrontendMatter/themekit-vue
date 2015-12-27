@@ -1,5 +1,5 @@
 <template>
-	<div v-show="isVisible" :class="sidebarClass">
+	<div v-show="isVisible" :class="sidebarClass" @mouseleave="dropdown=null">
 		
 		<!-- Scrollable -->
 		<template v-if="scrollable">
@@ -16,8 +16,7 @@
 		<!-- Toggle Bar -->
 		<sidebar-toggle-button
 			v-if="toggleBar" 
-			:sidebar-id="sidebarId" 
-			:toggle-bar="toggleBar"
+			:sidebar-id="sidebarId"
 			class="sidebar-toggle-bar">
 		</sidebar-toggle-button>
 
@@ -25,16 +24,13 @@
 		<template v-if="dropdown">
 			<div class="dropdown-container" v-el:dropdown-container>
 				<ul>
-					<li class="dropdown open" style="overflow: visible;" v-el:dropdown-menu-container>
+					<li class="dropdown" :class="{ open: dropdown }" style="overflow: visible;" v-el:dropdown-menu-container>
 						<ul class="dropdown-menu" :style="dropdownMenuStyle">
-							<sidebar-menu-item
+							<dropdown-menu-item
 								v-for="dd in dropdown.children"
-								:label="dd.label"
-								:icon="dd.icon"
-								:active="dd.active"
-								:link="dd.link"
+								:model="dd"
 								@click="dropdown=null">
-							</sidebar-menu-item>
+							</dropdown-menu-item>
 						</ul>
 					</li>
 				</ul>
@@ -45,7 +41,7 @@
 
 <script>
 	import SidebarToggleButton from './sidebar-toggle-button.vue'
-	import SidebarMenuItem from '../sidebar-menu/sidebar-menu-item.vue'
+	import DropdownMenuItem from '../dropdown/dropdown-menu-item.vue'
 	import 'jquery.breakpoints/breakpoints'
 	import camelCase from 'mout/string/camelCase'
 	import objectKeys from 'mout/object/keys'
@@ -71,7 +67,6 @@
 	export default {
 		data () {
 			return {
-				transformed: false,
 				dropdown: null,
 				scrolling: false,
 				dropdownContainerOffsetTop: null,
@@ -207,7 +202,7 @@
 				return this.visible.split(' ')
 			},
 			sidebarVisibleClass () {
-				return this.visibleOptions.map(function (className) {
+				return this.visibleOptions.map((className) => {
 					return `sidebar-visible-${ className }`
 				})
 			},
@@ -221,10 +216,10 @@
 				if (this.miniRevealSize) {
 					classes['sidebar-mini-reveal-size-' + this.miniRevealSize] = this.mini && this.reveal
 				}
-				this.sidebarVisibleClass.forEach(function (className) {
+				this.sidebarVisibleClass.forEach((className) => {
 					classes[className] = true
 				})
-				this.sidebarSizeClasses.forEach(function (className) {
+				this.sidebarSizeClasses.forEach((className) => {
 					classes[className] = true
 				}, this)
 				classes[this.position] = true
@@ -265,9 +260,6 @@
 			dropdownMenuContainer () {
 				return $(this.$els.dropdownMenuContainer)
 			},
-			broadcast () {
-				this.$broadcast('context.tk.sidebar', this)
-			},
 			sidebarTransitionsEnabled () {
 				return document.querySelector('.st-layout')
 			},
@@ -288,63 +280,39 @@
 				className += '-' + size
 				return className
 			},
-			makeCollapse () {
-				if (this.menuType !== 'collapse') {
-					this.menuType = 'collapse'
-				}
-			},
-			makeDropdown () {
-				if (this.menuType !== 'dropdown') {
-					this.menuType = 'dropdown'
-				}
-			},
 			breakpoints (reset) {
-				$(window).setBreakpoints({
-					breakpoints: breakpointValues
-				})
-
-				// @TODO: provide options for menuType breakpoints
-				// breakpointValues.forEach(function (breakpoint) {
-				// 	let breakpointName = `enterBreakpoint${ breakpoint }`
-				// 	if (breakpoint <= 480) {
-				// 		$(window)[reset ? 'off' : 'on'](breakpointName, this.makeCollapse)
-				// 		$(window)[reset ? 'off' : 'on'](`exitBreakpoint${ breakpoint }`, this.makeCollapse)
-				// 	}
-				// 	else {
-				// 		$(window)[reset ? 'off' : 'on'](breakpointName, this.makeDropdown)
-				// 	}
-				// }, this)
+				$(window).setBreakpoints({ breakpoints: breakpointValues })
 
 				// always close on xs
 				$(window)[reset ? 'off' : 'on']('enterBreakpoint320', this.close)
 				$(window)[reset ? 'off' : 'on']('enterBreakpoint480', this.close)
 
-				forOwn(breakpoints, function (values, key, object) {
-					this.visibleOptions.forEach(function (visible) {
+				forOwn(breakpoints, (values, key, object) => {
+					this.visibleOptions.forEach((visible) => {
 						if (values.indexOf(visible) !== -1) {
 							let isUp = visible.indexOf('up') !== -1
 							let up = breakpointValues.filter((v) => v > key)
 
 							let down = breakpointValues.filter((v) => v < key)
-							down.forEach(function (breakpoint) {
+							down.forEach((breakpoint) => {
 								$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, this.close)
 							}, this)
 
 							if (isUp) {
 								up.unshift(key)
-								up.forEach(function (breakpoint) {
+								up.forEach((breakpoint) => {
 									$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, this.queueOpen)
 								}, this)
 							}
 							else {
 								$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ key }`, this.queueOpen)
-								up.forEach(function (breakpoint) {
+								up.forEach((breakpoint) => {
 									$(window)[reset ? 'off' : 'on'](`enterBreakpoint${ breakpoint }`, this.close)
 								}, this)
 							}
 						}
 					}, this)
-				}.bind(this))
+				})
 			},
 			resetBreakpoints () {
 				this.breakpoints(true)
@@ -362,9 +330,9 @@
 				this.show = !this.show
 			},
 			queueOpen () {
-				setTimeout(function () {
+				setTimeout(() => {
 					this.$dispatch('open-sidebar.tk.layout', this.sidebarId)
-				}.bind(this), 10)
+				}, 10)
 			},
 			onOpen () {
 				this.emit('show')
@@ -383,31 +351,13 @@
 			emit (eventName) {
 				this.$root.$broadcast(`${ eventName }.tk.sidebar`, this)
 			},
-			initDropdown () {
-				var self = this
-				this.sidebar().on('mouseleave', function () {
-					self.dropdown = null
-				})
-
-				// @TODO: Nested Dropdown Submenus
-				// this.dropdownMenuContainer()
-				//     .on('mouseover', function () {
-				//         $(this).addClass('open').children('ul').removeClass('submenu-hide').addClass('submenu-show');
-				//     }).on('mouseout', function () {
-				//         $(this).children('ul').removeClass('.submenu-show').addClass('submenu-hide');
-				//         self.sidebar().find('open').removeClass('open');
-				//     });
-			},
-			removeDropdown () {
-				this.sidebar().off('mouseleave')
-			},
 			addLayoutClasses () {
-				this.layoutClasses.map(function (className) {
+				this.layoutClasses.map((className) => {
 					document.querySelector('html').classList.add(className)
 				})
 			},
 			removeLayoutClasses () {
-				this.layoutClasses.map(function (className) {
+				this.layoutClasses.map((className) => {
 					document.querySelector('html').classList.remove(className)
 				})
 			},
@@ -427,14 +377,10 @@
 		},
 		ready () {
 			this.registerSidebar()
-			this.broadcast()
 			if (this.mini) {
 				this.size = '1'
 			}
-			if (this.menuType === 'dropdown') {
-				this.initDropdown()
-			}
-			this.$nextTick(function () {
+			this.$nextTick(() => {
 				if (!this.visibleOptions.length && !this.sidebarTransitionsEnabled()) {
 					this.visible = this.visibleNotProvided
 				}
@@ -452,42 +398,22 @@
 		watch: {
 			dropdown (value) {
 				if (!value) {
-					return this.sidebar().find('.open').removeClass('open')
+					return this.$broadcast('close.tk.sidebar-menu-item')
 				}
-				this.$nextTick(function () {
+				this.$nextTick(() => {
 					this.dropdownContainerOffsetTop = this.dropdownContainer().offset().top
 				})
 			},
-			menuType (value) {
-				this.broadcast()
-				switch (value) {
-					default: 
-						break
-					case 'collapse':
-						this.dropdown = null
-						this.removeDropdown()
-						break
-					case 'dropdown':
-						this.initDropdown()
-						break
-				}
-			},
 			scrolling (value) {
-				if (value && this.menuType === 'dropdown') {
+				if (value) {
 					this.dropdown = null
 				}
-			},
-			scrollable (value) {
-				this.broadcast()
 			},
 			show (value) {
 				this[ value ? 'onOpen' : 'onClose' ]()
 			}
 		},
 		events: {
-			'request-context.tk.sidebar': function () {
-				this.broadcast()
-			},
 			'dropdown.tk.sidebar': function (dropdown) {
 				this.dropdown = dropdown
 				if (dropdown) {
@@ -513,11 +439,14 @@
 				if (this.offset === sidebar.sidebarId) {
 					this.setOffsetValue(sidebar)
 				}
+			},
+			'scrollable.tk.sidebar': function (value) {
+				this.scrollable = value
 			}
 		},
 		components: {
 			SidebarToggleButton,
-			SidebarMenuItem
+			DropdownMenuItem
 		}
 	}
 </script>
