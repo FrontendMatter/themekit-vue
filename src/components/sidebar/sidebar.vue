@@ -129,10 +129,6 @@
 					}
 				}
 			},
-			menuType: {
-				type: String,
-				default: 'collapse'
-			},
 			offset: {
 				type: String
 			},
