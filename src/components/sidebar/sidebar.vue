@@ -1,5 +1,5 @@
 <template>
-	<div v-show="isVisible" :class="sidebarClass" @mouseleave="dropdown=null">
+	<div v-show="isVisible" :class="sidebarClass">
 		
 		<!-- Scrollable -->
 		<template v-if="scrollable">
@@ -20,28 +20,12 @@
 			class="sidebar-toggle-bar">
 		</sidebar-toggle-button>
 
-		<!-- Dropdown Menu Type -->
-		<template v-if="dropdown">
-			<div class="dropdown-container" v-el:dropdown-container>
-				<ul>
-					<li class="dropdown" :class="{ open: dropdown }" style="overflow: visible;" v-el:dropdown-menu-container>
-						<ul class="dropdown-menu" :style="dropdownMenuStyle">
-							<dropdown-menu-item
-								v-for="dd in dropdown.children"
-								:model="dd"
-								@click="dropdown=null">
-							</dropdown-menu-item>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</template>
+		<slot name="root"></slot>
 	</div>
 </template>
 
 <script>
 	import SidebarToggleButton from './sidebar-toggle-button.vue'
-	import DropdownMenuItem from '../dropdown/dropdown-menu-item.vue'
 	import 'jquery.breakpoints/breakpoints'
 	import camelCase from 'mout/string/camelCase'
 	import objectKeys from 'mout/object/keys'
@@ -67,14 +51,13 @@
 	export default {
 		data () {
 			return {
-				dropdown: null,
 				scrolling: false,
-				dropdownContainerOffsetTop: null,
 				sizes: sizes,
 				screens: screens,
 				isVisible: false,
 				offsetValue: null,
-				visibleNotProvided: 'sm-up'
+				visibleNotProvided: 'sm-up',
+				listeners: []
 			}
 		},
 		props: {
@@ -232,29 +215,11 @@
 			},
 			direction () {
 				return this.position.charAt(0)
-			},
-			dropdownMenuStyle () {
-				var top = (this.dropdown.offsetTop - this.dropdownContainerOffsetTop) + 'px'
-				var style = { 
-					left: '100%', 
-					top: top 
-				}
-				if (this.position === 'right') {
-					style.left = 'auto'
-					style.right = '100%'
-				}
-				return style
 			}
 		},
 		methods: {
 			sidebar () {
 				return $(this.$el)
-			},
-			dropdownContainer () {
-				return $(this.$els.dropdownContainer)
-			},
-			dropdownMenuContainer () {
-				return $(this.$els.dropdownMenuContainer)
 			},
 			sidebarTransitionsEnabled () {
 				return document.querySelector('.st-layout')
@@ -392,30 +357,14 @@
 			this.resetBreakpoints()
 		},
 		watch: {
-			dropdown (value) {
-				if (!value) {
-					return this.$broadcast('close.tk.sidebar-menu-item')
-				}
-				this.$nextTick(() => {
-					this.dropdownContainerOffsetTop = this.dropdownContainer().offset().top
-				})
-			},
-			scrolling (value) {
-				if (value) {
-					this.dropdown = null
-				}
-			},
 			show (value) {
 				this[ value ? 'onOpen' : 'onClose' ]()
+			},
+			scrolling (value) {
+				this.$broadcast('scrolling.tk.sidebar', value)
 			}
 		},
 		events: {
-			'dropdown.tk.sidebar': function (dropdown) {
-				this.dropdown = dropdown
-				if (dropdown) {
-					this.dropdownMenuContainer().addClass('open')
-				}
-			},
 			'scrolling.tk.scrollable': function () {
 				if (!this.scrolling) {
 					this.scrolling = true
@@ -438,11 +387,21 @@
 			},
 			'scrollable.tk.sidebar': function (value) {
 				this.scrollable = value
+			},
+			'add-event-listener.tk.sidebar': function (data) {
+				this.listeners.push(data)
+			},
+			'remove-event-listener.tk.sidebar': function (data) {
+				this.$broadcast(`remove-event-listener.tk.${ data.namespace }`, data)
+			},
+			'ready.tk.sidebar-menu-item': function (item) {
+				this.listeners.forEach((data) => {
+					this.$broadcast(`add-event-listener.tk.${ data.namespace }`, data)
+				})
 			}
 		},
 		components: {
-			SidebarToggleButton,
-			DropdownMenuItem
+			SidebarToggleButton
 		}
 	}
 </script>
