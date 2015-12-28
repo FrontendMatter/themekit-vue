@@ -180,6 +180,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/sidebar/transitions";
+<style lang="sass">
+	@import "~themekit-sass/src/sidebar/transition";
 </style>

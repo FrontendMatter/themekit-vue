@@ -406,20 +406,19 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="sass">
 	// CORE
-	@import "~themekit-less/src/sidebar/layout";
-	@import "~themekit-less/src/sidebar/scrollable";
-	@import "~themekit-less/src/sidebar/sidebar-mini";
-	@import "~themekit-less/src/sidebar/toggle-bar";
-
+	@import "~themekit-sass/src/sidebar/layout";
+	@import "~themekit-sass/src/sidebar/scrollable";
+	@import "~themekit-sass/src/sidebar/sidebar-mini";
+	@import "~themekit-sass/src/sidebar/toggle-bar";
 	// ELEMENTS
-	@import "~themekit-less/src/sidebar-elements/badge";
-	@import "~themekit-less/src/sidebar-elements/brand";
-	@import "~themekit-less/src/sidebar-elements/datepicker";
-	@import "~themekit-less/src/sidebar-elements/list-group";
-	@import "~themekit-less/src/sidebar-elements/media";
-	@import "~themekit-less/src/sidebar-elements/panel";
-	@import "~themekit-less/src/sidebar-elements/progress";
-	@import "~themekit-less/src/sidebar-elements/slider";
+	@import "~themekit-sass/src/sidebar-elements/badge";
+	@import "~themekit-sass/src/sidebar-elements/brand";
+	@import "~themekit-sass/src/sidebar-elements/datepicker";
+	@import "~themekit-sass/src/sidebar-elements/list-group";
+	@import "~themekit-sass/src/sidebar-elements/media";
+	@import "~themekit-sass/src/sidebar-elements/panel";
+	@import "~themekit-sass/src/sidebar-elements/progress";
+	@import "~themekit-sass/src/sidebar-elements/slider";
 </style>

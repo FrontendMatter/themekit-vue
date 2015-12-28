@@ -124,11 +124,10 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/layout/app";
-	@import "~themekit-less/src/layout/content";
-	@import "~themekit-less/src/layout/footer";
-	@import "~themekit-less/src/layout/grid";
-	@import "~themekit-less/src/layout/split";
-	@import "~themekit-less/src/layout/scrollable";
+<style lang="sass">
+	@import "~themekit-sass/src/layout/content";
+	@import "~themekit-sass/src/layout/footer";
+	@import "~themekit-sass/src/layout/grid";
+	@import "~themekit-sass/src/layout/split";
+	@import "~themekit-sass/src/layout/scrollable";
 </style>

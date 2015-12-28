@@ -49,6 +49,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/sidebar-elements/sidebar-feed";
+<style lang="sass">
+	@import "~themekit-sass/src/sidebar-elements/sidebar-feed";
 </style>

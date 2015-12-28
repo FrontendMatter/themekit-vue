@@ -20,8 +20,7 @@
 	}
 </script>
 
-<style lang="less">
-    @import "~themekit-less/src/sidebar-menu/sidebar-menu";
-    @import "~themekit-less/src/sidebar-menu/sidebar-dropdown";
-    @import "~themekit-less/src/sidebar-menu/utils";
+<style lang="sass">
+    @import "~themekit-sass/src/sidebar-menu/sidebar-menu";
+    @import "~themekit-sass/src/sidebar-menu/utils";
 </style>

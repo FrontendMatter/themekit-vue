@@ -30,6 +30,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/sidebar-elements/sidebar-block";
+<style lang="sass">
+	@import "~themekit-sass/src/sidebar-elements/sidebar-block";
 </style>

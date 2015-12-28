@@ -79,6 +79,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/elements/mprogress";
+<style lang="sass">
+	@import "~themekit-sass/src/elements/mprogress";
 </style>

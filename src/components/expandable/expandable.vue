@@ -49,6 +49,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/elements/expandable";
+<style lang="sass">
+	@import "~themekit-sass/src/elements/expandable";
 </style>

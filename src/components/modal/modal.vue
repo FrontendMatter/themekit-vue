@@ -175,6 +175,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/elements/modal";
+<style lang="sass">
+	@import "~themekit-sass/src/elements/modal";
 </style>

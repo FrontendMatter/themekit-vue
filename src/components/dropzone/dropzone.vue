@@ -140,6 +140,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/elements/dropzone";
+<style lang="sass">
+	@import "~themekit-sass/src/elements/dropzone";
 </style>

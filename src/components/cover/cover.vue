@@ -219,7 +219,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/cover/cover";
-	@import "~themekit-less/src/cover/navbar";
+<style lang="sass">
+	@import "~themekit-sass/src/cover/cover";
 </style>

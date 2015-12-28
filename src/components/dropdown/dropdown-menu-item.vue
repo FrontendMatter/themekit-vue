@@ -60,6 +60,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/dropdown/dropdown-menu";
+<style lang="sass">
+	@import "~themekit-sass/src/dropdown/dropdown-menu";
 </style>

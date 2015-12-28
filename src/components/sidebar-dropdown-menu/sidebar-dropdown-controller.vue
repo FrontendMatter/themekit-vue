@@ -81,3 +81,7 @@
 		}
 	}
 </script>
+
+<style lang="sass">
+	@import "~themekit-sass/src/sidebar-menu/sidebar-dropdown";
+</style>

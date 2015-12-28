@@ -101,6 +101,6 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/elements/tabs";
+<style lang="sass">
+	@import "~themekit-sass/src/elements/tabs";
 </style>

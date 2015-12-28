@@ -164,7 +164,7 @@
 	}
 </script>
 
-<style lang="less">
-	@import "~themekit-less/src/navbar/navbar";
-	@import "~themekit-less/src/layout/navbar";
+<style lang="sass">
+	@import "~themekit-sass/src/navbar/navbar";
+	@import "~themekit-sass/src/layout/navbar";
 </style>

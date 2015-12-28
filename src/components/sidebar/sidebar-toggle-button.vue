@@ -75,7 +75,3 @@
 		}
 	}
 </script>
-
-<style lang="less">
-	@import "~themekit-less/src/sidebar/toggle-bar";
-</style>
