@@ -21,6 +21,10 @@
 			}
 		},
 		props: {
+			isList: {
+				type: Boolean,
+				default: true
+			},
 			isSubmenu: {
 				type: Boolean
 			},
@@ -101,13 +105,12 @@
 		},
 		events: {
 			'close.tk.dropdown': function (dropdown, propagate) {
+				dropdown = dropdown && (
+					dropdown === this || 
+					(Array.isArray(dropdown) && dropdown.indexOf(this) !== -1)
+				)
 				if (dropdown) {
-					if (Array.isArray(dropdown) && dropdown.indexOf(this) !== -1) {
-						return this.propagate(propagate)
-					}
-					if (!Array.isArray(dropdown) && dropdown === this) {
-						return this.propagate(propagate)
-					}
+					return this.propagate(propagate)
 				}
 				this.open = false
 				return this.propagate(propagate)

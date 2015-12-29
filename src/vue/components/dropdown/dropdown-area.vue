@@ -1,5 +1,5 @@
 <template>
-	<dropdown>
+	<dropdown :is-list="isList">
 		<a href="#" @click.prevent :class="btnClass">
 			<i class="dropdown-menu-icon" v-if="icon" :class="icon"></i>
 			<span>{{ label }}</span>
@@ -24,6 +24,10 @@
 			},
 			btnClass: {
 				type: String
+			},
+			isList: {
+				type: Boolean,
+				default: true
 			}
 		},
 		components: {
