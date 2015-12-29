@@ -17,14 +17,11 @@
 	export default {
 		data () {
 			return {
-				open: false
+				open: false,
+				isList: true
 			}
 		},
 		props: {
-			isList: {
-				type: Boolean,
-				default: true
-			},
 			isSubmenu: {
 				type: Boolean
 			},
@@ -87,6 +84,9 @@
 			if (this.onClick) {
 				this.$root.$el.addEventListener('click', this.closePageDropdownMenus)
 			}
+			this.$nextTick(() => {
+				this.isList = $(this.$el).parent('ul').length > 0
+			})
 		},
 		beforeDestroy () {
 			if (this.onClick) {
