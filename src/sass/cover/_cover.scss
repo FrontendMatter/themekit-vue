@@ -1,0 +1,210 @@
+@import "../mixins/cover";
+
+.cover {
+	overflow: hidden;
+	position: relative;
+	margin-bottom: $line-height-computed;
+
+	// INSIDE PANELS
+	.panel > & {
+		margin-bottom: 0;
+	}
+	.media-left > &:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.cover.overlay {
+
+	&.cover-image-full {
+		> img, > .img, .cover-image {
+			width: 100%;
+		}
+	}
+
+	span.cover-image {
+		display: block;
+		width: 100%;
+	}
+
+	a& {
+		display: block;
+	}
+
+	&.hover {
+		.overlay-hover {
+			transition: all .5s;
+			visibility: hidden;
+			opacity: 0;
+		}
+		&:hover {
+			.overlay-hover {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+	}
+
+	.overlay {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 3;
+		padding: $line-height-computed;
+		display: table;
+		width: 100%;
+		vertical-align: middle;
+
+		&:hover {
+			text-decoration: none;
+		}
+
+		@include v-spacing-2();
+
+		// POSITIONING
+		&.overlay-full {
+			@include overlay-full();
+
+			// ELEMENTS
+			.v-top {
+				@include v-top();
+			}
+			.v-center {
+				@include v-center();
+			}
+			.v-bottom {
+				@include v-bottom();
+			}
+
+			@include v-spacing-2();
+		}
+
+		@media (max-width: $screen-xs-max) {
+
+			// POSITIONING
+			&.overlay-full-xs {
+				@include overlay-full();
+			}
+
+			&[class*="overlay-full"] {
+				.v-top-xs {
+					@include v-top();
+				}
+				.v-center-xs {
+					@include v-center();
+				}
+				.v-bottom-xs {
+					@include v-bottom();
+				}
+			}
+		}
+
+		// TEXT COLOR
+		// HEADINGS AND PARAGRAPHS
+		&[class*="overlay-bg-grey"] {
+			.text-overlay {
+				color: #fff;
+				text-shadow: 0 2px 0 #555;
+			}
+		}
+
+		// PARAGRAPHS SIZE & LAYOUT
+		p {
+			font-size: ceil($font-size-base * 1.25);
+			margin-bottom: $line-height-computed;
+			&.lead {
+				font-size: ceil($font-size-large * 1.25);
+			}
+		}
+
+		*:last-child {
+			margin-bottom: 0;
+		}
+
+		// WHITE BACKGROUND
+		&[class*="overlay-bg-white"] {
+			.text-overlay {
+				text-shadow: none;
+				color: $text-color;
+			}
+			p.text-overlay {
+				color: $grey-900;
+			}
+		}
+
+		// BLACK BACKGROUND
+		&.overlay-bg-black {
+			.text-overlay {
+				text-shadow: 0 2px 0 fade($black, 80%);
+				color: $white;
+			}
+			p.text-overlay {
+				text-shadow: none;
+				color: $grey-200;
+			}
+		}
+	}
+
+	[class*="overlay-bg-"][class*="text-"]:not(.overlay) {
+		padding: 8px 16px;
+	}
+
+	.overlay-bg-black {
+		background: linear-gradient(to right, fadeout($black, 30%), fadeout($black, 80%));
+	}
+	.overlay-bg-white {
+		background: linear-gradient(to right, fadeout($white, 20%), fadeout($white, 40%));
+	}
+	.overlay-bg-white-fade {
+		background: linear-gradient(to right, fadeout($white, 40%), fadeout($white, 60%));
+	}
+	.overlay-bg-white-strong {
+		background: linear-gradient(to right, fadeout($white, 7%), fadeout($white, 10%));
+	}
+	.overlay-bg-grey {
+		background: linear-gradient(to right, darken(#7b7a79, 10%), fadeout(#7b7a79, 80%));
+	}
+
+	// RIBBONS
+	.ribbon-mark {
+		z-index: 5;
+		[class*="cover-navbar"] & {
+			.caret {
+				box-shadow: none;
+			}
+		}
+	}
+
+	// COVER IN CONTAINER
+	.container > & {
+		.overlay {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	.btn-cover {
+		@include button-variant(#fff, rgba(0, 0, 0, 0.5), transparent);
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.7);
+		}
+		z-index: 2;
+	}
+
+	@media (min-width: $screen-sm) {
+		overflow: hidden;
+	}
+	@media (max-width: $screen-xs) {
+		&.cover-menu {
+			overflow: visible;
+			margin-bottom: 40px + $grid-gutter-width/2;
+		}
+	}
+
+	@media (max-width: $screen-xs-max) {
+		.jumbotron {
+			padding: $jumbotron-padding/2 0;
+		}
+	}
+}

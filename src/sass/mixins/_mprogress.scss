@@ -1,0 +1,13 @@
+@mixin mprogress-variant ($bg, $lightenBuffer: 40%) {
+	.deter-bar,
+	.indeter-bar,
+	.query-bar {
+		background: $bg;
+	}
+	.buffer-bg {
+		background: lighten(adjust-hue($bg, -10deg), $lightenBuffer);
+	}
+	.peg {
+		box-shadow: 0 0 10px $bg, 0 0 5px darken($bg, 5%);
+	}
+}

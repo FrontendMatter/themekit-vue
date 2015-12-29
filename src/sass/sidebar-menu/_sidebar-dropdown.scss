@@ -1,0 +1,15 @@
+.sidebar .dropdown-container {
+	position: relative;
+	overflow: visible;
+	height: 100%;
+	width: 100%;
+	> ul {
+		position: absolute;
+		width: 100%;
+		list-style: none;
+		padding: 0;
+	}
+	li.open {
+		overflow: visible;
+	}
+}

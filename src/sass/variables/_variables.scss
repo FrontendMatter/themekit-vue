@@ -1,0 +1,301 @@
+@import "../functions/_strip-unit";
+
+// BRAND
+// Custom bootstrap model brand colors
+
+$brand-inverse: #424242 !default;
+
+// SPACING HELPERS
+
+$spacer: 1rem !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+$spacers: ();
+
+@for $i from 0 through 3 {
+	$spacers: map-merge($spacers, (
+		$i: (
+			x: $spacer-x * $i,
+			y: $spacer-y * $i
+		)
+	)) 
+}
+
+// SIZING HELPERS
+
+$sizer: 1rem !default;
+$sizer-increment: 5 !default;
+$sizers: ();
+$sizing-utils: (width: w, height: h) !default;
+
+@for $i from 1 through 20 {
+	$sizers: map-merge($sizers, (
+		$i * $sizer-increment: $sizer * $i * $sizer-increment
+	)) 
+}
+
+// BUTTON
+
+$button-font-size: 14px !default;
+
+// white
+$btn-white-color: #444 !default;
+$btn-white-hover-bg: #efefef !default;
+$btn-white-border: #efefef !default;
+
+// Inverse Button
+$btn-inverse-color: #fff !default;
+$btn-inverse-bg: $brand-inverse !default;
+$btn-inverse-border: $brand-inverse !default;
+
+// Stroke Buttons
+$btn-stroke-default-color: $text-color !default;
+$btn-stroke-default-color-hover: $text-color !default;
+$btn-stroke-primary-color: $btn-primary-bg !default;
+$btn-stroke-primary-color-hover: #fff !default;
+$btn-stroke-success-color: $btn-success-bg !default;
+$btn-stroke-success-color-hover: #fff !default;
+$btn-stroke-info-color: $btn-info-bg !default;
+$btn-stroke-info-color-hover: #fff !default;
+$btn-stroke-danger-color: $btn-danger-bg !default;
+$btn-stroke-danger-color-hover: #fff !default;
+$btn-stroke-inverse-color: $btn-inverse-bg !default;
+$btn-stroke-inverse-color-hover: #fff !default;
+$btn-stroke-warning-color: $btn-warning-bg !default;
+$btn-stroke-warning-color-hover: #fff !default;
+
+// DROPDOWN MENU
+
+// button spacing
+$dm-button-spacing-vertical: 8px !default;
+$dm-button-spacing-horizontal: 14px !default;
+
+// indicator for button with submenu
+$dm-indicator-family: 'FontAwesome' !default;
+// $dm-indicator-icon: "\f067" !default; // plus
+// $dm-open-indicator-icon: "\f068" !default; // minus
+// $dm-indicator-icon: "\f053" !default; // chevron-left
+$dm-indicator-icon: "\f054" !default; // chevron-right
+$dm-open-indicator-icon: "\f078" !default; // chevron-down
+$dm-indicator-color: #999 !default;
+
+// EXPANDABLE
+
+$expandable-bg: $body-bg !default;
+
+// FOOTER 
+
+$footer-height: 45px !default;
+
+// GRID
+
+$grid-gutter-base: 8px !default;
+$grid-gutter-2: $grid-gutter-base*2 !default;  // 16px
+$grid-gutter-3: $grid-gutter-base*3 !default;  // 24px
+$grid-gutter-4: $grid-gutter-base*4 !default;  // 32px
+$grid-gutter-5: $grid-gutter-base*5 !default;  // 40px
+$grid-gutter-6: $grid-gutter-base*6 !default;  // 48px
+$grid-gutter-7: $grid-gutter-base*7 !default;  // 56px
+$grid-gutter-8: $grid-gutter-base*8 !default;  // 64px
+$grid-gutter-9: $grid-gutter-base*9 !default;  // 72px
+$grid-gutter-10: $grid-gutter-base*10 !default;  // 80px
+$grid-gutter-11: $grid-gutter-base*11 !default;  // 88px
+
+// MEDIA 
+
+$ui-media-padding: 10px !default;
+
+// NAVBAR
+
+// general
+$navbar-img-width: 30px !default;
+$navbar-horizontal-spacing: 15px !default;
+$navbar-link-padding: $navbar-horizontal-spacing !default;
+
+// small
+$navbar-small-height: 42px !default;
+$navbar-small-padding-vertical: (($navbar-small-height - $line-height-computed) / 2);
+$navbar-small-horizontal-spacing: $navbar-horizontal-spacing !default;
+$navbar-small-link-padding: $navbar-small-horizontal-spacing !default;
+
+// medium
+$navbar-medium-font-size: 1.15rem !default;
+
+// large
+$navbar-large-height: $grid-gutter-8 !default;
+$navbar-large-padding-vertical: (($navbar-large-height - $line-height-computed) / 2);
+$navbar-large-breakpoint: $screen-md !default;
+$navbar-large-horizontal-spacing: $navbar-horizontal-spacing !default;
+$navbar-large-font-size: 1.30rem !default;
+$navbar-large-font-weight: 400 !default;
+$navbar-large-link-padding: $navbar-large-horizontal-spacing !default;
+
+// xlarge
+$navbar-xlarge-height: $grid-gutter-10 !default;
+
+// subnav
+$subnav-background: darken(#000, 13%) !default;
+$subnav-height: 70px !default;
+$subnav-link: #676767 !default;
+$navbar-secondary-padding-vertical: (($subnav-height - $line-height-computed) / 2);
+
+// default skin
+$navbar-default-dropdown-header-color: #B2B2B2 !default;
+
+// primary skin
+$navbar-primary-brand-color: #fff !default;
+$navbar-primary-background: $brand-primary !default;
+$navbar-primary-border: lighten($navbar-primary-background, 5%) !default;
+
+$navbar-sizes: (
+	small: $navbar-small-height,
+	large: $navbar-large-height,
+	xlarge: $navbar-xlarge-height
+);
+
+// PROGRESS BAR
+
+$progress-bar-height: 5px !default;
+$progress-bar-mini-height: 3px !default;
+$progress-bar-default-bg: $grey-600 !default;
+$progress-bar-inverse-bg: $brand-inverse !default;
+
+// SIDEBAR COLORS
+
+$sidebar-bg: #f7f7f7 !default;
+$sidebar-text-color: #212121 !default;
+
+// borders
+$sidebar-container-border-color: darken($sidebar-bg, 6.5%) !default;
+$sidebar-container-border-width: 1px !default;
+
+// category, heading
+$sidebar-category-color: #999 !default;
+$sidebar-heading-color: $sidebar-category-color !default;
+
+// sidebar elements borders
+$sidebar-border-color: darken($sidebar-bg, 6.5%) !default;
+
+// sidebar brand
+$sidebar-brand-bg: $brand-primary !default;
+$sidebar-brand-color: #fff !default;
+
+// list group menu
+$sidebar-list-group-menu-item-bg: darken($sidebar-bg, 4%) !default;
+$sidebar-list-group-menu-item-border-color: $sidebar-bg !default;
+
+// menu item
+$sm-item-border-color: $sidebar-border-color !default;
+
+// menu button
+$sm-button-color: $sidebar-text-color !default;
+
+// icons
+$sm-icon-color: $sm-button-color !default;
+$sm-icon-bg: darken($sidebar-bg, 6.5%) !default;
+
+// menu icon with sm-icons-block
+$sm-iconsblock-icon-color: $sm-icon-color !default;
+
+// open menu button
+$sm-open-button-color: $brand-primary !default;
+$sm-open-button-bg: transparent !default;
+
+// open menu icon
+$sm-open-icon-color: $sm-open-button-color !default;
+$sm-open-icon-bg: $sm-icon-bg !default;
+
+// active menu button
+$sm-active-button-color: $brand-primary !default;
+$sm-active-button-bg: $brand-primary !default;
+$sm-active-icon-color: $sm-active-button-color !default;
+
+// active menu button with sm-active-button-bg
+$sm-activebuttonbg-button-color: #fff !default;
+$sm-activebuttonbg-icon-color: $sm-activebuttonbg-button-color !default;
+
+// active menu button with sm-icons-block
+$sm-active-iconsblock-icon-bg: $sm-active-button-bg !default;
+
+// active menu button with sm-icons-block AND sm-active-button-bg
+$sm-active-iconsblock-activebuttonbg-icon-bg: $sm-active-iconsblock-icon-bg !default;
+
+// menu toggle button indicator
+$sm-toggle-color: $sm-button-color !default;
+$sm-open-toggle-color: $sm-open-button-color !default;
+
+// SIDEBAR SIZING, SPACING, OTHER
+
+// sidebar sizes
+$sidebar-width-1: 56px !default;
+$sidebar-width-2: 200px !default;
+$sidebar-width-3: 250px !default;
+
+// default sidebar size
+$sidebar-width: $sidebar-width-2 !default;
+
+// minimum width for percentage sidebar sizes
+$sidebar-width-pc-min: 25 !default;
+
+// brand
+$sidebar-brand-height: $navbar-height !default;
+
+// Positioning
+$sidebar-top: $navbar-height !default;
+
+// general spacing
+$sidebar-spacing-horizontal: 16px !default;
+
+// menu spacing
+$sm-spacing-horizontal: $sidebar-spacing-horizontal !default;
+$sm-spacing-vertical: $sidebar-spacing-horizontal !default;
+$sm-button-spacing: $sidebar-spacing-horizontal !default;
+$ssm-ssm-spacing-horizontal: $sidebar-spacing-horizontal !default;
+
+// menu buttons
+$sm-button-font-size: 1rem !default;
+$sm-button-font-weight: 400 !default;
+$sm-button-height: 38px !default;
+
+// menu condensed buttons
+$sm-condensed-button-height: $sm-button-height - ($sm-button-height/4) !default;
+
+// menu icons
+$sm-icon-font-size: $font-size-base * strip-unit($sm-button-font-size) !default;
+$sm-icon-width: $sm-icon-font-size + ($sm-icon-font-size / 2) !default;
+$sm-icon-margin: $sidebar-spacing-horizontal * 0.4 !default;
+
+// active buttons
+$sm-active-button-font-weight: $sm-button-font-weight !default;
+
+// submenu buttons
+$ssm-button-height: 30px !default;
+$ssm-button-font-size: 0.9rem !default;
+
+// submenu condensed buttons
+$ssm-condensed-button-height: $ssm-button-height - ($ssm-button-height/4) !default;
+
+// submenu icons
+$ssm-icon-font-size: $font-size-base !default;
+
+// menu toggle button indicator
+$sm-toggle-family: 'FontAwesome' !default;
+// $sm-toggle-icon: "\f067" !default; // plus
+// $sm-open-toggle-icon: "\f068" !default; // minus
+$sm-toggle-icon: "\f078" !default; // chevron-down
+$sm-open-toggle-icon: "\f077" !default; // chevron-up
+
+// Category
+$sidebar-category-height: $sm-button-height !default;
+$sidebar-category-font-size: $font-size-h5 !default;
+$sidebar-category-font-weight: $headings-font-weight !default;
+$sidebar-category-font-family: $font-family-base !default;
+$sidebar-category-text-transform: none !default;
+$sidebar-category-letter-spacing: normal !default;
+
+// Toggle Bar
+$sidebar-toggle-bar-width: 10px !default;
+
+// SCREEN 
+$screen-xl: 1600px !default;
+$screen-xxl: 2100px !default;

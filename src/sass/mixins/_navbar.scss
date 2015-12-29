@@ -1,0 +1,9 @@
+@mixin navbar-size-vertical-align($element-height, $size) {
+	$height: map-get($navbar-sizes, $size);
+	margin-top: (($height - $element-height) / 2);
+	margin-bottom: (($height - $element-height) / 2);
+}
+@mixin navbar-secondary-vertical-align($element-height) {
+	margin-top: (($subnav-height - $element-height) / 2);
+	margin-bottom: (($subnav-height - $element-height) / 2);
+}

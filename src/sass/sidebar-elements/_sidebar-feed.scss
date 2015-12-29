@@ -1,0 +1,31 @@
+.sidebar-feed {
+	padding: 0;
+	margin: 0;
+	.sidebar-feed-item {
+		font-size: 0.92rem;
+		padding: 8px $sidebar-spacing-horizontal;
+		margin: 1px 0;
+		.media-body {
+			height: auto !important;
+			a {
+				padding: 0;
+				display: inline-block;
+				line-height: 10px;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+			.time {
+				font-size: 11px;
+				font-weight: normal;
+				display: block;
+			}
+		}
+	}
+	.sidebar-feed-status {
+		font-size: 6px;
+	}
+	.sidebar-feed-unread .sidebar-feed-status {
+		color: $brand-success;
+	}
+}

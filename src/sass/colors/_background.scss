@@ -1,0 +1,122 @@
+@import "../mixins/colors/class-from-color";
+
+// AMBER
+@include class-from-color(background-color, "bg", "amber", 100);
+@include class-from-color-a(background-color, "bg", "amber", "A100");
+@include class-from-color-a(background-color, "bg", "amber", "A200");
+@include class-from-color-a(background-color, "bg", "amber", "A400");
+@include class-from-color-a(background-color, "bg", "amber", "A700");
+
+// BLUE
+@include class-from-color(background-color, "bg", "blue", 100);
+@include class-from-color-a(background-color, "bg", "blue", "A100");
+@include class-from-color-a(background-color, "bg", "blue", "A200");
+@include class-from-color-a(background-color, "bg", "blue", "A400");
+@include class-from-color-a(background-color, "bg", "blue", "A700");
+
+// BLUE GREY
+@include class-from-color(background-color, "bg", "blue-grey", 100);
+
+// BROWN
+@include class-from-color(background-color, "bg", "brown", 100);
+
+// CYAN
+@include class-from-color(background-color, "bg", "cyan", 100);
+@include class-from-color-a(background-color, "bg", "cyan", "A100");
+@include class-from-color-a(background-color, "bg", "cyan", "A200");
+@include class-from-color-a(background-color, "bg", "cyan", "A400");
+@include class-from-color-a(background-color, "bg", "cyan", "A700");
+
+// DEEP ORANGE
+@include class-from-color(background-color, "bg", "deep-orange", 100);
+@include class-from-color-a(background-color, "bg", "deep-orange", "A100");
+@include class-from-color-a(background-color, "bg", "deep-orange", "A200");
+@include class-from-color-a(background-color, "bg", "deep-orange", "A400");
+@include class-from-color-a(background-color, "bg", "deep-orange", "A700");
+
+// DEEP PURPLE
+@include class-from-color(background-color, "bg", "deep-purple", 100);
+@include class-from-color-a(background-color, "bg", "deep-purple", "A100");
+@include class-from-color-a(background-color, "bg", "deep-purple", "A200");
+@include class-from-color-a(background-color, "bg", "deep-purple", "A400");
+@include class-from-color-a(background-color, "bg", "deep-purple", "A700");
+
+// GREEN
+@include class-from-color(background-color, "bg", "green", 100);
+@include class-from-color-a(background-color, "bg", "green", "A100");
+@include class-from-color-a(background-color, "bg", "green", "A200");
+@include class-from-color-a(background-color, "bg", "green", "A400");
+@include class-from-color-a(background-color, "bg", "green", "A700");
+
+// GREY
+@include class-from-color(background-color, "bg", "grey", 100);
+
+// INDIGO
+@include class-from-color(background-color, "bg", "indigo", 100);
+@include class-from-color-a(background-color, "bg", "indigo", "A100");
+@include class-from-color-a(background-color, "bg", "indigo", "A200");
+@include class-from-color-a(background-color, "bg", "indigo", "A400");
+@include class-from-color-a(background-color, "bg", "indigo", "A700");
+
+// LIGHT BLUE
+@include class-from-color(background-color, "bg", "light-blue", 100);
+@include class-from-color-a(background-color, "bg", "light-blue", "A100");
+@include class-from-color-a(background-color, "bg", "light-blue", "A200");
+@include class-from-color-a(background-color, "bg", "light-blue", "A400");
+@include class-from-color-a(background-color, "bg", "light-blue", "A700");
+
+// LIGHT GREEN
+@include class-from-color(background-color, "bg", "light-green", 100);
+@include class-from-color-a(background-color, "bg", "light-green", "A100");
+@include class-from-color-a(background-color, "bg", "light-green", "A200");
+@include class-from-color-a(background-color, "bg", "light-green", "A400");
+@include class-from-color-a(background-color, "bg", "light-green", "A700");
+
+// LIME
+@include class-from-color(background-color, "bg", "lime", 100);
+@include class-from-color-a(background-color, "bg", "lime", "A100");
+@include class-from-color-a(background-color, "bg", "lime", "A200");
+@include class-from-color-a(background-color, "bg", "lime", "A400");
+@include class-from-color-a(background-color, "bg", "lime", "A700");
+
+// ORANGE
+@include class-from-color(background-color, "bg", "orange", 100);
+@include class-from-color-a(background-color, "bg", "orange", "A100");
+@include class-from-color-a(background-color, "bg", "orange", "A200");
+@include class-from-color-a(background-color, "bg", "orange", "A400");
+@include class-from-color-a(background-color, "bg", "orange", "A700");
+
+// PINK
+@include class-from-color(background-color, "bg", "pink", 100);
+@include class-from-color-a(background-color, "bg", "pink", "A100");
+@include class-from-color-a(background-color, "bg", "pink", "A200");
+@include class-from-color-a(background-color, "bg", "pink", "A400");
+@include class-from-color-a(background-color, "bg", "pink", "A700");
+
+// PURPLE
+@include class-from-color(background-color, "bg", "purple", 100);
+@include class-from-color-a(background-color, "bg", "purple", "A100");
+@include class-from-color-a(background-color, "bg", "purple", "A200");
+@include class-from-color-a(background-color, "bg", "purple", "A400");
+@include class-from-color-a(background-color, "bg", "purple", "A700");
+
+// RED
+@include class-from-color(background-color, "bg", "red", 100);
+@include class-from-color-a(background-color, "bg", "red", "A100");
+@include class-from-color-a(background-color, "bg", "red", "A200");
+@include class-from-color-a(background-color, "bg", "red", "A400");
+@include class-from-color-a(background-color, "bg", "red", "A700");
+
+// TEAL
+@include class-from-color(background-color, "bg", "teal", 100);
+@include class-from-color-a(background-color, "bg", "teal", "A100");
+@include class-from-color-a(background-color, "bg", "teal", "A200");
+@include class-from-color-a(background-color, "bg", "teal", "A400");
+@include class-from-color-a(background-color, "bg", "teal", "A700");
+
+// YELLOW
+@include class-from-color(background-color, "bg", "yellow", 100);
+@include class-from-color-a(background-color, "bg", "yellow", "A100");
+@include class-from-color-a(background-color, "bg", "yellow", "A200");
+@include class-from-color-a(background-color, "bg", "yellow", "A400");
+@include class-from-color-a(background-color, "bg", "yellow", "A700");

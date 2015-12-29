@@ -1,0 +1,13 @@
+.sidebar .slider {
+	margin-bottom: $sidebar-spacing-horizontal;
+	margin-top: 0;
+	&.media {
+		margin-bottom: 0;
+	}
+	.slider-handle {
+		color: $brand-primary;
+	}
+	.tooltip-inner {
+		font-weight: bold;
+	}
+}

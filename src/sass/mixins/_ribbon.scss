@@ -1,0 +1,27 @@
+@mixin ribbon-heading-variant($ribbon-bg, $shadow-color, $ribbon-text) {
+	background-color: $ribbon-bg;
+	color: $ribbon-text;
+	&.bottom-left:before,
+	&.bottom-right:before,
+	&.bottom-left-right:before,
+	&.bottom-left-right:after {
+		border-top-color: $shadow-color;
+	}
+	&.top-left:before,
+	&.top-right:before,
+	&.top-left-right:before,
+	&.top-left-right:after {
+		border-bottom-color: $shadow-color;
+	}
+}
+@mixin ribbon-mark-variant($shadow-color, $ribbon-bg, $ribbon-text-color) {
+	&:before {
+		background: linear-gradient(160deg, $shadow-color 50%, transparent 50%);
+	}
+	&:after {
+		background: linear-gradient(-160deg, $ribbon-bg 50%, transparent 50%);
+	}
+	.text {
+		color: $ribbon-text-color;
+	}
+}

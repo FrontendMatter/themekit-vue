@@ -1,0 +1,28 @@
+.list-group .list-group-item {
+	&.active {
+		&, > a {
+			color: #fff;
+		}
+	}
+	> *:last-child {
+		margin-bottom: 0 !important;
+	}
+}
+div.list-group > .list-group-item {
+	padding: $panel-body-padding;
+}
+.list-group-fit {
+	padding: 0;
+	margin: 0;
+	.list-group-item {
+		border-left: none;
+		border-right: none;
+		border-radius: 0;
+		&:first-of-type {
+			border-top: none;
+		}
+		&:last-of-type {
+			border-bottom: none;
+		}
+	}
+}

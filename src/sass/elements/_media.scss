@@ -1,0 +1,79 @@
+@import "../mixins/media";
+
+.media-heading {
+    margin-bottom: 10px;
+    > a {
+        color: @text-color;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+.media-right,
+.media > .pull-right {
+    padding-left: @ui-media-padding;
+}
+
+.media-left,
+.media > .pull-left {
+    padding-right: @ui-media-padding;
+}
+.media-grid {
+    > .pull-left {
+        margin-right: @grid-gutter-width / 2;
+    }
+    > .pull-right {
+        margin-left: @grid-gutter-width / 2;
+    }
+    > .media-left {
+        padding-right: @grid-gutter-width / 2;
+    }
+    > .media-right {
+        padding-left: @grid-gutter-width / 2;
+    }
+}
+@media (max-width: @screen-xs) {
+    .media-clearfix-xs-min {
+        @include media-clearfix();
+    }
+}
+@media (max-width: @screen-xs-max) {
+    .media-clearfix-xs {
+        @include media-clearfix();
+    }
+}
+@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+    .media-clearfix-sm {
+        @include media-clearfix();
+    }
+}
+.media.v-middle {
+    .media-left, .media-right, .media-body {
+        vertical-align: middle;
+    }
+    .media-body > *:first-child {
+        margin-top: 0;
+    }
+}
+.media.list-group-item {
+    margin-top: 0;
+}
+.media-padding {
+    &.media-left {
+        padding-left: @ui-media-padding;
+    }
+    &.media-right {
+        padding-right: @ui-media-padding;
+    }
+}
+.media-body > *:last-child {
+    margin-bottom: 0;
+}
+.media.media-overflow-visible {
+    overflow: visible;
+    > .media-body,
+	> .media-left,
+	> .media-right {
+        overflow: visible;
+    }
+}

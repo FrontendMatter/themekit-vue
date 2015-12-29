@@ -1,0 +1,200 @@
+@import "../mixins/tabs";
+
+// GENERAL
+.tabbable {
+	margin-bottom: $line-height-computed;
+	border-radius: $border-radius-base;
+	// HORIZONTAL SCROLL
+	> .nav-tabs {
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space:nowrap;
+		> li {
+			float: none;
+			display:inline-block;
+		}
+	}
+}
+.tab-content {
+	padding: $grid-gutter-width/2;
+	background: #fff;
+	border-bottom-left-radius: $border-radius-base;
+	border-bottom-right-radius: $border-radius-base;
+	h1, h2, h3, h4, h5, h6 {
+		&.tab-content-heading {
+			margin: 0 0 10px;
+		}
+	}
+}
+// DEFAULT STYLE
+.nav-tabs {
+    font-weight: 500;
+	border-bottom: none;
+    > li {
+		> a {
+			color: $grey-500;
+			&:hover {
+				background: transparent;
+				border-color: transparent;
+			}
+		}
+		&.active > a, &.active a:focus, &.active a:hover {
+			color: $brand-primary;
+		}
+		&:first-of-type {
+			> a, > a:hover {
+				border-left-color: transparent;
+			}
+		}
+    }
+	[class*="tabs-highlight"] & {
+		border-bottom: 1px solid $nav-tabs-border-color;
+		> li.active:after {
+			display: block;
+			position: absolute;
+			background-color: $brand-primary;
+			content: " ";
+			left: 0;
+			right: 0;
+			height: 2px;
+		}
+	}
+	.tabs-highlight-top & {
+		> li.active:after {
+			top: 0;
+		}
+	}
+	.tabs-highlight-bottom & {
+		> li.active:after {
+			bottom: 0;
+		}
+	}
+}
+// PRIMARY STYLE
+.tabs-primary {
+	> .nav-tabs {
+		> li.active {
+			> a, > a:focus, > a:hover {
+				background-color: $brand-primary;
+				color: #fff;
+				border-right-color: $brand-primary;
+			}
+		}
+	}
+}
+// VERTICAL TABS
+.tabs-vertical {
+	> .tab-content {
+		position: relative;
+		overflow: hidden;
+	}
+	&:after {
+		clear: both;
+		display: block;
+		content: "";
+	}
+	// ANY SCREEN SIZE
+	// EXCEPT MOBILE
+	@media (min-width: $screen-sm) {
+		&.tabs-left, &.tabs-right {
+			@include tabs-vertical-style();
+		}
+		&.tabs-left {
+			@include tabs-vertical-left();
+		}
+		&.tabs-right {
+			@include tabs-vertical-right();
+		}
+	}
+	// MEDIUM DESKTOP SCREENS
+	&.tabs-left-md, &.tabs-right-md {
+		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+			@include tabs-vertical-style();
+		}
+	}
+	&.tabs-left-md {
+		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+			@include tabs-vertical-left();
+		}
+	}
+	&.tabs-right-md {
+		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+			@include tabs-vertical-right();
+		}
+	}
+	// LARGE DESKTOP SCREENS
+	&.tabs-left-lg, &.tabs-right-lg {
+		@media (min-width: $screen-lg) {
+			@include tabs-vertical-style();
+		}
+	}
+	&.tabs-left-lg {
+		@media (min-width: $screen-lg) {
+			@include tabs-vertical-left();
+		}
+	}
+	&.tabs-right-lg {
+		@media (min-width: $screen-lg) {
+			@include tabs-vertical-right();
+		}
+	}
+}
+// ICONS ONLY
+.tabs-icons > .nav-tabs {
+    > li {
+        margin-left:0;
+		a {
+			i {
+				font-size: 18px;
+			}
+		}
+    }
+}
+// ICONS + TEXT ON MULTIPLE LINES
+.tabs-blocks .nav-tabs {
+    > li > a {
+        height: 60px;
+        line-height: 18px;
+		text-align: center;
+		padding: ($nav-link-padding);
+    }
+    a i {
+        display: block;
+        font-size: 18px;
+        padding: 0;
+    }
+}
+// POSITIONING
+.tabs-center-h {
+	> .nav-tabs {
+		text-align: center;
+		padding-left: $grid-gutter-width/2;
+		padding-right: $grid-gutter-width/2;
+		&[class*="tabs-responsive-"] {
+			padding-left: 0;
+			padding-right: 0;
+		}
+		> li {
+			float: none;
+			display: inline-block;
+		}
+	}
+}
+@media (max-width: $screen-xs) {
+	.nav-tabs.tabs-responsive-xs > li {
+		float: none;
+		display: block;
+		> a {
+			margin: 0;
+		}
+	}
+}
+@media (max-width: $screen-sm) {
+	.nav-tabs.tabs-responsive-sm > li {
+		float: none;
+		display: block;
+		> a {
+			margin: 0;
+		}
+	}
+}

@@ -1,0 +1,71 @@
+@import "../mixins/sidebar/mini";
+
+@media (min-width: $screen-sm) {
+	.sidebar-mini {
+		@include sidebar-mini();
+	}
+	.no-csstransforms3d .sidebar-mini-reveal {
+		@include sidebar-mini();
+	}
+	.csstransforms3d .sidebar-mini-reveal {
+		z-index: 1031; // > navbar
+		transition: transform 0.5s;
+		.sidebar-menu > .sidebar-menu-item > .sidebar-menu-button span {
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+		&.sidebar-mini-reveal-size-2 {
+			&, .dropdown-container, .dropdown-container > ul {
+				width: $sidebar-width-2;
+			}
+			&.left {
+				transform: translate3d(-($sidebar-width-2 - $sidebar-width-1), 0, 0) !important;
+			}
+			&.right {
+				transform: translate3d(($sidebar-width-2 - $sidebar-width-1), 0, 0) !important;
+			}
+		}
+		&.sidebar-mini-reveal-size-3 {
+			&, .dropdown-container, .dropdown-container > ul {
+				width: $sidebar-width-3;
+			}
+			&.left {
+				transform: translate3d(-($sidebar-width-3 - $sidebar-width-1), 0, 0) !important;
+			}
+			&.right {
+				transform: translate3d(($sidebar-width-3 - $sidebar-width-1), 0, 0) !important;
+			}
+		}
+		.sidebar-category, 
+		.sidebar-block {
+			display: block;
+			opacity: 0;
+			transition-delay: 0.2s;
+			transition-timing-function: ease-in-out;
+			transition-property: opacity;
+			transition-duration: 0.3s;
+		}
+		&:hover {
+			&, 
+			&.sidebar-mini-reveal-size-2, 
+			&.sidebar-mini-reveal-size-3 {
+				transform: translate3d(0, 0, 0) !important;
+			}
+			.sidebar-category, 
+			.sidebar-block {
+				opacity: 1;
+			}
+			.sidebar-menu > .sidebar-menu-item > .sidebar-menu-button span {
+				opacity: 1;
+				display: inline-block;
+			}
+		}
+	}
+}
+
+// ONLY SMALL to MEDIUM
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+	.sidebar-mini-sm {
+		@include sidebar-mini();
+	}
+}

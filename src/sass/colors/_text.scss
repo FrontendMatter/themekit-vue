@@ -1,0 +1,122 @@
+@import "../mixins/colors/class-from-color";
+
+// AMBER
+@include class-from-color(color, "text", "amber", 100);
+@include class-from-color-a(color, "text", "amber", "A100");
+@include class-from-color-a(color, "text", "amber", "A200");
+@include class-from-color-a(color, "text", "amber", "A400");
+@include class-from-color-a(color, "text", "amber", "A700");
+
+// BLUE
+@include class-from-color(color, "text", "blue", 100);
+@include class-from-color-a(color, "text", "blue", "A100");
+@include class-from-color-a(color, "text", "blue", "A200");
+@include class-from-color-a(color, "text", "blue", "A400");
+@include class-from-color-a(color, "text", "blue", "A700");
+
+// BLUE GREY
+@include class-from-color(color, "text", "blue-grey", 100);
+
+// BROWN
+@include class-from-color(color, "text", "brown", 100);
+
+// CYAN
+@include class-from-color(color, "text", "cyan", 100);
+@include class-from-color-a(color, "text", "cyan", "A100");
+@include class-from-color-a(color, "text", "cyan", "A200");
+@include class-from-color-a(color, "text", "cyan", "A400");
+@include class-from-color-a(color, "text", "cyan", "A700");
+
+// DEEP ORANGE
+@include class-from-color(color, "text", "deep-orange", 100);
+@include class-from-color-a(color, "text", "deep-orange", "A100");
+@include class-from-color-a(color, "text", "deep-orange", "A200");
+@include class-from-color-a(color, "text", "deep-orange", "A400");
+@include class-from-color-a(color, "text", "deep-orange", "A700");
+
+// DEEP PURPLE
+@include class-from-color(color, "text", "deep-purple", 100);
+@include class-from-color-a(color, "text", "deep-purple", "A100");
+@include class-from-color-a(color, "text", "deep-purple", "A200");
+@include class-from-color-a(color, "text", "deep-purple", "A400");
+@include class-from-color-a(color, "text", "deep-purple", "A700");
+
+// GREEN
+@include class-from-color(color, "text", "green", 100);
+@include class-from-color-a(color, "text", "green", "A100");
+@include class-from-color-a(color, "text", "green", "A200");
+@include class-from-color-a(color, "text", "green", "A400");
+@include class-from-color-a(color, "text", "green", "A700");
+
+// GREY
+@include class-from-color(color, "text", "grey", 100);
+
+// INDIGO
+@include class-from-color(color, "text", "indigo", 100);
+@include class-from-color-a(color, "text", "indigo", "A100");
+@include class-from-color-a(color, "text", "indigo", "A200");
+@include class-from-color-a(color, "text", "indigo", "A400");
+@include class-from-color-a(color, "text", "indigo", "A700");
+
+// LIGHT BLUE
+@include class-from-color(color, "text", "light-blue", 100);
+@include class-from-color-a(color, "text", "light-blue", "A100");
+@include class-from-color-a(color, "text", "light-blue", "A200");
+@include class-from-color-a(color, "text", "light-blue", "A400");
+@include class-from-color-a(color, "text", "light-blue", "A700");
+
+// LIGHT GREEN
+@include class-from-color(color, "text", "light-green", 100);
+@include class-from-color-a(color, "text", "light-green", "A100");
+@include class-from-color-a(color, "text", "light-green", "A200");
+@include class-from-color-a(color, "text", "light-green", "A400");
+@include class-from-color-a(color, "text", "light-green", "A700");
+
+// LIME
+@include class-from-color(color, "text", "lime", 100);
+@include class-from-color-a(color, "text", "lime", "A100");
+@include class-from-color-a(color, "text", "lime", "A200");
+@include class-from-color-a(color, "text", "lime", "A400");
+@include class-from-color-a(color, "text", "lime", "A700");
+
+// ORANGE
+@include class-from-color(color, "text", "orange", 100);
+@include class-from-color-a(color, "text", "orange", "A100");
+@include class-from-color-a(color, "text", "orange", "A200");
+@include class-from-color-a(color, "text", "orange", "A400");
+@include class-from-color-a(color, "text", "orange", "A700");
+
+// PINK
+@include class-from-color(color, "text", "pink", 100);
+@include class-from-color-a(color, "text", "pink", "A100");
+@include class-from-color-a(color, "text", "pink", "A200");
+@include class-from-color-a(color, "text", "pink", "A400");
+@include class-from-color-a(color, "text", "pink", "A700");
+
+// PURPLE
+@include class-from-color(color, "text", "purple", 100);
+@include class-from-color-a(color, "text", "purple", "A100");
+@include class-from-color-a(color, "text", "purple", "A200");
+@include class-from-color-a(color, "text", "purple", "A400");
+@include class-from-color-a(color, "text", "purple", "A700");
+
+// RED
+@include class-from-color(color, "text", "red", 100);
+@include class-from-color-a(color, "text", "red", "A100");
+@include class-from-color-a(color, "text", "red", "A200");
+@include class-from-color-a(color, "text", "red", "A400");
+@include class-from-color-a(color, "text", "red", "A700");
+
+// TEAL
+@include class-from-color(color, "text", "teal", 100);
+@include class-from-color-a(color, "text", "teal", "A100");
+@include class-from-color-a(color, "text", "teal", "A200");
+@include class-from-color-a(color, "text", "teal", "A400");
+@include class-from-color-a(color, "text", "teal", "A700");
+
+// YELLOW
+@include class-from-color(color, "text", "yellow", 100);
+@include class-from-color-a(color, "text", "yellow", "A100");
+@include class-from-color-a(color, "text", "yellow", "A200");
+@include class-from-color-a(color, "text", "yellow", "A400");
+@include class-from-color-a(color, "text", "yellow", "A700");

@@ -1,0 +1,10 @@
+.badge {
+	&.badge-primary {
+	    background: $brand-primary;
+	    color:#fff;
+	}
+	&.badge-danger {
+	    background: $brand-danger;
+	    color:#fff;
+	}
+}

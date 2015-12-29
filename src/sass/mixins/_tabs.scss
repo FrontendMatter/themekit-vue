@@ -1,0 +1,40 @@
+@mixin tabs-vertical-style() {
+	> .nav-tabs {
+		border-bottom: none;
+		> li {
+			display: block;
+			float: none;
+			&.active {
+				margin-bottom: 0;
+				border-top: 1px solid $panel-default-border;
+				border-bottom: 1px solid $panel-default-border;
+				&:first-of-type {
+					border-top: none;
+				}
+				&:last-of-type {
+					border-bottom: none;
+				}
+				a {
+					margin: 0;
+					border: none;
+				}
+			}
+		}
+	}
+}
+@mixin tabs-vertical-left() {
+	> .nav-tabs {
+		float: left;
+	}
+	.tab-content {
+		border-top-right-radius: $border-radius-base;
+	}
+}
+@mixin tabs-vertical-right() {
+	> .nav-tabs {
+		float: right;
+	}
+	.tab-content {
+		border-top-left-radius: $border-radius-base;
+	}
+}

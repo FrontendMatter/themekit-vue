@@ -1,0 +1,22 @@
+.label {
+    padding: $padding-small-vertical $padding-small-horizontal;
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+    border-radius: $border-radius-base;
+    display: inline-block;
+}
+.label-primary {
+    @include label-variant($brand-primary);
+}
+.label-grey-300 {
+    @include label-variant($grey-300);
+    color: $grey-500;
+}
+.label-grey-200 {
+    @include label-variant($grey-200);
+    color: $grey-500;
+}
+.label-grey-100 {
+    @include label-variant($grey-100);
+    color: $grey-500;
+}

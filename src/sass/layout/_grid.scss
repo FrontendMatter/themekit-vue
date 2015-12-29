@@ -1,0 +1,23 @@
+.row {
+	margin: 0 -$grid-gutter-width/4;
+	[class*="col-"] {
+		padding-left: $grid-gutter-width/4;
+		padding-right: $grid-gutter-width/4;
+	}
+}
+.form-horizontal .form-group {
+	margin-left: -$grid-gutter-width/4;
+	margin-right: -$grid-gutter-width/4;
+}
+
+// Columns, offsets, pushes, and pulls for the large and extra large desktop device ranges.
+
+// Large bootstrap grid
+@media (min-width: $screen-xl) {
+	@include make-grid(xl);
+}
+
+// Extra large bootstrap grid
+@media (min-width: $screen-xxl) {
+	@include make-grid(xxl);
+}

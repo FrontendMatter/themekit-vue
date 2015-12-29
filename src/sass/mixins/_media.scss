@@ -1,0 +1,27 @@
+@mixin media-clearfix() {
+    > .pull-left, > .pull-right,
+    > .media-left, > .media-right {
+        float: none !important;
+        margin-bottom: $grid-gutter-width/2;
+        margin-left: 0;
+        margin-right: 0;
+        display: block;
+        height: auto !important;
+        padding: 0 !important;
+    }
+    > [class*="media"] .media-object {
+        width: 100% !important;
+        height: auto !important;
+    }
+    > .media-body {
+        width: auto;
+        display: block;
+    }
+    > .media-left, > .pull-left {
+        text-align: center;
+    }
+    > .media-right {
+        margin-bottom: 0;
+        margin-top: $grid-gutter-width/2;
+    }
+}

@@ -1,0 +1,55 @@
+.navbar-content {
+	@media (min-width: $screen-sm) {
+		&[class*="top-navbar"] .sidebar {
+			top: 0;
+		}
+		&.show-sidebar {
+			&[class*="sidebar-l1"] .navbar {
+				left: $sidebar-width-1;
+			}
+			&[class*="sidebar-l2"] .navbar {
+				left: $sidebar-width-2;
+			}
+			&[class*="sidebar-l3"] .navbar {
+				left: $sidebar-width-3;
+			}
+			&[class*="sidebar-r1"] .navbar {
+				right: $sidebar-width-1;
+			}
+			&[class*="sidebar-r2"] .navbar {
+				right: $sidebar-width-2;
+			}
+			&[class*="sidebar-r3"] .navbar {
+				right: $sidebar-width-3;
+			}
+		}
+		.navbar > .container-fluid {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	// layout transitions
+	.st-container {
+		padding-top: 0;
+	}
+	&.show-sidebar[class*="st-effect"] [slot="navbar-content"] {
+		left: 0;
+		right: 0;
+	}
+
+	// fixed=top
+	&[class*="top-navbar"] .st-container {
+		.layout-content {
+			padding-top: $navbar-height;
+		}
+		.sidebar {
+			top: 0;
+		}
+	}
+	&[class="ls-top-navbar"] .st-container .layout-content {
+		padding-top: $navbar-height + ($grid-gutter-width/2);
+	}
+
+	// $TODO: add support for fixed=bottom
+}

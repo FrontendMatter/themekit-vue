@@ -1,0 +1,127 @@
+// condensed menu items
+.sm-condensed {
+	.sidebar-menu-button {
+		height: $sm-condensed-button-height;
+		line-height: $sm-condensed-button-height;
+	}
+	.sidebar-submenu .sidebar-menu-button {
+		height: $ssm-condensed-button-height;
+		line-height: $ssm-condensed-button-height;
+	}
+}
+// bordered menu
+.sm-bordered {
+	border-bottom: 1px solid $sidebar-border-color;
+}
+// bordered menu item
+.sm-item-bordered {
+	> .sidebar-menu-item {
+		border-bottom: 1px solid $sm-item-border-color;
+		&:last-of-type {
+			border-bottom: none;
+		}
+	}
+	.sidebar-submenu {
+		border-bottom: none;
+	}
+}
+// block icons
+.sm-icons-block {
+	.sidebar-menu-icon {
+		text-align: center;
+		display: inline-block;
+		height: $sm-icon-font-size + 10px;
+		line-height: $sm-icon-font-size + 10px;
+		width: $sm-icon-font-size + 10px;
+		background: $sm-icon-bg;
+		color: $sm-iconsblock-icon-color;
+	}
+	.sidebar-submenu .sidebar-menu-icon {
+		height: $ssm-icon-font-size + 6px;
+		line-height: $ssm-icon-font-size + 6px;
+		width: $ssm-icon-font-size + 6px;
+	}
+	.open > .sidebar-menu-button .sidebar-menu-icon {
+		color: $sm-open-icon-color;
+		background: $sm-open-icon-bg;
+	}
+	.active > .sidebar-menu-button .sidebar-menu-icon {
+		background: $sm-active-iconsblock-icon-bg;
+		color: $sm-activebuttonbg-icon-color;
+	}
+	&.sm-active-button-bg {
+		.active > .sidebar-menu-button .sidebar-menu-icon {
+			background: $sm-active-iconsblock-activebuttonbg-icon-bg;
+		}
+	}
+}
+// icons on right
+// .sidebar:not([class*="sidebar-mini"]),
+// .csstransforms3d .sidebar[class*="sidebar-mini-reveal"] {
+// }
+.sm-icons-right {
+	.sidebar-menu-icon {
+		position: absolute;
+		right: $sidebar-spacing-horizontal - $sm-spacing-horizontal;
+		top: ($sm-button-height - ($sm-icon-font-size)) / 2;
+		margin-right: 0;
+	}
+	.sidebar-submenu .sidebar-menu-icon {
+		right: ($sidebar-spacing-horizontal - $sm-spacing-horizontal) + ((($sm-icon-font-size + 10px) - ($ssm-icon-font-size + 6px)) / 2);
+		top: ($ssm-button-height - $ssm-icon-font-size) / 2;
+	}
+	.hasSubmenu .sidebar-menu-button:before {
+		font-size: $sm-icon-font-size;
+		right: ($sidebar-spacing-horizontal - $sm-spacing-horizontal) + ($sm-icon-font-size + 5px) + $sm-icon-font-size + 5px;
+	}
+	&.sm-icons-block {
+		.sidebar-menu-icon {
+			top: ($sm-button-height - ($sm-icon-font-size + 10px)) / 2;	
+		}
+		.sidebar-submenu .sidebar-menu-icon {
+			top: ($ssm-button-height - ($ssm-icon-font-size + 6px)) / 2;
+		}
+	}
+	&.sm-condensed {
+		> .sidebar-menu-item .sidebar-menu-icon {
+			top: ($sm-condensed-button-height - ($sm-icon-font-size)) / 2;
+		}
+		&.sm-icons-block {
+			> .sidebar-menu-item .sidebar-menu-icon {
+				top: ($sm-condensed-button-height - ($sm-icon-font-size + 10px)) / 2;
+			}	
+		}
+	}
+}
+// bordered submenu
+.ssm-bordered {
+	.sidebar-submenu {
+		border-bottom: 1px solid $sidebar-border-color;
+	}
+}
+// bordered submenu item
+.ssm-item-bordered {
+	.sidebar-submenu .sidebar-menu-item {
+		border-bottom: 1px solid $sidebar-border-color;
+		&:last-of-type {
+			border-bottom: none;
+		}
+	}
+	.sidebar-submenu {
+		border-bottom: none;
+	}
+}
+// active button background
+.sm-active-button-bg {
+	.active > .sidebar-menu-button {
+		background: $sm-active-button-bg;
+		color: $sm-activebuttonbg-button-color;
+		padding-left: $sm-button-spacing;
+		.sidebar-menu-icon {
+			color: $sm-activebuttonbg-icon-color;
+		}
+		&:before {
+			color: $sm-activebuttonbg-icon-color;
+		}
+	}
+}

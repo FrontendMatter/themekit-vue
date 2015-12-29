@@ -1,0 +1,21 @@
+.progress {
+	box-shadow: none;
+	border-radius: $border-radius-base;
+	height: $progress-bar-height;
+	line-height: $progress-bar-height;
+}
+.progress-mini {
+	height: $progress-bar-mini-height;
+	line-height: $progress-bar-mini-height;
+}
+
+$progress-bar-variants: (
+	default: $progress-bar-default-bg,
+	inverse: $progress-bar-inverse-bg
+);
+
+@each $class, $color in $progress-bar-variants {
+	.progress-bar-#{$class} {
+		@include progress-bar-variant($color);
+	}
+}

@@ -1,0 +1,5 @@
+.layout-content {
+	min-width: 320px;
+	position: relative;
+	z-index: 2; // has to be less than sidebar's z-index
+}

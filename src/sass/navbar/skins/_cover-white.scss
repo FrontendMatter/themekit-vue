@@ -1,0 +1,55 @@
+.navbar-skin-cover-white {
+	border-width: 0;
+	background: linear-gradient(to bottom, rgba($white, 0.1), rgba($white, 0.99));
+	.navbar-brand {
+		&, a {
+			color: $navbar-default-brand-color;
+		}
+	}
+	.navbar-text {
+		color: $navbar-default-color;
+	}
+	@media (max-width: $grid-float-breakpoint-max) {
+		.navbar-nav > li > a {
+			font-weight: 500;
+			color: $navbar-default-link-color;
+			i {
+				color: $navbar-default-link-color;
+			}
+			&:hover i {
+				color: $brand-primary;
+			}
+		}
+	}
+	@media (min-width: $grid-float-breakpoint) {
+		.navbar-nav > li > a {
+			color: $navbar-default-link-color;
+		}
+		.navbar-nav .open > a {
+			&, &:focus, &:hover {
+				background-color: rgba($black, 0.1);
+			}
+		}
+		// search
+		.search-1 {
+			.input-group-addon {
+				color: $navbar-default-link-color;
+			}
+			.form-control {
+				@include placeholder($navbar-default-link-color);
+				color: $navbar-default-link-color;
+			}
+		}
+	}
+	.toggle {
+		color: $navbar-default-link-color;
+	}
+	.navbar-toggle .icon-bar {
+		background-color: $navbar-default-link-color;
+	}
+	.navbar-collapse {
+		@media (max-width: $grid-float-breakpoint-max) {
+			background-color: $white;
+		}
+	}
+}

@@ -1,0 +1,69 @@
+// BOOTSTRAP CUSTOM VARIABLES
+
+// DEFAULTS
+
+$brand-primary: darken(#428bca, 6.5%) !default;
+$brand-success: #5cb85c !default;
+$brand-info: #5bc0de !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger: #d9534f !default;
+
+// TEXT
+
+$text-color: lighten(#000000, 13%) !default;
+
+// PANEL 
+
+$panel-default-border: #ddd !default;
+
+// BADGE
+
+$badge-bg: $grey-200 !default;
+$badge-color: $grey-600 !default;
+
+// BREADCRUMB
+
+$breadcrumb-bg: transparent;
+
+// BUTTON 
+
+$btn-font-weight: 500 !default;
+
+// Default Button
+$btn-default-color: #444 !default;
+$btn-default-border: #e7e7e7 !default;
+$btn-default-bg: lighten(#e7e7e7, 3%) !default;
+
+// Colors
+$btn-primary-border: $brand-primary !default;
+$btn-success-border: $brand-success !default;
+$btn-danger-border: $brand-danger !default;
+$btn-info-border: $brand-info !default;
+$btn-warning-border: $brand-warning !default;
+
+// NAVBAR
+
+$navbar-default-bg: #fff !default;
+$navbar-default-color: #373b39 !default;
+$navbar-border-bottom: #efefef !default;
+$navbar-default-link-color: $text-color !default;
+$navbar-default-link-icon-color: $navbar-default-link-color !default;
+$navbar-default-link-hover-bg: lighten(#efefef, 2%) !default;
+$navbar-default-link-active-icon-color: $brand-primary !default;
+
+// PAGINATION 
+
+$pagination-color: #797979 !default;
+$pagination-bg: #fff !default;
+$pagination-border: #efefef !default;
+$pagination-hover-color: $brand-primary !default;
+$pagination-active-bg: $brand-primary !default;
+$pagination-active-border: $brand-primary !default;
+$pagination-disabled-bg: #efefef !default;
+$pagination-disabled-border: #efefef !default;
+
+// TABS 
+
+$nav-tabs-active-link-hover-bg: #fff !default;
+$nav-tabs-border-color: $panel-default-border !default;
+$nav-tabs-active-link-hover-border-color: $panel-default-border !default;

@@ -1,0 +1,532 @@
+@import "../mixins/sidebar/transition";
+
+html.st-layout {
+	&,
+	body,
+	.st-container,
+	.st-pusher,
+	.st-content {
+		height: 100%;
+	}
+	&,
+	body,
+	.st-pusher,
+	.st-content {
+		padding: 0;
+	}
+	&[class*="st-effect-l"] .st-container > .container-fluid .footer {
+		left: 0;
+	}
+	&[class*="st-effect-r"] .st-container > .container-fluid .footer {
+		right: 0;
+	}
+}
+.st-content {
+	background: $body-bg;
+}
+.st-content-inner {
+	-webkit-overflow-scrolling: touch;
+	overflow-y: scroll;
+	overflow-x: auto;
+	height: 100%;
+	&.simplebar:not([style*="overflow"]) {
+		overflow: hidden;
+	}
+}
+.st-content,
+.st-content-inner {
+	position: relative;
+}
+.st-container {
+	position: relative;
+	overflow: hidden;
+
+	[class*="top-navbar"] & {
+		padding-top: $navbar-height;
+	}
+	[class*="top-navbar-small"] & {
+		padding-top: $navbar-small-height;
+	}
+	[class*="top-navbar-large"] & {
+		padding-top: $navbar-height;
+		@media (min-width: $navbar-large-breakpoint) {
+			padding-top: $navbar-large-height;
+		}
+	}
+	[class*="top-navbar-xlarge"] & {
+		padding-top: $navbar-height;
+		@media (min-width: $navbar-large-breakpoint) {
+			padding-top: $navbar-xlarge-height;
+		}
+	}
+	[class*="ls-top-navbar"] & {
+		.st-content-inner {
+			padding-top: $grid-gutter-width/2;
+		}
+	}
+	@media (min-width: $screen-sm) {
+		[class*="bottom-footer"] & {
+			padding-bottom: $footer-height;
+		}
+	}
+}
+.st-pusher {
+	position: relative;
+	left: 0;
+	height: 100%;
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+	left: 0;
+	z-index: 99;
+}
+.st-pusher-overlay .st-pusher::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	background: rgba(0,0,0,0.2);
+	content: '';
+	opacity: 0;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	z-index: 3;
+}
+.st-menu-open .st-pusher::after {
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	transition: opacity 0.5s;
+}
+.st-container .sidebar {
+	z-index: 100;
+
+	// fixes a weird render issue when using sidebar-mini-reveal
+	.dropdown-menu {
+		transform: translate3d(0, 0, 0)
+	}
+}
+.st-container .sidebar[class*="st-"] {
+	position: absolute !important;
+	transition: transform 0.5s;
+	visibility: visible;
+}
+
+/* Individual effects */
+
+/* Effect 1: Slide in on top */
+.st-slide-in.sidebar {
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+.st-slide-in.st-menu-open .st-slide-in.sidebar {
+	transform: translate3d(0, 0, 0);
+}
+
+.st-push,
+.st-reveal,
+.st-slide-along,
+.st-slide-out-reverse,
+.st-push-3d-rotate-in,
+.st-push-3d-rotate-out,
+.st-push-3d-rotate-delay,
+.st-scale-up,
+.st-fall-down {
+
+	// reset default layout-content margins
+	.layout-content {
+		margin: 0 !important;
+	}
+
+	// handle navbar-content
+	&.st-menu-open [slot="navbar-content"] {
+		@include pusher-navbar-screen();
+		// ONLY LARGE
+		@media (min-width: $screen-lg) {
+			@include pusher-navbar-screen("-lg");
+		}
+		// ONLY MEDIUM
+		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+			@include pusher-navbar-screen("-md");
+		}
+		// ONLY SMALL to MEDIUM
+		@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+			@include pusher-navbar-screen("-sm");
+		}
+		// ONLY MOBILE
+		@media (max-width: $screen-sm-min) {
+			@include pusher-navbar-screen("-xs");
+			.st-effect-l1 &,
+			.st-effect-l1-xs & {
+				@include pusher-navbar-left(100%);
+			}
+			.st-effect-r1 &,
+			.st-effect-r1-xs & {
+				@include pusher-navbar-right(100%);
+			}
+		}
+	}
+
+	// pusher
+	&.st-menu-open .st-pusher {
+		@include pusher-screen();
+		// ONLY LARGE
+		@media (min-width: $screen-lg) {
+			@include pusher-screen("-lg");
+		}
+		// ONLY MEDIUM
+		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+			@include pusher-screen("-md");
+		}
+		// ONLY SMALL to MEDIUM
+		@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+			@include pusher-screen("-sm");
+		}
+		// ONLY MOBILE
+		@media (max-width: $screen-sm-min) {
+			@include pusher-screen("-xs");
+			.st-effect-l1 &,
+			.st-effect-l1-xs & {
+				@include pusher-left(100%);
+			}
+			.st-effect-r1 &,
+			.st-effect-r1-xs & {
+				@include pusher-right(100%);
+			}
+		}
+	}
+}
+
+/* Effect 2: Reveal */
+.st-reveal.sidebar {
+	z-index: 98;
+}
+.st-reveal.st-menu-open .st-reveal.sidebar {
+	transition: transform 0.5s;
+}
+
+/* Effect 3: Push */
+.st-push.sidebar {
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+.st-push.st-menu-open .st-push.sidebar {
+	transition: transform 0.5s;
+}
+
+/* Effect 4: Slide along */
+.st-slide-along.sidebar {
+	z-index: 98;
+	[class*="st-effect-r"] & {
+		transform: translate3d(50%, 0, 0);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+.st-slide-along.st-menu-open .st-slide-along.sidebar {
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+}
+
+/* Effect 5: Reverse slide out */
+.st-slide-out-reverse.sidebar {
+	z-index: 98;
+	[class*="st-effect-r"] & {
+		transform: translate3d(-100%, 0, 0);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(100%, 0, 0);
+	}
+}
+.st-slide-out-reverse.st-menu-open .st-slide-out-reverse.sidebar {
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+}
+
+/* Effect 6: Rotate pusher */
+.st-push-rotate.st-container {
+	perspective: 1500px;
+}
+.st-push-rotate .st-pusher {
+	transform-origin: 0% 50%;
+	transform-style: preserve-3d;
+}
+.st-push-rotate.st-menu-open .st-pusher {
+	.st-effect-l2 & {
+		transform: translate3d($sidebar-width-2, 0, 0) rotateY(-15deg);
+	}
+	.st-effect-r2 & {
+		transform: translate3d(-$sidebar-width-2, 0, 380px) rotateY(15deg);
+	}
+	.st-effect-l1-xs & {
+		transform: translate3d(100%, 0, 0) rotateY(-15deg);
+	}
+	.st-effect-r1-xs & {
+		transform: translate3d(-100%, 0, 0) rotateY(15deg);
+	}
+	// over the navbar
+	z-index: 1031;
+}
+.st-push-rotate.sidebar {
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0);
+		transform-origin: 0% 100%;
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0);
+		transform-origin: 100% 50%;
+	}
+	transform-style: preserve-3d;
+}
+.st-push-rotate.st-menu-open .st-push-rotate.sidebar {
+	transition: transform 0.5s;
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(-15deg);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(15deg);
+	}
+}
+
+/* Effect 7: 3D rotate in */
+.st-push-3d-rotate-in.st-container {
+	perspective: 1500px;
+	perspective-origin: 0% 50%;
+}
+.st-push-3d-rotate-in .st-pusher {
+	transform-style: preserve-3d;
+}
+.st-push-3d-rotate-in.sidebar {
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(-90deg);
+		transform-origin: 100% 50%;
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(90deg);
+		transform-origin: 0% 100%;
+	}
+	transform-style: preserve-3d;
+}
+.st-push-3d-rotate-in.st-menu-open .st-push-3d-rotate-in.sidebar {
+	transition: transform 0.5s;
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(0deg);
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(0deg);
+	}
+}
+
+/* Effect 8: 3D rotate out */
+.st-push-3d-rotate-out.st-container {
+	perspective: 1500px;
+	perspective-origin: 0% 50%;
+}
+.st-push-3d-rotate-out .st-pusher {
+	transform-style: preserve-3d;
+}
+.st-push-3d-rotate-out.sidebar {
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(90deg);
+		transform-origin: 100% 50%;
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(-120deg);
+		transform-origin: 0% 50%;
+	}
+	transform-style: preserve-3d;
+}
+.st-push-3d-rotate-out.st-menu-open .st-push-3d-rotate-out.sidebar {
+	transition: transform 0.5s;
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(0deg);
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(0deg);
+	}
+}
+
+/* Effect 14: Delayed 3D rotate */
+.st-push-3d-rotate-delay.st-container {
+	perspective: 1500px;
+	perspective-origin: 0% 50%;
+}
+.st-push-3d-rotate-delay .st-pusher {
+	transform-style: preserve-3d;
+}
+.st-push-3d-rotate-delay.sidebar {
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(90deg);
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(90deg);
+	}
+	transform-origin: 0% 50%;
+	transform-style: preserve-3d;
+}
+.st-push-3d-rotate-delay.st-menu-open .st-push-3d-rotate-delay.sidebar {
+	transition-delay: 0.1s;
+	transition-timing-function: ease-in-out;
+	transition-property: transform;
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0) rotateY(0deg);
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0) rotateY(0deg);
+	}
+}
+
+/* Effect 9: Scale down pusher */
+.st-scale-down.st-container {
+	perspective: 1500px;
+}
+.st-scale-down .st-pusher {
+	transform-style: preserve-3d;
+}
+.st-scale-down.st-menu-open .st-pusher {
+	transform: translate3d(0, 0, -300px);
+}
+.st-scale-down.sidebar {
+	opacity: 1;
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0);
+	}
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0);
+	}
+}
+.st-scale-down.st-menu-open .st-scale-down.sidebar {
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+}
+
+/* Effect 10: Scale up */
+.st-scale-up.st-container {
+	perspective: 1500px;
+	perspective-origin: 0% 50%;
+}
+.st-scale-up.sidebar {
+	z-index: 98;
+	opacity: 1;
+	.st-effect-r2 &,
+	.st-effect-l2 & {
+		transform: translate3d(0, 0, -$sidebar-width-2);
+	}
+	.st-effect-r3 &,
+	.st-effect-l3 & {
+		transform: translate3d(0, 0, -$sidebar-width-3);
+	}
+}
+.st-scale-up.st-menu-open .st-scale-up.sidebar {
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+}
+
+/* Effect 11: Scale and rotate pusher */
+.st-scale-rotate.st-container {
+	perspective: 1500px;
+}
+.st-scale-rotate .st-pusher {
+	transform-style: preserve-3d;
+}
+.st-scale-rotate.st-menu-open .st-pusher {
+	[class*="st-effect-r"] & {
+		transform: translate3d(10px, 0, -300px) rotateY(20deg);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(100px, 0, -600px) rotateY(-20deg);
+	}
+}
+.st-scale-rotate.sidebar {
+	opacity: 1;
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+.st-scale-rotate.st-menu-open .st-scale-rotate.sidebar {
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+}
+
+/* Effect 12: Open door */
+.st-open-door.st-container {
+	perspective: 1500px;
+}
+.st-open-door .st-pusher {
+	[class*="st-effect-r"] & {
+		transform-origin: 0% 50%;
+	}
+	[class*="st-effect-l"] & {
+		transform-origin: 100% 50%;
+	}
+	transform-style: preserve-3d;
+}
+.st-open-door.st-menu-open .st-pusher {
+	[class*="st-effect-r"] & {
+		transform: rotateY(10deg);
+	}
+	[class*="st-effect-l"] & {
+		transform: rotateY(-10deg);
+	}
+}
+.st-open-door.sidebar {
+	opacity: 1;
+	[class*="st-effect-r"] & {
+		transform: translate3d(100%, 0, 0);
+	}
+	[class*="st-effect-l"] & {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+.st-open-door.st-menu-open .st-open-door.sidebar {
+	transition: transform 0.5s;
+	transform: translate3d(0, 0, 0);
+}
+
+/* Effect 13: Fall down */
+.st-fall-down.st-container {
+	perspective: 1500px;
+	perspective-origin: 0% 50%;
+}
+.st-fall-down.sidebar {
+	opacity: 1;
+	transform: translate3d(0, -100%, 0);
+}
+.st-fall-down.st-menu-open .st-fall-down.sidebar {
+	transition-timing-function: ease-in-out;
+	transition-property: transform;
+	transition-duration: 0.2s;
+	transform: translate3d(0, 0, 0);
+}
+
+.st-container.st-done .sidebar {
+	z-index: 100;
+}
+
+/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
+.no-csstransforms3d .st-pusher,
+.no-js .st-pusher {
+	.st-effect-l2 & {
+		padding-left: $sidebar-width-2;
+	}
+	.st-effect-l3 & {
+		padding-left: $sidebar-width-3;
+	}
+	.st-effect-r2 & {
+		padding-right: $sidebar-width-2;
+	}
+	.st-effect-r3 & {
+		padding-right: $sidebar-width-3;
+	}
+}

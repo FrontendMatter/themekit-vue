@@ -1,0 +1,37 @@
+.navbar-form {
+	.checkbox {
+		@media (min-width: $screen-sm) {
+			line-height: $navbar-height - ($navbar-height - $input-height-base);
+			.navbar-size-small & {
+				line-height: $navbar-small-height - ($navbar-small-height - $input-height-base);
+			}
+			.navbar-size-large & {
+				@media (min-width: $navbar-large-breakpoint) {
+					line-height: $navbar-large-height - ($navbar-large-height - $input-height-base);
+				}
+			}
+			label {
+				font-weight: bold;
+				&:before {
+					top: 8px;
+				}
+			}
+		}
+	}
+	.navbar-collapse & {
+		@media (max-width: $screen-xs-max) {
+			margin: 0;
+			border-top: none;
+			border-bottom: none;
+			box-shadow: none;
+		}
+	}
+}
+.navbar .dropdown-menu {
+	> form {
+		padding: 10px;
+	}
+}
+.navbar-form .bootstrap-switch {
+	margin: 1px 0;
+}

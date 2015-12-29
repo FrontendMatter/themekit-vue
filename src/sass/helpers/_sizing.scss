@@ -1,0 +1,5 @@
+@each $prop, $abbrev in $sizing-utils {
+  @each $size, $length in $sizers {
+    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+  }
+}

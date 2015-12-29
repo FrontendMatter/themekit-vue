@@ -1,0 +1,9 @@
+.sidebar .media {
+	margin-bottom: $sidebar-spacing-horizontal;
+	> .pull-left {
+		margin-right: $sidebar-spacing-horizontal;
+	}
+	> .pull-right {
+		margin-left: $sidebar-spacing-horizontal;
+	}
+}

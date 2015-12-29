@@ -1,0 +1,24 @@
+@mixin sidebar-mini() {
+	&, .dropdown-container, .dropdown-container > ul {
+		width: $sidebar-width-1;
+	}
+	.sidebar-menu .hasSubmenu > .sidebar-menu-button:before {
+		display: none;
+	}
+	.sidebar-menu > .sidebar-menu-item > .sidebar-menu-button {
+		padding: 0;
+		text-align: center;
+		height: $sm-button-height;
+		span {
+			display: none;
+		}
+	}
+	.sidebar-menu-icon {
+		margin-right: 0;
+	}
+	.sidebar-category, 
+	.sidebar-block,
+	.sidebar-brand {
+		display: none;
+	}
+}

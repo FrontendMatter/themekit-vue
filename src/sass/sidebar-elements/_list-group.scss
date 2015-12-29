@@ -1,0 +1,75 @@
+@import "../mixins/sidebar/theme";
+
+.sidebar .list-group-item {
+	background-color: transparent;
+}
+.sidebar {
+	@include sidebar-list-group-menu-variant();
+	.list-group-menu > .list-group-item {
+		padding: 0;
+		*:last-child {
+			margin: 0;
+		}
+		> a {
+			display: block;
+			padding: 10px 15px;
+			&, &:hover {
+				text-decoration: none;
+			}
+		}
+		.badge {
+			padding-left: 0;
+			padding-right: 0;
+		}
+		&.active > a {
+			font-weight: bold;
+		}
+	}
+	.list-group-menu.list-group-striped > .list-group-item:nth-child(odd) {
+		background-color: transparent;
+	}
+}
+.sidebar[class*="sidebar-skin"] .list-group-menu.list-group-minimal {
+	> .list-group-item:not(.active) {
+		background-color: transparent;
+	}
+}
+.sidebar .sidebar-block.list-group-fit {
+	padding: 0;
+	margin: 0;
+	.list-group-item {
+		border-left: none;
+		border-right: none;
+		border-radius: 0;
+		&:first-of-type {
+			border-top: none;
+		}
+		&:last-of-type {
+			border-bottom: none;
+		}
+	}
+}
+.sidebar .sidebar-block.list-group-menu {
+	padding: 0;
+	margin: 0;
+	.list-group-item {
+		border-left: none;
+		border-right: none;
+		border-radius: 0;
+		&:first-of-type {
+			border-top: none;
+		}
+		&:last-of-type {
+			border-bottom: none;
+		}
+	}
+}
+.sidebar div.sidebar-block.list-group {
+	padding: 0;
+	border: none;
+	margin-bottom: 0;
+	> .list-group-item {
+		border-left: none;
+		border-right: none;
+	}
+}
