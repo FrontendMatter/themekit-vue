@@ -1,25 +1,25 @@
 <template>
 	<dropdown :is-list="isList">
-			<a href="#" @click.prevent :class="btnClass">
-				<i class="dropdown-menu-icon" v-if="icon" :class="icon"></i>
-				<span>{{ label }}</span>
-			</a>
-			<div class="dropdown-menu" @click.stop>
-				<div v-if="header" class="dropdown-header">{{ header }}</div>
-				<template v-if="height">
-					<div v-scrollable :style="scrollHeight">
-						<slot></slot>
-					</div>
-				</template>
-				<template v-else>
+		<a href="#" @click.prevent :class="btnClass">
+			<i class="dropdown-menu-icon" v-if="icon" :class="icon"></i>
+			<span>{{ label }}</span>
+		</a>
+		<div class="dropdown-menu" @click.stop>
+			<div v-if="header" class="dropdown-header">{{ header }}</div>
+			<template v-if="height">
+				<div v-scrollable :style="scrollHeight">
 					<slot></slot>
-				</template>
-				<slot name="footer">
-					<div v-if="footer">
-						{{ footer }}
-					</div>
-				</slot>	
-			</div>			
+				</div>
+			</template>
+			<template v-else>
+				<slot></slot>
+			</template>
+			<slot name="footer">
+				<div v-if="footer">
+					{{ footer }}
+				</div>
+			</slot>	
+		</div>			
 	</dropdown>
 </template>
 <script>
@@ -58,7 +58,6 @@
 			scrollHeight () {
 				if (this.height) {
 					return { maxHeight: `${this.height}px`}
-
 				}
 			}
 		}

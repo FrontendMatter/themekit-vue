@@ -23,7 +23,9 @@
 </template>
 
 <script>
+	import Attach from '../../mixins/attach.vue'
 	export default {
+		mixins: [Attach],
 		props: {
 			id: {
 				type: String,
@@ -53,14 +55,6 @@
 				validator (value) {
 					return ['left', 'right', 'up', 'down'].indexOf(value) !== -1
 				}
-			},
-			attach: {
-				type: Boolean,
-				default: true
-			},
-			attachTo: {
-				type: String,
-				default: 'body'
 			},
 			sidebar: {
 				type: Boolean
@@ -162,15 +156,9 @@
 			}
 		},
 		ready () {
-			if (this.attach && this.attachTo && $(this.attachTo).length) {
-				$(this.$el).appendTo(this.attachTo)
-			}
 			$(this.$el)
 				.on('show.bs.modal', this.showBackdrop)
 				.on('hidden.bs.modal', this.hideBackdrop)
-		},
-		beforeDestroy () {
-			$(this.$el).remove()
 		}
 	}
 </script>
