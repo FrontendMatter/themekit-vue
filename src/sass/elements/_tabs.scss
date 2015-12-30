@@ -29,25 +29,7 @@
 // DEFAULT STYLE
 .nav-tabs {
     font-weight: 500;
-	border-bottom: none;
-    > li {
-		> a {
-			color: $grey-500;
-			&:hover {
-				background: transparent;
-				border-color: transparent;
-			}
-		}
-		&.active > a, &.active a:focus, &.active a:hover {
-			color: $brand-primary;
-		}
-		&:first-of-type {
-			> a, > a:hover {
-				border-left-color: transparent;
-			}
-		}
-    }
-	[class*="tabs-highlight"] & {
+    [class*="tabs-highlight"] & {
 		border-bottom: 1px solid $nav-tabs-border-color;
 		> li.active:after {
 			display: block;
@@ -96,14 +78,30 @@
 	// ANY SCREEN SIZE
 	// EXCEPT MOBILE
 	@media (min-width: $screen-sm) {
+		.nav-tabs li {
+			/* TODO: fix button spacings on click */
+			a, a:hover, &.active a {
+				padding:0 10px;
+				height:40px;
+				line-height: 40px;
+				border:none;
+				border-top:1px solid transparent;
+				border-bottom:1px solid $nav-tabs-border-color;
+				border-radius: 0;
+				margin:0;
+			}	
+
+		}
 		&.tabs-left, &.tabs-right {
 			@include tabs-vertical-style();
 		}
 		&.tabs-left {
 			@include tabs-vertical-left();
+			.nav-tabs { border-right:1px solid $nav-tabs-border-color;}
 		}
 		&.tabs-right {
 			@include tabs-vertical-right();
+			.nav-tabs { border-left:1px solid $nav-tabs-border-color;}
 		}
 	}
 	// MEDIUM DESKTOP SCREENS
