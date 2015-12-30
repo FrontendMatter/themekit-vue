@@ -24,7 +24,7 @@
 				return this.model.children && this.model.children.length
 			},
 			routeActive () {
-				return this.$route && this.model.route && this.model.route.name && this.model.route.name === this.$route.name
+				return this.$route && this.model.route && this.model.route === this.$route
 			},
 			active () {
 				return this.routeActive || this.model.active
