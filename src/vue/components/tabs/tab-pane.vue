@@ -15,11 +15,6 @@
 	import shortid from 'shortid'
 
 	export default {
-		data () {
-			return {
-				tabId: `tab-${ shortid.generate() }`
-			}
-		},
 		props: {
 			active: {
 				type: Boolean
@@ -33,6 +28,14 @@
 			label: {
 				type: String,
 				required: true
+			},
+			id: {
+				type: String
+			}
+		},
+		computed: {
+			tabId () {
+				return this.id ? this.id : `tab-${ shortid.generate() }`
 			}
 		},
 		created () {
@@ -43,6 +46,7 @@
 				if (this.tabId === tabId) {
 					this.$broadcast('layout.tk.isotope', this)
 				}
+				return true
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 <script>
 	import shortid from 'shortid'
+	import deepMatches from 'mout/object/deepMatches'
 
 	export default {
 		name: 'sidebar-menu-item',
@@ -24,7 +25,7 @@
 				return this.model.children && this.model.children.length
 			},
 			routeActive () {
-				return this.$route && this.model.route && this.model.route === this.$route
+				return this.$route && this.model.route && deepMatches(this.$route, this.model.route)
 			},
 			active () {
 				return this.routeActive || this.model.active

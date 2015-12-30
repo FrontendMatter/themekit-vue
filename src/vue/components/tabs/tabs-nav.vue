@@ -33,6 +33,12 @@
 			shown (e) {
 				let tabId = e.target.getAttribute('href').split('#')[1]
 				this.$root.$broadcast('shown.tk.tab', tabId)
+			},
+			setupEvents () {
+				this.$nextTick(function () {
+					$(this.$el).find('a').on('shown.bs.tab', this.shown)
+					$(this.$el).find('.active a').trigger('shown.bs.tab')
+				})
 			}
 		},
 		computed: {
@@ -49,10 +55,14 @@
 			}
 		},
 		ready () {
-			this.$nextTick(function () {
-				$(this.$el).find('a').on('shown.bs.tab', this.shown)
-				$(this.$el).find('.active a').trigger('shown.bs.tab')
-			})
+			this.setupEvents()
+		},
+		watch: {
+			tabs (value) {
+				if (value && value.length) {
+					this.setupEvents()
+				}
+			}
 		},
 		events: {
 			'tabs-nav-item.tk.tabs': function (data) {
