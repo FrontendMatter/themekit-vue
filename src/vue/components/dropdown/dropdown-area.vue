@@ -5,11 +5,23 @@
 			<span>{{ label }}</span>
 		</a>
 		<div class="dropdown-menu" @click.stop>
-			<slot></slot>
-		</div>
+			<div v-if="header" class="dropdown-header">{{ header }}</div>
+			<template v-if="height">
+				<div v-scrollable :style="scrollHeight">
+					<slot></slot>
+				</div>
+			</template>
+			<template v-else>
+				<slot></slot>
+			</template>
+			<slot name="footer">
+				<div v-if="footer">
+					{{ footer }}
+				</div>
+			</slot>	
+		</div>			
 	</dropdown>
 </template>
-
 <script>
 	import Dropdown from './dropdown.vue'
 
@@ -28,10 +40,26 @@
 			isList: {
 				type: Boolean,
 				default: true
+			},
+			height: {
+				type: Number
+			},
+			header: {
+				type: String
+			},
+			footer: {
+				type: String
 			}
 		},
 		components: {
 			Dropdown
+		},
+		computed: {
+			scrollHeight () {
+				if (this.height) {
+					return { maxHeight: `${this.height}px`}
+				}
+			}
 		}
 	}
 </script>
