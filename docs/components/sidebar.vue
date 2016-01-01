@@ -2,7 +2,7 @@
 	import component from '../../src/vue/components/sidebar/sidebar.vue'
 	import merge from 'mout/object/merge'
 
-	let docsComponent = merge(component, {
+	let docs = merge(component, {
 		description: `
 			Create a side navigation panel.
 
@@ -38,5 +38,5 @@
 		}
 	})
 
-	export default docsComponent
+	export default docs
 </script>
