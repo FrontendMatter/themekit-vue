@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ThemeKit</title>
+
+	<!-- ThemeKit Lite dependencies -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+	<!-- ThemeKit Lite -->
+	<link rel="stylesheet" href="../dist/themekit.css" />
+</head>
+<body>
+
+	<!-- Layout -->
+	<layout>
+
+		<!-- Sidebar -->
+		<sidebar size="2" slot="sidebar">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur earum totam, excepturi quas. Doloribus, corporis totam velit pariatur quidem repellendus quas dignissimos. Eos illo aspernatur quidem dolor placeat vel accusamus.
+		</sidebar>
+		<!-- // END Sidebar -->
+
+		<!-- The layout content goes here -->
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores incidunt, tenetur eaque adipisci mollitia aliquam eum. Impedit ipsam aliquam quam ullam, itaque animi commodi ex deserunt inventore modi natus iste.
+
+		<!-- Isotope grid component with external dependencies -->
+		<isotope>
+			<div class="col-md-6">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem possimus omnis iure reiciendis, consectetur maiores. Ducimus tempore cupiditate, dolore dicta veniam nemo. Nulla veniam odio exercitationem numquam, dolores, ut fugiat.
+			</div>
+			<div class="col-md-6">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, maxime iure similique perspiciatis corrupti possimus eius. Beatae suscipit aut eum quibusdam ducimus tempore, explicabo assumenda, sequi quaerat voluptates, vero soluta.
+			</div>
+		</isotope>
+		<!-- // END Isotope -->
+
+	</layout>
+	<!-- // END Layout -->
+
+	<!-- ThemeKit Lite dependencies -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.13/vue.min.js"></script>
+
+	<!-- Isotope dependencies -->
+	<script src="../node_modules/isotope-layout/dist/isotope.pkgd.js"></script>
+	<script src="../node_modules/isotope-packery/packery-mode.pkgd.js"></script>
+
+	<!-- ThemeKit Lite -->
+	<script src="../dist/themekit.js"></script>
+
+	<!-- Initialize Example -->
+	<script>
+	new Vue({
+		el: 'body',
+		replace: false,
+		components: {
+			layout: ThemeKit.Layout,
+			sidebar: ThemeKit.Sidebar,
+			isotope: ThemeKit.Isotope
+		}
+	})
+	</script>
+</body>
+</html>
