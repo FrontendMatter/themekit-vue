@@ -164,5 +164,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/elements/modal";
+	@import "../../../sass/elements/modal";
 </style>

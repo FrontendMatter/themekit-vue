@@ -125,9 +125,9 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/layout/content";
-	@import "~themekit-vue/src/sass/layout/footer";
-	@import "~themekit-vue/src/sass/layout/grid";
-	@import "~themekit-vue/src/sass/layout/split";
-	@import "~themekit-vue/src/sass/layout/scrollable";
+	@import "../../../sass/layout/content";
+	@import "../../../sass/layout/footer";
+	@import "../../../sass/layout/grid";
+	@import "../../../sass/layout/split";
+	@import "../../../sass/layout/scrollable";
 </style>

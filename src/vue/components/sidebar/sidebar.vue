@@ -402,17 +402,17 @@
 
 <style lang="sass">
 	// CORE
-	@import "~themekit-vue/src/sass/sidebar/layout";
-	@import "~themekit-vue/src/sass/sidebar/scrollable";
-	@import "~themekit-vue/src/sass/sidebar/sidebar-mini";
-	@import "~themekit-vue/src/sass/sidebar/toggle-bar";
+	@import "../../../sass/sidebar/layout";
+	@import "../../../sass/sidebar/scrollable";
+	@import "../../../sass/sidebar/sidebar-mini";
+	@import "../../../sass/sidebar/toggle-bar";
 	// ELEMENTS
-	@import "~themekit-vue/src/sass/sidebar-elements/badge";
-	@import "~themekit-vue/src/sass/sidebar-elements/brand";
-	@import "~themekit-vue/src/sass/sidebar-elements/datepicker";
-	@import "~themekit-vue/src/sass/sidebar-elements/list-group";
-	@import "~themekit-vue/src/sass/sidebar-elements/media";
-	@import "~themekit-vue/src/sass/sidebar-elements/panel";
-	@import "~themekit-vue/src/sass/sidebar-elements/progress";
-	@import "~themekit-vue/src/sass/sidebar-elements/slider";
+	@import "../../../sass/sidebar-elements/badge";
+	@import "../../../sass/sidebar-elements/brand";
+	@import "../../../sass/sidebar-elements/datepicker";
+	@import "../../../sass/sidebar-elements/list-group";
+	@import "../../../sass/sidebar-elements/media";
+	@import "../../../sass/sidebar-elements/panel";
+	@import "../../../sass/sidebar-elements/progress";
+	@import "../../../sass/sidebar-elements/slider";
 </style>

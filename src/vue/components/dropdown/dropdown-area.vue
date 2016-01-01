@@ -65,5 +65,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/dropdown/dropdown-menu";
+	@import "../../../sass/dropdown/dropdown-menu";
 </style>

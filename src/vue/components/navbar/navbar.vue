@@ -165,6 +165,6 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/navbar/navbar";
-	@import "~themekit-vue/src/sass/layout/navbar";
+	@import "../../../sass/navbar/navbar";
+	@import "../../../sass/layout/navbar";
 </style>

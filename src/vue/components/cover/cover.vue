@@ -220,5 +220,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/cover/cover";
+	@import "../../../sass/cover/cover";
 </style>

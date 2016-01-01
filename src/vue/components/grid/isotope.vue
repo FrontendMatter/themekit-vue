@@ -5,8 +5,16 @@
 </template>
 
 <script>
-	import Isotope from 'isotope-layout'
-	import 'isotope-packery'
+	var depsLoaded
+
+	// optional externals
+	try {
+		require('isotope-layout')
+		require('isotope-packery')
+		depsLoaded = true
+	} catch (e) {
+		depsLoaded = false
+	}
 
 	export default {
 		data () {
@@ -40,6 +48,9 @@
 			}
 		},
 		ready () {
+			if (!depsLoaded) {
+				return
+			}
 			this.$el.classList.add('isotope')
 			var columns = this.$el.children
 			for (var i = 0; i < columns.length; i++) {
@@ -61,11 +72,17 @@
 			this.debouncedResize()
 		},
 		beforeDestroy () {
+			if (!depsLoaded) {
+				return
+			}
 			this.isotope.off('layoutComplete', this.broadcast)
 			window.removeEventListener('resize', this.debouncedResize)
 		},
 		events: {
 			'layout.tk.isotope': function (sender) {
+				if (!depsLoaded) {
+					return
+				}
 				if (sender && sender !== this) {
 					this.handleResize()
 				}

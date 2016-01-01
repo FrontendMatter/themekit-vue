@@ -141,5 +141,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/elements/dropzone";
+	@import "../../../sass/elements/dropzone";
 </style>

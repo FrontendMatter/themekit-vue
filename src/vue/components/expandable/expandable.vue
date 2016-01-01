@@ -50,5 +50,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/elements/expandable";
+	@import "../../../sass/elements/expandable";
 </style>

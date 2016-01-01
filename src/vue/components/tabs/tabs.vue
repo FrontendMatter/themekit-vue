@@ -102,5 +102,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/elements/tabs";
+	@import "../../../sass/elements/tabs";
 </style>

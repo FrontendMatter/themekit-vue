@@ -98,5 +98,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/sidebar-menu/sidebar-dropdown";
+	@import "../../../sass/sidebar-menu/sidebar-dropdown";
 </style>

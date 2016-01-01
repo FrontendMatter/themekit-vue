@@ -181,5 +181,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/sidebar/transition";
+	@import "../../../sass/sidebar/transition";
 </style>

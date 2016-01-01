@@ -21,6 +21,6 @@
 </script>
 
 <style lang="sass">
-    @import "~themekit-vue/src/sass/sidebar-menu/sidebar-menu";
-    @import "~themekit-vue/src/sass/sidebar-menu/utils";
+    @import "../../../sass/sidebar-menu/sidebar-menu";
+    @import "../../../sass/sidebar-menu/utils";
 </style>

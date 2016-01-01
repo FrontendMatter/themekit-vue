@@ -41,5 +41,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/sidebar-elements/sidebar-tabs";
+	@import "../../../sass/sidebar-elements/sidebar-tabs";
 </style>

@@ -80,5 +80,5 @@
 </script>
 
 <style lang="sass">
-	@import "~themekit-vue/src/sass/elements/mprogress";
+	@import "../../../sass/elements/mprogress";
 </style>
