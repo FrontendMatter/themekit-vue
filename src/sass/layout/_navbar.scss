@@ -31,7 +31,7 @@
 
 	// layout transitions
 	.st-container {
-		padding-top: 0;
+		padding-top: 0 !important;
 	}
 	&.show-sidebar[class*="st-effect"] [slot="navbar-content"] {
 		left: 0;

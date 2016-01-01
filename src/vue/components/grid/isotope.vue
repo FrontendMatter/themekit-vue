@@ -12,7 +12,8 @@
 		require('isotope-layout')
 		require('isotope-packery')
 		depsLoaded = true
-	} catch (e) {
+	}
+	catch (e) {
 		depsLoaded = false
 	}
 
@@ -59,6 +60,7 @@
 				})
 			}
 
+			/*global Isotope*/
 			this.isotope = new Isotope(this.$el, {
 				layoutMode: this.layoutMode,
 				itemSelector: this.itemSelector,

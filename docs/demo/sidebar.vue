@@ -33,107 +33,107 @@
 </template>
 
 <script>
-import { Layout } from 'themekit-vue'
-import { Sidebar } from 'themekit-vue'
-import { LayoutTransition } from 'themekit-vue'
-import { SidebarTransition } from 'themekit-vue'
-import { SidebarBlock } from 'themekit-vue'
-import { SidebarToggleButton } from 'themekit-vue'
-import { Tabs } from 'themekit-vue'
-import { TabPane } from 'themekit-vue'
-import camelCase from 'mout/string/camelCase'
+	import { Layout } from 'themekit-vue'
+	import { Sidebar } from 'themekit-vue'
+	import { LayoutTransition } from 'themekit-vue'
+	import { SidebarTransition } from 'themekit-vue'
+	import { SidebarBlock } from 'themekit-vue'
+	import { SidebarToggleButton } from 'themekit-vue'
+	import { Tabs } from 'themekit-vue'
+	import { TabPane } from 'themekit-vue'
+	import camelCase from 'mout/string/camelCase'
 
-export default {
-	computed: {
-		sidebars () {
-			return this.$children[0].queue
-		},
-		sidebarsMarkup () {
-			let html = ''
-			let propsCast = ['show', 'mini', 'reveal']
-			let props = ['sidebar-id', 'position', 'visible', 'size', 'offset']
-			this.sidebars.forEach((sidebar) => {
+	export default {
+		computed: {
+			sidebars () {
+				return this.$children[0].queue
+			},
+			sidebarsMarkup () {
+				let html = ''
+				let propsCast = ['show', 'mini', 'reveal']
+				let props = ['sidebar-id', 'position', 'visible', 'size', 'offset']
+				this.sidebars.forEach((sidebar) => {
+					html += `
+						<!-- Sidebar -->
+						<sidebar slot="sidebar" `
+
+					propsCast.forEach((p) => {
+						let value = sidebar[camelCase(p)]
+						if (value) {
+							html += `
+								:${ p }="${ value }"`
+						}
+					})
+					props.forEach((p) => {
+						let value = sidebar[camelCase(p)]
+						if (value) {
+							html += `
+								${ p }="${ sidebar[camelCase(p)] }"`
+						}
+					})
+					html += `>
+						</sidebar>
+						<!-- // END Sidebar -->
+					`
+				})
+				return html.trim()
+			},
+			html () {
+				return `
+					<!-- Layout -->
+					<layout>
+
+						${ this.sidebarsMarkup }
+
+						<!-- The layout content goes here -->
+
+					</layout>
+					<!-- // END Layout -->
+				`.trim()
+			},
+			javascript () {
+				let components = [{
+					name: 'Layout',
+					view: 'layout/layout'
+				}]
+				if (this.sidebars.length) {
+					components.push({
+						name: 'Sidebar',
+						view: 'sidebar/sidebar'
+					})
+				}
+				let html = '/* Import component(s) */'
+				let names = []
+				components.forEach((component) => {
+					html += `
+						import ${ component.name } from 'themekit-vue/src/vue/components/${ component.view }.vue'`
+					names.push(component.name)
+				})
 				html += `
-					<!-- Sidebar -->
-					<sidebar slot="sidebar" `
 
-				propsCast.forEach((p) => {
-					let value = sidebar[camelCase(p)]
-					if (value) {
-						html += `
-							:${ p }="${ value }"`
-					}
-				})
-				props.forEach((p) => {
-					let value = sidebar[camelCase(p)]
-					if (value) {
-						html += `
-							${ p }="${ sidebar[camelCase(p)] }"`
-					}
-				})
-				html += `>
-					</sidebar>
-					<!-- // END Sidebar -->
+					/* Create a Vue instance */
+					new Vue({
+						el: 'body',
+						replace: false,
+						components: {
+							${ names.join(',\n') }
+						}
+					})
 				`
-			})
-			return html.trim()
-		},
-		html () {
-			return `
-				<!-- Layout -->
-				<layout>
-
-					${ this.sidebarsMarkup }
-
-					<!-- The layout content goes here -->
-
-				</layout>
-				<!-- // END Layout -->
-			`.trim()
-		},
-		javascript () {
-			let components = [{
-				name: 'Layout',
-				view: 'layout/layout'
-			}]
-			if (this.sidebars.length) {
-				components.push({
-					name: 'Sidebar',
-					view: 'sidebar/sidebar'
-				})
+				return html.trim()
 			}
-			let html = '/* Import component(s) */'
-			let names = []
-			components.forEach((component) => {
-				html += `
-					import ${ component.name } from 'themekit-vue/src/vue/components/${ component.view }.vue'`
-				names.push(component.name)
-			})
-			html += `
-
-				/* Create a Vue instance */
-				new Vue({
-					el: 'body',
-					replace: false,
-					components: {
-						${ names.join(',\n') }
-					}
-				})
-			`
-			return html.trim()
+		},
+		components: {
+			Layout,
+			Sidebar,
+			LayoutTransition,
+			SidebarTransition,
+			SidebarBlock,
+			SidebarToggleButton,
+			Tabs,
+			TabPane
 		}
-	},
-	components: {
-		Layout,
-		Sidebar,
-		LayoutTransition,
-		SidebarTransition,
-		SidebarBlock,
-		SidebarToggleButton,
-		Tabs,
-		TabPane
 	}
-}
 </script>
 
 <style>
