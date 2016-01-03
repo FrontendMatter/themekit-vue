@@ -15,6 +15,7 @@
 
 <script>
 	export default {
+		name: 'layout',
 		data () {
 			return {
 				queue: []
