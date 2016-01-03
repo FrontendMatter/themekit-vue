@@ -4,8 +4,18 @@
 
 <script>
 	import shortid from 'shortid'
-	import 'mprogress/build/css/mprogress.css'
-	import Mprogress from 'mprogress/build/js/mprogress'
+
+	var depsLoaded
+
+	// optional external
+	try {
+		require('mprogress/build/css/mprogress.css')
+		require('mprogress/build/js/mprogress')
+		depsLoaded = true
+	}
+	catch (e) {
+		depsLoaded = false
+	}
 
 	export default {
 		data () {
@@ -62,6 +72,10 @@
 			}
 		},
 		ready () {
+			if (!depsLoaded) {
+				return
+			}
+			/*global Mprogress*/
 			this.mp = new Mprogress({
 				template: this.template,
 				parent: '#' + this.id
