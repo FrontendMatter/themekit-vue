@@ -162,7 +162,7 @@ $progress-bar-inverse-bg: $brand-inverse !default;
 
 // SIDEBAR COLORS
 
-$sidebar-bg: #f7f7f7 !default;
+$sidebar-bg: #f9f9f9 !default;
 $sidebar-text-color: #212121 !default;
 
 // borders
@@ -177,8 +177,9 @@ $sidebar-heading-color: $sidebar-category-color !default;
 $sidebar-border-color: darken($sidebar-bg, 6.5%) !default;
 
 // sidebar brand
-$sidebar-brand-bg: $brand-primary !default;
-$sidebar-brand-color: #fff !default;
+$sidebar-brand-bg: $sidebar-bg !default;
+$sidebar-brand-text-color: $text-color !default;
+$sidebar-brand-border-color: $sidebar-border-color;
 
 // list group menu
 $sidebar-list-group-menu-item-bg: darken($sidebar-bg, 4%) !default;
