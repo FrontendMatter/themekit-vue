@@ -2,6 +2,7 @@
 	import 'load_image/load_image'
 
 	export default {
+		name: 'cover',
 		data () {
 			return {
 				layoutTimer: null

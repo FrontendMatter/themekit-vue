@@ -9,6 +9,7 @@
 
 <script>
 	export default {
+		name: 'expandable',
 		props: {
 			open: {
 				type: Boolean

@@ -1,5 +1,5 @@
 <script>
-	import component from '../../../../src/components/sidebar-toggle-button.vue'
+	import component from '../../../../src/components/sidebar-toggle-button'
 	import merge from 'mout/object/merge'
 
 	let docs = merge(component, {

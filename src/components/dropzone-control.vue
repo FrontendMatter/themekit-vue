@@ -9,6 +9,7 @@
 	import Dropzone from 'dropzone/dist/dropzone'
 
 	export default {
+		name: 'dropzone-control',
 		data () {
 			return {
 				show: true
