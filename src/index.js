@@ -86,6 +86,12 @@ ThemeKit.install = function (Vue) {
 	Vue.directive('highlight', Highlight)
 }
 
+import Attach from './mixins/attach'
+
+ThemeKit.mixins = {
+	Attach
+}
+
 // auto install in browser
 if (typeof window !== 'undefined' && window.Vue) {
 	window.Vue.use(ThemeKit)
