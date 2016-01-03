@@ -1,18 +1,17 @@
 var extend = require('themekit-webpack-config/extend')
-var base = require('themekit-webpack-config/base')
+var Base = require('themekit-webpack-config/base')
+var config = new Base()
 
-module.exports = extend(base.getConfig(), {
+module.exports = extend(config.getConfig(), {
 	entry: {
-		themekit: [ base.srcPath('index.js') ]
+		themekit: [ config.srcPath('index.js') ]
 	},
 	output: {
 		library: 'ThemeKit',
 		libraryTarget: 'umd'
 	},
 	externals: [
-		{
-			'jquery': 'jQuery'
-		},
+		{ 'jquery': 'jQuery' },
 		{
 			'isotope-layout': 'Isotope',
 			'isotope-packery': {
@@ -22,6 +21,7 @@ module.exports = extend(base.getConfig(), {
 				amd: 'isotope-packery'
 			}
 		},
-		'bootstrap-datepicker'
+		'bootstrap-datepicker',
+		{ 'dropzone': 'Dropzone' }
 	]
 })

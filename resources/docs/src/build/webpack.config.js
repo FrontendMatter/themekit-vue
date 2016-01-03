@@ -1,29 +1,17 @@
 var extend = require('themekit-webpack-config/extend')
-var base = require('themekit-webpack-config/base')
+var Base = require('themekit-webpack-config/base')
+var config = new Base()
+var main = require('../../../../src/build/webpack.config')
 
-module.exports = extend(base.getConfig(), {
+module.exports = extend(config.getConfig(), {
 	entry: {
-		docs: base.srcPath('index.js')
+		docs: config.srcPath('index.js')
 	},
 	output: {
 		library: 'Docs',
 		libraryTarget: 'umd'
 	},
-	externals: [
-		{
-			'jquery': 'jQuery'
-		},
-		{
-			'isotope-layout': 'Isotope',
-			'isotope-packery': {
-				root: 'Packery',
-				commonjs: 'isotope-packery',
-				commonjs2: 'isotope-packery',
-				amd: 'isotope-packery'
-			}
-		},
-		'bootstrap-datepicker'
-	],
+	externals: main.externals,
 	styleImportLoader: {
 		base: './src/sass/_common.scss'
 	}
