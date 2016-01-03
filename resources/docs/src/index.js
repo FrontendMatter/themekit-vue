@@ -3,6 +3,7 @@ import Carousel from '../../../src/components/carousel'
 import CoverBanner from '../../../src/components/cover-banner'
 import CoverLink from '../../../src/components/cover-link'
 import CoverOverlay from '../../../src/components/cover-overlay'
+import CoverPanel from '../../../src/components/cover-panel'
 import Cover from '../../../src/components/cover'
 import DropdownArea from '../../../src/components/dropdown-area'
 import DropdownMenu from '../../../src/components/dropdown-menu'
@@ -41,6 +42,7 @@ let Docs = {
 	CoverBanner,
 	CoverLink,
 	CoverOverlay,
+	CoverPanel,
 	Cover,
 	DropdownArea,
 	DropdownMenu,
