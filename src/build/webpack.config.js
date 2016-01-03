@@ -22,6 +22,6 @@ module.exports = extend(config.getConfig(), {
 			}
 		},
 		'bootstrap-datepicker',
-		{ 'dropzone': 'Dropzone' }
+		{ 'dropzone/dist/dropzone': 'Dropzone' }
 	]
 })

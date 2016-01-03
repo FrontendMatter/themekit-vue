@@ -6,7 +6,17 @@
 </template>
 
 <script>
-	import Dropzone from 'dropzone/dist/dropzone'
+	var depsLoaded
+
+	// optional externals
+	try {
+		require('dropzone/dist/dropzone')
+		/*global Dropzone*/
+		depsLoaded = true
+	}
+	catch (e) {
+		depsLoaded = false
+	}
 
 	export default {
 		name: 'dropzone-control',
@@ -85,6 +95,9 @@
 			}
 		},
 		ready () {
+			if (!depsLoaded) {
+				return
+			}
 			if (this.$parent.$options.name === 'dropzone') {
 				this.isInsideDropzone = true
 				this.dropzoneId = this.$parent.id

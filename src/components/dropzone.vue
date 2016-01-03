@@ -16,10 +16,20 @@
 </template>
 
 <script>
-	import Dropzone from 'dropzone/dist/dropzone'
-	import shortid from 'shortid'
+	var depsLoaded
 
-	Dropzone.autoDiscover = false
+	// optional externals
+	try {
+		require('dropzone/dist/dropzone')
+		/*global Dropzone*/
+		Dropzone.autoDiscover = false
+		depsLoaded = true
+	}
+	catch (e) {
+		depsLoaded = false
+	}
+
+	import shortid from 'shortid'
 
 	export default {
 		data () {
@@ -106,6 +116,9 @@
 			}
 		},
 		ready () {
+			if (!depsLoaded) {
+				return
+			}
 			this.dropzone = new Dropzone(this.$el, this.options)
 			const events = ['addedfile', 'removedfile', 'complete', 'sending', 'queuecomplete']
 			events.forEach(function (eventName) {
@@ -135,6 +148,9 @@
 			this.$dispatch('ready.tk.dropzone', this)
 		},
 		beforeDestroy () {
+			if (!depsLoaded) {
+				return
+			}
 			this.dropzone.destroy()
 		}
 	}
