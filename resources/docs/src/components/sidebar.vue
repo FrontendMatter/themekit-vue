@@ -3,13 +3,12 @@
 	import merge from 'mout/object/merge'
 
 	let docs = merge(component, {
-		description: `
-			Create a side navigation panel.
-
-			## Requirements
-
-			> The sidebar component must be used with the [layout](#!/components/layout) or [layout transition](#!/components/layout-transition) components.
-
+		description: `Create a side navigation panel.`,
+		requirements: [
+			'layout',
+			'layout-transition'
+		],
+		details: `
 			## Layout slots
 
 			To compose the layout with our sidebar and content, we must use content distribution slots. The \`slot\` is a special property that instructs the components on how to distribute content. Read more about [Content Distribution with Slots in Vue.js components](http://vuejs.org/guide/components.html#Content_Distribution_with_Slots)

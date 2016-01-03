@@ -1,4 +1,4 @@
-import CarouselItem from '../../../src/components/carousel-item'
+import CarouselItem from './components/carousel-item'
 import Carousel from './components/carousel'
 import CoverBanner from '../../../src/components/cover-banner'
 import CoverLink from '../../../src/components/cover-link'
