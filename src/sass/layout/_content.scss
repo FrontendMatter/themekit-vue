@@ -3,3 +3,7 @@
 	position: relative;
 	z-index: 2; // has to be less than sidebar's z-index
 }
+.layout-container {
+	height: 100%;
+	position: relative;
+}

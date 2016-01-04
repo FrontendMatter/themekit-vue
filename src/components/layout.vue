@@ -1,14 +1,18 @@
 <template>
+	
+	<div class="layout-container">
 
-	<!-- Navbar -->
-	<slot name="navbar"></slot>
+		<!-- Navbar -->
+		<slot name="navbar"></slot>
 
-	<!-- Sidebars -->
-	<slot name="sidebar"></slot>
+		<!-- Sidebars -->
+		<slot name="sidebar"></slot>
 
-	<!-- Content -->
-	<div class="layout-content" v-scrollable>
-		<slot></slot>
+		<!-- Content -->
+		<div class="layout-content" v-scrollable>
+			<slot></slot>
+		</div>
+
 	</div>
 
 </template>
@@ -51,14 +55,18 @@
 				}
 			},
 			onOpenSidebar () {
-				document.querySelector('html').classList.add('show-sidebar')
+				this.$el.classList.add('show-sidebar')
 			},
 			onCloseSidebar (sidebarId) {
 				if (!this.filterVisible(this.getSidebarsExcept(sidebarId)).length) {
-					document.querySelector('html').classList.remove('show-sidebar')
+					this.$el.classList.remove('show-sidebar')
 				}
 			},
 			queueToggleSidebar (sidebarId) {
+				let sidebar = this.getSidebar(sidebarId)
+				if (!sidebar) {
+					return true	
+				}
 				clearInterval(this.queueToggleInterval)
 				this.queueToggleInterval = setInterval(function () {
 					let sidebars = this.filterVisible(this.getSidebarsExcept(sidebarId))
@@ -72,16 +80,18 @@
 				})
 			},
 			enableScrollableContent () {
-				let elements = ['html', 'body']
+				let elements = ['html', 'body', this.$el]
 				elements.forEach(function (element) {
-					document.querySelector(element).style.overflow = 'hidden'
-					document.querySelector(element).style.height = '100%'	
+					let e = typeof element === 'string' ? document.querySelector(element) : element
+					e.style.overflow = 'hidden'
+					e.style.height = '100%'	
 				})
 			},
 			disableScrollableContent () {
-				let elements = ['html', 'body']
+				let elements = ['html', 'body', this.$el]
 				elements.forEach(function (element) {
-					document.querySelector(element).removeAttribute('style')
+					let e = typeof element === 'string' ? document.querySelector(element) : element
+					e.removeAttribute('style')
 				})
 			},
 			emitIsotopeLayout () {
@@ -90,12 +100,12 @@
 		},
 		beforeDestroy () {
 			clearInterval(this.queueToggleInterval)
-			this.$root.$off('toggle.tk.sidebar', this.toggleSidebar)
+			this.$off('toggle.tk.sidebar', this.toggleSidebar)
 			this.disableScrollableContent()
 		},
 		ready () {
 			this.$root.$broadcast('context.tk.layout', this)
-			this.$root.$on('toggle.tk.sidebar', this.toggleSidebar)
+			this.$on('toggle.tk.sidebar', this.toggleSidebar)
 			this.enableScrollableContent()
 		},
 		events: {
@@ -111,15 +121,12 @@
 			},
 			'show.tk.sidebar': function () {
 				this.onOpenSidebar()
-				return true
 			},
 			'change.tk.sidebar': function () {
 				this.emitIsotopeLayout()
-				return true
 			},
 			'hidden.tk.sidebar': function (sidebar) {
 				this.onCloseSidebar(sidebar.sidebarId)
-				return true
 			}
 		}
 	}

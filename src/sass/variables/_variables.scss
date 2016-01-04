@@ -245,7 +245,9 @@ $sidebar-brand-height: $navbar-height !default;
 $sidebar-top: $navbar-height !default;
 
 // general spacing
-$sidebar-spacing-horizontal: 16px !default;
+$sidebar-spacing: 16px !default;
+$sidebar-spacing-horizontal: $sidebar-spacing !default;
+$sidebar-spacing-vertical: $sidebar-spacing !default;
 
 // menu spacing
 $sm-spacing-horizontal: $sidebar-spacing-horizontal !default;

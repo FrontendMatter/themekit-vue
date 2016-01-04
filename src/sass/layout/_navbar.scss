@@ -1,25 +1,25 @@
 .navbar-content {
 	@media (min-width: $screen-sm) {
-		&[class*="top-navbar"] .sidebar {
+		&[class*="top-navbar"] > .sidebar {
 			top: 0;
 		}
 		&.show-sidebar {
-			&[class*="sidebar-l1"] .navbar {
+			&[class*="sidebar-l1"] > .navbar {
 				left: $sidebar-width-1;
 			}
-			&[class*="sidebar-l2"] .navbar {
+			&[class*="sidebar-l2"] > .navbar {
 				left: $sidebar-width-2;
 			}
-			&[class*="sidebar-l3"] .navbar {
+			&[class*="sidebar-l3"] > .navbar {
 				left: $sidebar-width-3;
 			}
-			&[class*="sidebar-r1"] .navbar {
+			&[class*="sidebar-r1"] > .navbar {
 				right: $sidebar-width-1;
 			}
-			&[class*="sidebar-r2"] .navbar {
+			&[class*="sidebar-r2"] > .navbar {
 				right: $sidebar-width-2;
 			}
-			&[class*="sidebar-r3"] .navbar {
+			&[class*="sidebar-r3"] > .navbar {
 				right: $sidebar-width-3;
 			}
 		}
@@ -30,24 +30,25 @@
 	}
 
 	// layout transitions
-	.st-container {
+	> .st-container {
 		padding-top: 0 !important;
 	}
-	&.show-sidebar[class*="st-effect"] [slot="navbar-content"] {
+	&.show-sidebar[class*="st-effect"] > .st-pusher > .st-content > .layout-content > [slot="navbar-content"] {
 		left: 0;
 		right: 0;
 	}
 
 	// fixed=top
-	&[class*="top-navbar"] .st-container {
-		.layout-content {
+	&[class*="top-navbar"] > .st-container {
+		> .st-pusher > .st-content > .layout-content {
 			padding-top: $navbar-height;
 		}
-		.sidebar {
+		> .sidebar,
+		> .st-pusher > .sidebar {
 			top: 0;
 		}
 	}
-	&[class="ls-top-navbar"] .st-container .layout-content {
+	&[class="ls-top-navbar"] > .st-container > .st-pusher > .st-content > .layout-content {
 		padding-top: $navbar-height + ($grid-gutter-width/2);
 	}
 

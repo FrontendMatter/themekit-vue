@@ -57,7 +57,7 @@ $sidebar-width-map: (
 
 @mixin sidebar-layout-pc($property, $direction, $index: $sidebar-width-pc-min, $screen: "") {
 	@if $index <= 100 {
-		.show-sidebar.#{sidebar}-#{$direction}-#{$index}pc#{$screen} & {
+		.show-sidebar.#{sidebar}-#{$direction}-#{$index}pc#{$screen} > & {
 			#{$property}: round(percentage($index / 100));
 		}
 		@include sidebar-layout-pc($property, $direction, $index + 1, $screen);
@@ -75,7 +75,7 @@ $sidebar-width-map: (
 
 @mixin sidebar-layout-px($property, $direction, $screen: "", $index: 1) {
 	@if $index <= 3 {
-		.show-sidebar.#{sidebar}-#{$direction}#{$index}#{$screen} & {
+		.show-sidebar.#{sidebar}-#{$direction}#{$index}#{$screen} > & {
 			#{$property}: map-get($sidebar-width-map, $index);
 		}
 		@include sidebar-layout-px($property, $direction, $screen, $index + 1);

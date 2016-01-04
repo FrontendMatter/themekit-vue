@@ -78,11 +78,14 @@
 			}
 		},
 		methods: {
+			layout () {
+				return $(this.$el).parents('.layout-container:first')
+			},
 			addInContentLayoutClass () {
-				document.querySelector('html').classList.add('navbar-content')
+				this.layout().addClass('navbar-content')
 			},
 			removeInContentLayoutClass () {
-				document.querySelector('html').classList.remove('navbar-content')
+				this.layout().removeClass('navbar-content')
 			},
 			enableInContent () {
 				this.addInContentLayoutClass()
@@ -92,14 +95,14 @@
 			},
 			enableFixed () {
 				if (this.fixed === 'top') {
-					document.querySelector('html').classList.add('ls-top-navbar')
+					this.layout().addClass('ls-top-navbar')
 				}
 			},
 			disableFixed () {
-				document.querySelector('html').classList.remove('ls-top-navbar')
+				this.layout().removeClass('ls-top-navbar')
 			},
 			sidebarTransitionsEnabled () {
-				return document.querySelector('.st-layout')
+				return this.layout().hasClass('st-layout')
 			},
 			breakpoints (reset) {
 

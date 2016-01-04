@@ -4,8 +4,7 @@ module.exports = {
 	srcPath: 'resources/docs/src',
 	distPath: 'resources/docs/dist',
 	plugins: {
-		CommonsChunkPlugin: false,
-		ExtractTextPlugin: false
+		CommonsChunkPlugin: false
 	},
 	loader: {
 		babel: {

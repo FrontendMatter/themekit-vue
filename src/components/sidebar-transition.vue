@@ -67,7 +67,7 @@
 					return this.toggleLayout.split(',').join(' ')
 				}
 				var match = new RegExp('sidebar-' + this.direction + '(\\S+)', 'ig')
-				var layoutClasses = $('html').get(0).className.match(match)
+				var layoutClasses = this.layout().get(0).className.match(match)
 				if (layoutClasses !== null && layoutClasses.length) {
 					return layoutClasses.join(' ')
 				}
@@ -76,13 +76,13 @@
 		},
 		methods: {
 			container () {
-				return $('.st-container')
+				return this.layout().find('.st-container:first')
 			},
 			sidebarTransitionsEnabled () {
 				if (!this.effect) {
 					return false
 				}
-				return document.querySelector('.st-layout')
+				return this.layout().hasClass('st-layout')
 			},
 			layoutSidebarTransitionClass (size, screen) {
 				var className = 'st-effect-'
@@ -120,9 +120,9 @@
 			},
 			onEnter () {
 				clearTimeout(this.leaveTimer)
-				$('html').addClass(this.layoutSidebarTransitionClasses)
+				this.layout().addClass(this.layoutSidebarTransitionClasses)
 				if (this.toggleLayout) {
-					$('html').addClass(this.toggleLayoutClasses)
+					this.layout().addClass(this.toggleLayoutClasses)
 				}
 				this.sidebar().addClass(this.sidebarEffectClass)
 				this.container().addClass(this.sidebarEffectClass)
@@ -155,9 +155,9 @@
 				this.leaveTimer = setTimeout(function () {
 					this.removeLayoutClasses()
 					this.container().get(0).className = 'st-container'
-					$('html').removeClass(this.layoutSidebarTransitionClasses)
+					this.layout().removeClass(this.layoutSidebarTransitionClasses)
 					if (this.toggleLayout) {
-						$('html').removeClass(this.toggleLayoutClasses)
+						this.layout().removeClass(this.toggleLayoutClasses)
 					}
 					this.isVisible = false
 					this.animating = false
@@ -172,9 +172,9 @@
 			clearTimeout(this.animatingTimer)
 			clearTimeout(this.doneTimer)
 			this.removeLayoutClasses()
-			$('html').removeClass(this.layoutSidebarTransitionClasses)
+			this.layout().removeClass(this.layoutSidebarTransitionClasses)
 			if (this.toggleLayout) {
-				$('html').removeClass(this.toggleLayoutClasses)
+				this.layout().removeClass(this.toggleLayoutClasses)
 			}
 		}
 	}

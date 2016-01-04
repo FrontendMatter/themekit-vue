@@ -1,45 +1,49 @@
 <template>
 
-	<div class="st-container">
+	<div class="layout-container">
 
-		<!-- Navbar -->
-		<slot name="navbar"></slot>
+		<div class="st-container">
 
-		<!-- Sidebars -->
-		<slot name="sidebar"></slot>
-
-		<!-- sidebar effects OUTSIDE of st-pusher: -->
-		<!-- reveal, slide-in, slide-along, slide-out-reverse, scale-down, scale-up, scale-rotate, open-door, fall-down -->
-
-		<!-- content push wrapper -->
-		<div class="st-pusher">
+			<!-- Navbar -->
+			<slot name="navbar"></slot>
 
 			<!-- Sidebars -->
-			<slot name="sidebar-push"></slot>
+			<slot name="sidebar"></slot>
 
-			<!-- sidebar effects INSIDE of st-pusher: -->
-			<!-- push, push-rotate, push-3d-rotate-in, push-3d-rotate-out, push-3d-rotate-delay -->
+			<!-- sidebar effects OUTSIDE of st-pusher: -->
+			<!-- reveal, slide-in, slide-along, slide-out-reverse, scale-down, scale-up, scale-rotate, open-door, fall-down -->
 
-			<!-- this is the wrapper for the content -->
-			<div class="st-content">
+			<!-- content push wrapper -->
+			<div class="st-pusher">
 
-				<!-- extra div for emulating position:fixed of the menu -->
-				<div class="layout-content st-content-inner" v-scrollable>
+				<!-- Sidebars -->
+				<slot name="sidebar-push"></slot>
 
-					<!-- Navbar Content -->
-					<slot name="navbar-content"></slot>
+				<!-- sidebar effects INSIDE of st-pusher: -->
+				<!-- push, push-rotate, push-3d-rotate-in, push-3d-rotate-out, push-3d-rotate-delay -->
 
-					<!-- Content -->
-					<slot></slot>
+				<!-- this is the wrapper for the content -->
+				<div class="st-content">
+
+					<!-- extra div for emulating position:fixed of the menu -->
+					<div class="layout-content" v-scrollable>
+
+						<!-- Navbar Content -->
+						<slot name="navbar-content"></slot>
+
+						<!-- Content -->
+						<slot></slot>
+
+					</div>
+					<!-- /st-content-inner -->
 
 				</div>
-				<!-- /st-content-inner -->
+				<!-- /st-content -->
 
 			</div>
-			<!-- /st-content -->
+			<!-- /st-pusher -->
 
 		</div>
-		<!-- /st-pusher -->
 
 	</div>
 
@@ -52,10 +56,10 @@
 		mixins: [ Layout ],
 		methods: {
 			enableSidebarTransitions () {
-				document.querySelector('html').classList.add('st-layout')
+				this.$el.classList.add('st-layout')
 			},
 			disableSidebarTransitions () {
-				document.querySelector('html').classList.remove('st-layout')
+				this.$el.classList.remove('st-layout')
 			},
 			filterAnimating (sidebars) {
 				return sidebars.filter((s) => s.animating && s.sidebarTransitionsEnabled() && s.isAnimating())
@@ -72,12 +76,12 @@
 			}
 		},
 		ready () {
-			this.$root.$off('toggle.tk.sidebar', this.toggleSidebar)
-			this.$root.$on('toggle.tk.sidebar', this.queueToggleSidebar)
+			this.$off('toggle.tk.sidebar', this.toggleSidebar)
+			this.$on('toggle.tk.sidebar', this.queueToggleSidebar)
 			this.enableSidebarTransitions()
 		},
 		beforeDestroy () {
-			this.$root.$off('toggle.tk.sidebar', this.queueToggleSidebar)
+			this.$off('toggle.tk.sidebar', this.queueToggleSidebar)
 			this.disableSidebarTransitions()
 			clearInterval(this.queueOpenInterval)
 		},

@@ -31,42 +31,42 @@
 	}
 }
 @mixin pusher-screen($screen: "") {
-	.st-effect-l1#{$screen} & {
+	.st-effect-l1#{$screen} > & {
 		@include pusher-left($sidebar-width-1);
 	}
-	.st-effect-r1#{$screen} & {
+	.st-effect-r1#{$screen} > & {
 		@include pusher-right($sidebar-width-1);
 	}
-	.st-effect-l2#{$screen} & {
+	.st-effect-l2#{$screen} > & {
 		@include pusher-left($sidebar-width-2);
 	}
-	.st-effect-r2#{$screen} & {
+	.st-effect-r2#{$screen} > & {
 		@include pusher-right($sidebar-width-2);
 	}
-	.st-effect-l3#{$screen} & {
+	.st-effect-l3#{$screen} > & {
 		@include pusher-left($sidebar-width-3);
 	}
-	.st-effect-r3#{$screen} & {
+	.st-effect-r3#{$screen} > & {
 		@include pusher-right($sidebar-width-3);
 	}
 }
 @mixin pusher-navbar-screen($screen: "") {
-	.st-effect-l1#{$screen} & {
+	.st-effect-l1#{$screen} > & {
 		@include pusher-navbar-left($sidebar-width-1);
 	}
-	.st-effect-r1#{$screen} & {
+	.st-effect-r1#{$screen} > & {
 		@include pusher-navbar-right($sidebar-width-1);
 	}
-	.st-effect-l2#{$screen} & {
+	.st-effect-l2#{$screen} > & {
 		@include pusher-navbar-left($sidebar-width-2);
 	}
-	.st-effect-r2#{$screen} & {
+	.st-effect-r2#{$screen} > & {
 		@include pusher-navbar-right($sidebar-width-2);
 	}
-	.st-effect-l3#{$screen} & {
+	.st-effect-l3#{$screen} > & {
 		@include pusher-navbar-left($sidebar-width-3);
 	}
-	.st-effect-r3#{$screen} & {
+	.st-effect-r3#{$screen} > & {
 		@include pusher-navbar-right($sidebar-width-3);
 	}
 }

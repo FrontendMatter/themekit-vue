@@ -24,8 +24,17 @@
             color: $sidebar-heading-color;
         }
     }
+    .sidebar-text,
+    .sidebar-heading,
     .sidebar-category {
-        padding: $sidebar-spacing-horizontal;
+        padding: $sidebar-spacing-vertical $sidebar-spacing-horizontal;
+        & + .sidebar-text,
+        & + .sidebar-heading,
+        & + .sidebar-category {
+            padding-top: 0;
+        }
+    }
+    .sidebar-category {
         font-weight: $sidebar-category-font-weight;
         font-size: $sidebar-category-font-size;
         font-family: $sidebar-category-font-family;

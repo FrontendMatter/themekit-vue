@@ -1,46 +1,43 @@
 @import "../mixins/navbar";
 
-body {
+// FIXED NAVBAR SPACING
+.top-navbar {
+	padding-top: $navbar-height;
+}
+.top-navbar-large {
+	padding-top: $navbar-height;
+	@media (min-width: $navbar-large-breakpoint) {
+		padding-top: $navbar-large-height;
+	}
+}
+.top-navbar-xlarge {
+	padding-top: $navbar-height;
+	@media (min-width: $navbar-large-breakpoint) {
+		padding-top: $navbar-xlarge-height;
+	}
+}
+.top-navbar-small {
+	padding-top: $navbar-small-height;
+}
 
-	// FIXED NAVBAR SPACING
-	.top-navbar & {
-		padding-top: $navbar-height;
+// FIXED NAVBAR + LAYOUT SPACING
+.ls-top-navbar {
+	padding-top: $navbar-height + $grid-gutter-width/2;
+}
+.ls-top-navbar-large {
+	padding-top: $navbar-height + $grid-gutter-width/2;
+	@media (min-width: $navbar-large-breakpoint) {
+		padding-top: $navbar-large-height + $grid-gutter-width/2;
 	}
-	.top-navbar-large & {
-		padding-top: $navbar-height;
-		@media (min-width: $navbar-large-breakpoint) {
-			padding-top: $navbar-large-height;
-		}
+}
+.ls-top-navbar-xlarge {
+	padding-top: $navbar-height + $grid-gutter-width/2;
+	@media (min-width: $navbar-large-breakpoint) {
+		padding-top: $navbar-xlarge-height + $grid-gutter-width/2;
 	}
-	.top-navbar-xlarge & {
-		padding-top: $navbar-height;
-		@media (min-width: $navbar-large-breakpoint) {
-			padding-top: $navbar-xlarge-height;
-		}
-	}
-	.top-navbar-small & {
-		padding-top: $navbar-small-height;
-	}
-
-	// FIXED NAVBAR + LAYOUT SPACING
-	.ls-top-navbar & {
-		padding-top: $navbar-height + $grid-gutter-width/2;
-	}
-	.ls-top-navbar-large & {
-		padding-top: $navbar-height + $grid-gutter-width/2;
-		@media (min-width: $navbar-large-breakpoint) {
-			padding-top: $navbar-large-height + $grid-gutter-width/2;
-		}
-	}
-	.ls-top-navbar-xlarge & {
-		padding-top: $navbar-height + $grid-gutter-width/2;
-		@media (min-width: $navbar-large-breakpoint) {
-			padding-top: $navbar-xlarge-height + $grid-gutter-width/2;
-		}
-	}
-	.ls-top-navbar-small & {
-		padding-top: $navbar-small-height + $grid-gutter-width/2;
-	}
+}
+.ls-top-navbar-small {
+	padding-top: $navbar-small-height + $grid-gutter-width/2;
 }
 
 .navbar-fixed-top {

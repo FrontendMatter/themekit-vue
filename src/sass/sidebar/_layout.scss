@@ -6,7 +6,8 @@
 	// Apply content margins
 
 	// Content with Single sidebars on each side
-	.layout-content {
+	.layout-content,
+	.st-container > .st-pusher > .st-content > .layout-content {
 
 		// left sidebars
 		@include sidebar-layout-px(margin-left, l);
@@ -46,7 +47,8 @@
 	// Apply content margins
 
 	// Content with Single sidebars on each side
-	.layout-content {
+	.layout-content,
+	.st-container > .st-pusher > .st-content > .layout-content {
 
 		// left sidebars
 		@include sidebar-layout-px(margin-left, l, "-sm");
@@ -86,7 +88,8 @@
 	// Apply content margins
 
 	// Content with Single sidebars on each side
-	.layout-content {
+	.layout-content,
+	.st-container > .st-pusher > .st-content > .layout-content {
 
 		// left sidebars
 		@include sidebar-layout-px(margin-left, l, "-md");
@@ -127,7 +130,8 @@
 	// Apply content margins
 
 	// Content with Single sidebars on each side
-	.layout-content {
+	.layout-content,
+	.st-container > .st-pusher > .st-content > .layout-content {
 
 		// left sidebars
 		@include sidebar-layout-px(margin-left, l, "-lg");
@@ -168,7 +172,8 @@
 	// Apply content margins
 
 	// Content with Single sidebars on each side
-	.layout-content {
+	.layout-content,
+	.st-container > .st-pusher > .st-content > .layout-content {
 
 		// left sidebars
 		@include sidebar-layout-px(margin-left, l, "-xs");
@@ -213,7 +218,7 @@
 
 // Mobile first
 .sidebar {
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	z-index: 3;
 	display: none;
@@ -222,24 +227,21 @@
 	// theme
 	@include sidebar-variant();
 
-	[class*="top-navbar"] body > &,
-	[class*="top-navbar"] .st-container > &,
-	[class*="top-navbar"] .ui-view-main > & {
+	[class*="top-navbar"] > &,
+	[class*="top-navbar"] > .st-container > & {
 		top: $navbar-height;
 	}
 
-	[class*="top-navbar-large"] body > &,
-	[class*="top-navbar-large"] .st-container > &,
-	[class*="top-navbar-large"] .ui-view-main > & {
+	[class*="top-navbar-large"] > &,
+	[class*="top-navbar-large"] > .st-container > & {
 		top: $navbar-height;
 		@media (min-width: $navbar-large-breakpoint) {
 			top: $navbar-large-height;
 		}
 	}
 
-	[class*="top-navbar-xlarge"] body > &,
-	[class*="top-navbar-xlarge"] .st-container > &,
-	[class*="top-navbar-xlarge"] .ui-view-main > & {
+	[class*="top-navbar-xlarge"] > &,
+	[class*="top-navbar-xlarge"] > .st-container > & {
 		top: $navbar-height;
 		@media (min-width: $navbar-large-breakpoint) {
 			top: $navbar-xlarge-height;
@@ -373,7 +375,9 @@
 	@include sidebar-size-pc($sidebar-width-pc-min);
 
 	// Sidebar Visibility
-	.show-sidebar .sidebar.sidebar-visible-sm-up {
+	.show-sidebar > .sidebar-visible-sm-up,
+	.show-sidebar > .st-container > .sidebar-visible-sm-up,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-sm-up {
 		display: block;
 	}
 }
@@ -386,7 +390,9 @@
 	@include sidebar-size-pc($sidebar-width-pc-min, "-sm");
 	
 	// Sidebar Visibility
-	.show-sidebar .sidebar-visible-sm {
+	.show-sidebar > .sidebar-visible-sm,
+	.show-sidebar > .st-container > .sidebar-visible-sm,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-sm {
 		display: block;
 	}
 }
@@ -399,7 +405,9 @@
 	@include sidebar-size-pc($sidebar-width-pc-min, "-md");
 	
 	// Sidebar Visibility
-	.show-sidebar .sidebar-visible-md {
+	.show-sidebar > .sidebar-visible-md,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-md,
+	.show-sidebar > .st-container > .sidebar-visible-md {
 		display: block;
 	}
 }
@@ -407,7 +415,9 @@
 // MEDIUM AND LARGER
 @media (min-width: $screen-md) {
 	// Sidebar Visibility
-	.show-sidebar .sidebar-visible-md-up {
+	.show-sidebar > .sidebar-visible-md-up,
+	.show-sidebar > .st-container > .sidebar-visible-md-up,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-md-up {
 		display: block;
 	}
 }
@@ -420,8 +430,12 @@
 	@include sidebar-size-pc($sidebar-width-pc-min, "-lg");
 
 	// Sidebar Visibility
-	.show-sidebar .sidebar-visible-lg,
-	.show-sidebar .sidebar-visible-lg-up {
+	.show-sidebar > .sidebar-visible-lg,
+	.show-sidebar > .sidebar-visible-lg-up,
+	.show-sidebar > .st-container > .sidebar-visible-lg,
+	.show-sidebar > .st-container > .sidebar-visible-lg-up,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-lg,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-lg-up {
 		display: block;
 	}
 }
@@ -443,17 +457,23 @@
 	}
 
 	// Sidebar Visibility
-	.show-sidebar .sidebar-visible-xs {
+	.show-sidebar > .sidebar-visible-xs,
+	.show-sidebar > .st-container > .sidebar-visible-xs,
+	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-xs {
 		display: block;
 	}
 }
 
 // EXTRA SMALL AND LARGER
 // Sidebar Visibility
-.show-sidebar .sidebar-visible-xs-up {
+.show-sidebar > .sidebar-visible-xs-up,
+.show-sidebar > .st-container > .sidebar-visible-xs-up,
+.show-sidebar > .st-container > .st-pusher > .sidebar-visible-xs-up {
 	display: block;
 }
 
-.show-sidebar .sidebar-visible {
+.show-sidebar > .sidebar-visible,
+.show-sidebar > .st-container > .sidebar-visible,
+.show-sidebar > .st-container > .st-pusher > .sidebar-visible {
 	display: block;
 }

@@ -221,8 +221,11 @@
 			sidebar () {
 				return $(this.$el)
 			},
+			layout () {
+				return this.sidebar().parents('.layout-container:first')
+			},
 			sidebarTransitionsEnabled () {
-				return document.querySelector('.st-layout')
+				return this.layout().hasClass('st-layout')
 			},
 			layoutClass (size, screen) {
 				var baseClass = 'sidebar-'
@@ -310,17 +313,14 @@
 				this.emit('change')
 			},
 			emit (eventName) {
-				this.$root.$broadcast(`${ eventName }.tk.sidebar`, this)
+				this.$dispatch(`${ eventName }.tk.sidebar`, this)
+				this.$parent.$broadcast(`${ eventName }.tk.sidebar`, this)
 			},
 			addLayoutClasses () {
-				this.layoutClasses.map((className) => {
-					document.querySelector('html').classList.add(className)
-				})
+				this.layout().addClass(this.layoutClasses.join(' '))
 			},
 			removeLayoutClasses () {
-				this.layoutClasses.map((className) => {
-					document.querySelector('html').classList.remove(className)
-				})
+				this.layout().removeClass(this.layoutClasses.join(' '))
 			},
 			setOffsetValue (sidebar) {
 				this.removeLayoutClasses()
