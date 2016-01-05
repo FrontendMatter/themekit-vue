@@ -106,9 +106,7 @@
 	visibility: visible;
 }
 
-/* Individual effects */
-
-/* Effect 1: Slide in on top */
+/* Slide in on top */
 .st-slide-in.sidebar {
 	[class*="st-effect-r"] > .st-container > & {
 		transform: translate3d(100%, 0, 0);
@@ -198,7 +196,7 @@
 	}
 }
 
-/* Effect 2: Reveal */
+/* Reveal */
 .st-reveal.sidebar {
 	z-index: 98;
 }
@@ -206,7 +204,7 @@
 	transition: transform 0.5s;
 }
 
-/* Effect 3: Push */
+/* Push */
 .st-push.sidebar {
 	[class*="st-effect-r"] > .st-container > .st-pusher > & {
 		transform: translate3d(100%, 0, 0);
@@ -219,7 +217,7 @@
 	transition: transform 0.5s;
 }
 
-/* Effect 4: Slide along */
+/* Slide along */
 .st-slide-along.sidebar {
 	z-index: 98;
 	[class*="st-effect-r"] > .st-container > & {
@@ -234,7 +232,7 @@
 	transform: translate3d(0, 0, 0);
 }
 
-/* Effect 5: Reverse slide out */
+/* Reverse slide out */
 .st-slide-out-reverse.sidebar {
 	z-index: 98;
 	[class*="st-effect-r"] > .st-container > & {
@@ -249,52 +247,7 @@
 	transform: translate3d(0, 0, 0);
 }
 
-/* Effect 6: Rotate pusher */
-.st-push-rotate.st-container {
-	perspective: 1500px;
-}
-.st-push-rotate > .st-pusher {
-	transform-origin: 0% 50%;
-	transform-style: preserve-3d;
-}
-.st-push-rotate.st-menu-open > .st-pusher {
-	.st-effect-l2 > & {
-		transform: translate3d($sidebar-width-2, 0, 0) rotateY(-15deg);
-	}
-	.st-effect-r2 > & {
-		transform: translate3d(-$sidebar-width-2, 0, 380px) rotateY(15deg);
-	}
-	.st-effect-l1-xs > & {
-		transform: translate3d(100%, 0, 0) rotateY(-15deg);
-	}
-	.st-effect-r1-xs > & {
-		transform: translate3d(-100%, 0, 0) rotateY(15deg);
-	}
-	// over the navbar
-	z-index: 1031;
-}
-.st-push-rotate.sidebar {
-	[class*="st-effect-r"] > .st-container > .st-pusher > & {
-		transform: translate3d(100%, 0, 0);
-		transform-origin: 0% 100%;
-	}
-	[class*="st-effect-l"] > .st-container > .st-pusher > & {
-		transform: translate3d(-100%, 0, 0);
-		transform-origin: 100% 50%;
-	}
-	transform-style: preserve-3d;
-}
-.st-push-rotate.st-menu-open > .st-pusher > .st-push-rotate.sidebar {
-	transition: transform 0.5s;
-	[class*="st-effect-r"] > & {
-		transform: translate3d(100%, 0, 0) rotateY(-15deg);
-	}
-	[class*="st-effect-l"] > & {
-		transform: translate3d(-100%, 0, 0) rotateY(15deg);
-	}
-}
-
-/* Effect 7: 3D rotate in */
+/* 3D rotate in */
 .st-push-3d-rotate-in.st-container {
 	perspective: 1500px;
 	perspective-origin: 0% 50%;
@@ -323,7 +276,7 @@
 	}
 }
 
-/* Effect 8: 3D rotate out */
+/* 3D rotate out */
 .st-push-3d-rotate-out.st-container {
 	perspective: 1500px;
 	perspective-origin: 0% 50%;
@@ -352,7 +305,7 @@
 	}
 }
 
-/* Effect 14: Delayed 3D rotate */
+/* Delayed 3D rotate */
 .st-push-3d-rotate-delay.st-container {
 	perspective: 1500px;
 	perspective-origin: 0% 50%;
@@ -382,31 +335,7 @@
 	}
 }
 
-/* Effect 9: Scale down pusher */
-.st-scale-down.st-container {
-	perspective: 1500px;
-}
-.st-scale-down > .st-pusher {
-	transform-style: preserve-3d;
-}
-.st-scale-down.st-menu-open > .st-pusher {
-	transform: translate3d(0, 0, -300px);
-}
-.st-scale-down.sidebar {
-	opacity: 1;
-	[class*="st-effect-l"] > .st-container > & {
-		transform: translate3d(-100%, 0, 0);
-	}
-	[class*="st-effect-r"] > .st-container > & {
-		transform: translate3d(100%, 0, 0);
-	}
-}
-.st-scale-down.st-menu-open > .st-scale-down.sidebar {
-	transition: transform 0.5s;
-	transform: translate3d(0, 0, 0);
-}
-
-/* Effect 10: Scale up */
+/* Scale up */
 .st-scale-up.st-container {
 	perspective: 1500px;
 	perspective-origin: 0% 50%;
@@ -428,71 +357,7 @@
 	transform: translate3d(0, 0, 0);
 }
 
-/* Effect 11: Scale and rotate pusher */
-.st-scale-rotate.st-container {
-	perspective: 1500px;
-}
-.st-scale-rotate > .st-pusher {
-	transform-style: preserve-3d;
-}
-.st-scale-rotate.st-menu-open > .st-pusher {
-	[class*="st-effect-r"] > & {
-		transform: translate3d(10px, 0, -300px) rotateY(20deg);
-	}
-	[class*="st-effect-l"] > & {
-		transform: translate3d(100px, 0, -600px) rotateY(-20deg);
-	}
-}
-.st-scale-rotate.sidebar {
-	opacity: 1;
-	[class*="st-effect-r"] > .st-container > & {
-		transform: translate3d(100%, 0, 0);
-	}
-	[class*="st-effect-l"] > .st-container > & {
-		transform: translate3d(-100%, 0, 0);
-	}
-}
-.st-scale-rotate.st-menu-open > .st-scale-rotate.sidebar {
-	transition: transform 0.5s;
-	transform: translate3d(0, 0, 0);
-}
-
-/* Effect 12: Open door */
-.st-open-door.st-container {
-	perspective: 1500px;
-}
-.st-open-door > .st-pusher {
-	[class*="st-effect-r"] > & {
-		transform-origin: 0% 50%;
-	}
-	[class*="st-effect-l"] > & {
-		transform-origin: 100% 50%;
-	}
-	transform-style: preserve-3d;
-}
-.st-open-door.st-menu-open > .st-pusher {
-	[class*="st-effect-r"] > & {
-		transform: rotateY(10deg);
-	}
-	[class*="st-effect-l"] > & {
-		transform: rotateY(-10deg);
-	}
-}
-.st-open-door.sidebar {
-	opacity: 1;
-	[class*="st-effect-r"] > .st-container > & {
-		transform: translate3d(100%, 0, 0);
-	}
-	[class*="st-effect-l"] > .st-container > & {
-		transform: translate3d(-100%, 0, 0);
-	}
-}
-.st-open-door.st-menu-open > .st-open-door.sidebar {
-	transition: transform 0.5s;
-	transform: translate3d(0, 0, 0);
-}
-
-/* Effect 13: Fall down */
+/* Fall down */
 .st-fall-down.st-container {
 	perspective: 1500px;
 	perspective-origin: 0% 50%;

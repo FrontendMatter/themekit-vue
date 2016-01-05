@@ -53,6 +53,7 @@
 	import Layout from './layout.vue'
 
 	export default {
+		name: 'layout-transition',
 		mixins: [ Layout ],
 		methods: {
 			enableSidebarTransitions () {

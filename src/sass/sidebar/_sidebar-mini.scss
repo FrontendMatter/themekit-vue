@@ -37,7 +37,10 @@
 			}
 		}
 		.sidebar-category, 
-		.sidebar-block {
+		.sidebar-heading,
+		.sidebar-block,
+		.sidebar-brand,
+		.sidebar-text {
 			display: block;
 			opacity: 0;
 			transition-delay: 0.2s;

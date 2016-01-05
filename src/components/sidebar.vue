@@ -163,12 +163,12 @@
 				}
 				else {
 					if (this.size) {
-						classes.push(this.layoutClass(this.size))
+						classes.push(this.layoutClass(this.direction, this.size))
 					}
 					screens.forEach(function (screen) {
 						let sizeProperty = camelCase('size-' + screen)
 						if (this[sizeProperty]) {
-							classes.push(this.layoutClass(this[sizeProperty], screen))
+							classes.push(this.layoutClass(this.direction, this[sizeProperty], screen))
 						}
 					}, this)
 				}
@@ -227,9 +227,9 @@
 			sidebarTransitionsEnabled () {
 				return this.layout().hasClass('st-layout')
 			},
-			layoutClass (size, screen) {
+			layoutClass (direction, size, screen) {
 				var baseClass = 'sidebar-'
-				baseClass += this.direction
+				baseClass += direction
 				baseClass += size
 				if (screen) {
 					baseClass += '-' + screen
@@ -319,8 +319,8 @@
 			addLayoutClasses () {
 				this.layout().addClass(this.layoutClasses.join(' '))
 			},
-			removeLayoutClasses () {
-				this.layout().removeClass(this.layoutClasses.join(' '))
+			removeLayoutClasses (layoutClasses) {
+				this.layout().removeClass((layoutClasses || this.layoutClasses).join(' '))
 			},
 			setOffsetValue (sidebar) {
 				this.removeLayoutClasses()
@@ -362,6 +362,29 @@
 			},
 			scrolling (value) {
 				this.$broadcast('scrolling.tk.sidebar', value)
+			},
+			direction (newValue, oldValue) {
+				if (oldValue) {
+					this.removeLayoutClasses([this.layoutClass(oldValue, this.size)])
+				}
+				this.addLayoutClasses()
+			},
+			size (newValue, oldValue) {
+				if (oldValue) {
+					this.removeLayoutClasses([this.layoutClass(this.direction, oldValue)])
+				}
+				this.addLayoutClasses()
+				if (newValue !== '1' && this.mini) {
+					this.mini = false
+				}
+			},
+			mini (newValue) {
+				if (newValue) {
+					this.size = '1'
+				}
+				else if (this.size === '1') {
+					this.size = '2'
+				}
 			}
 		},
 		events: {

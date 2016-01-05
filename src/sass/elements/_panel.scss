@@ -77,7 +77,7 @@
 .panel-body > *:last-child {
 	margin-bottom: 0;
 }
-.panel-body + hr {
+.panel-body:not(.panel) + hr {
 	margin: 0;
 }
 .panel.panel-default {

@@ -3,6 +3,7 @@
 	import camelCase from 'mout/string/camelCase'
 
 	export default {
+		name: 'sidebar-transition',
 		mixins: [ Sidebar ],
 		data () {
 			return {
@@ -20,13 +21,9 @@
 						'slide-in',
 						'slide-along',
 						'slide-out-reverse',
-						'scale-down',
 						'scale-up',
-						'scale-rotate',
-						'open-door',
 						'fall-down',
 						'push',
-						'push-rotate',
 						'push-3d-rotate-in',
 						'push-3d-rotate-out',
 						'push-3d-rotate-delay'
@@ -49,12 +46,12 @@
 			layoutSidebarTransitionClasses () {
 				var classes = []
 				if (this.size) {
-					classes.push(this.layoutSidebarTransitionClass(this.size))
+					classes.push(this.layoutSidebarTransitionClass(this.direction, this.size))
 				}
 				this.screens.forEach(function (screen) {
 					let sizeProperty = camelCase('size-' + screen)
 					if (this[sizeProperty]) {
-						classes.push(this.layoutSidebarTransitionClass(this[sizeProperty], screen))
+						classes.push(this.layoutSidebarTransitionClass(this.direction, this[sizeProperty], screen))
 					}
 				}, this)
 				return classes.join(' ')
@@ -84,9 +81,9 @@
 				}
 				return this.layout().hasClass('st-layout')
 			},
-			layoutSidebarTransitionClass (size, screen) {
+			layoutSidebarTransitionClass (direction, size, screen) {
 				var className = 'st-effect-'
-				className += this.direction
+				className += direction
 				className += size
 				if (screen) {
 					className += '-' + screen
@@ -175,6 +172,20 @@
 			this.layout().removeClass(this.layoutSidebarTransitionClasses)
 			if (this.toggleLayout) {
 				this.layout().removeClass(this.toggleLayoutClasses)
+			}
+		},
+		watch: {
+			direction (newValue, oldValue) {
+				if (oldValue) {
+					this.layout().removeClass(this.layoutSidebarTransitionClass(oldValue, this.size))
+				}
+				this.layout().addClass(this.layoutSidebarTransitionClasses)
+			},
+			size (newValue, oldValue) {
+				if (oldValue) {
+					this.layout().removeClass(this.layoutSidebarTransitionClass(this.direction, oldValue))
+				}
+				this.layout().addClass(this.layoutSidebarTransitionClasses)
 			}
 		}
 	}

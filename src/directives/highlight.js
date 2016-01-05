@@ -30,9 +30,9 @@ export default {
 	},
 	update (value) {
 		if (value) {
-			this.el.innerText = this.beautify(value, {
+			this.el.innerText = this.params.lang ? this.beautify(value, {
 				wrap_attributes: 'force'
-			})
+			}) : value
 		}
 		highlight.highlightBlock(this.el)
 	}
