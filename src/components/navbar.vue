@@ -79,7 +79,7 @@
 		},
 		methods: {
 			layout () {
-				return $(this.$el).parents('.layout-container:first')
+				return $(this.$el).parents('.la-co:first')
 			},
 			addInContentLayoutClass () {
 				this.layout().addClass('navbar-content')
@@ -102,7 +102,7 @@
 				this.layout().removeClass('ls-top-navbar')
 			},
 			sidebarTransitionsEnabled () {
-				return this.layout().hasClass('st-layout')
+				return this.layout().hasClass('st-la')
 			},
 			breakpoints (reset) {
 

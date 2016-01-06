@@ -1,8 +1,8 @@
 <template>
 
-	<div class="layout-container">
+	<div class="la-co">
 
-		<div class="st-container">
+		<div class="st-co">
 
 			<!-- Navbar -->
 			<slot name="navbar"></slot>
@@ -10,23 +10,23 @@
 			<!-- Sidebars -->
 			<slot name="sidebar"></slot>
 
-			<!-- sidebar effects OUTSIDE of st-pusher: -->
+			<!-- sidebar effects OUTSIDE of st-pu: -->
 			<!-- reveal, slide-in, slide-along, slide-out-reverse, scale-down, scale-up, scale-rotate, open-door, fall-down -->
 
 			<!-- content push wrapper -->
-			<div class="st-pusher">
+			<div class="st-pu">
 
 				<!-- Sidebars -->
 				<slot name="sidebar-push"></slot>
 
-				<!-- sidebar effects INSIDE of st-pusher: -->
+				<!-- sidebar effects INSIDE of st-pu: -->
 				<!-- push, push-rotate, push-3d-rotate-in, push-3d-rotate-out, push-3d-rotate-delay -->
 
 				<!-- this is the wrapper for the content -->
-				<div class="st-content">
+				<div class="st-cnt">
 
 					<!-- extra div for emulating position:fixed of the menu -->
-					<div class="layout-content" v-scrollable>
+					<div class="la-cnt" v-scrollable>
 
 						<!-- Navbar Content -->
 						<slot name="navbar-content"></slot>
@@ -35,13 +35,13 @@
 						<slot></slot>
 
 					</div>
-					<!-- /st-content-inner -->
+					<!-- /la-cnt -->
 
 				</div>
-				<!-- /st-content -->
+				<!-- /st-cnt -->
 
 			</div>
-			<!-- /st-pusher -->
+			<!-- /st-pu -->
 
 		</div>
 
@@ -57,10 +57,10 @@
 		mixins: [ Layout ],
 		methods: {
 			enableSidebarTransitions () {
-				this.$el.classList.add('st-layout')
+				this.$el.classList.add('st-la')
 			},
 			disableSidebarTransitions () {
-				this.$el.classList.remove('st-layout')
+				this.$el.classList.remove('st-la')
 			},
 			filterAnimating (sidebars) {
 				return sidebars.filter((s) => s.animating && s.sidebarTransitionsEnabled() && s.isAnimating())

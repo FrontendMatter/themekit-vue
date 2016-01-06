@@ -1,6 +1,6 @@
 @mixin sidebar-mini() {
 	&, .dropdown-container, .dropdown-container > ul {
-		width: $sidebar-width-1;
+		width: $sidebar-mini-width;
 	}
 	.sidebar-menu .hasSubmenu > .sidebar-menu-button:before {
 		display: none;

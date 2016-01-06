@@ -1,26 +1,18 @@
+@import "../mixins/_breakpoints";
+
 .navbar-content {
-	@media (min-width: $screen-sm) {
+	@include media-breakpoint-up(sm) {
 		&[class*="top-navbar"] > .sidebar {
 			top: 0;
 		}
-		&.show-sidebar {
-			&[class*="sidebar-l1"] > .navbar {
-				left: $sidebar-width-1;
-			}
-			&[class*="sidebar-l2"] > .navbar {
-				left: $sidebar-width-2;
-			}
-			&[class*="sidebar-l3"] > .navbar {
-				left: $sidebar-width-3;
-			}
-			&[class*="sidebar-r1"] > .navbar {
-				right: $sidebar-width-1;
-			}
-			&[class*="sidebar-r2"] > .navbar {
-				right: $sidebar-width-2;
-			}
-			&[class*="sidebar-r3"] > .navbar {
-				right: $sidebar-width-3;
+		&.sh-si {
+			@each $index in map-keys($sidebar-sizes) {
+				$size: map-get($sidebar-sizes, $index);
+				@each $d, $direction in (l: left, r: right) {
+					&[class*="si-#{$d}#{$index}"] > .navbar {
+						#{$direction}: $size;
+					}
+				}
 			}
 		}
 		.navbar > .container-fluid {
@@ -30,25 +22,25 @@
 	}
 
 	// layout transitions
-	> .st-container {
+	> .st-co {
 		padding-top: 0 !important;
 	}
-	&.show-sidebar[class*="st-effect"] > .st-pusher > .st-content > .layout-content > [slot="navbar-content"] {
+	&.sh-si[class*="st-effect"] > .st-pu > .st-cnt > .la-cnt > .navbar {
 		left: 0;
 		right: 0;
 	}
 
 	// fixed=top
-	&[class*="top-navbar"] > .st-container {
-		> .st-pusher > .st-content > .layout-content {
+	&[class*="top-navbar"] > .st-co {
+		> .st-pu > .st-cnt > .la-cnt {
 			padding-top: $navbar-height;
 		}
 		> .sidebar,
-		> .st-pusher > .sidebar {
+		> .st-pu > .sidebar {
 			top: 0;
 		}
 	}
-	&[class="ls-top-navbar"] > .st-container > .st-pusher > .st-content > .layout-content {
+	&[class="ls-top-navbar"] > .st-co > .st-pu > .st-cnt > .la-cnt {
 		padding-top: $navbar-height + ($grid-gutter-width/2);
 	}
 

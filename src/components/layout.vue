@@ -1,6 +1,6 @@
 <template>
 	
-	<div class="layout-container">
+	<div class="la-co">
 
 		<!-- Navbar -->
 		<slot name="navbar"></slot>
@@ -9,7 +9,7 @@
 		<slot name="sidebar"></slot>
 
 		<!-- Content -->
-		<div class="layout-content" v-scrollable>
+		<div class="la-cnt" v-scrollable>
 			<slot></slot>
 		</div>
 
@@ -55,11 +55,11 @@
 				}
 			},
 			onOpenSidebar () {
-				this.$el.classList.add('show-sidebar')
+				this.$el.classList.add('sh-si')
 			},
 			onCloseSidebar (sidebarId) {
 				if (!this.filterVisible(this.getSidebarsExcept(sidebarId)).length) {
-					this.$el.classList.remove('show-sidebar')
+					this.$el.classList.remove('sh-si')
 				}
 			},
 			queueToggleSidebar (sidebarId) {
@@ -87,8 +87,9 @@
 					e.style.height = '100%'	
 				})
 			},
+			// @TODO: fix issue: when using nested layouts, destroying a deep layout removes the style on html, body
 			disableScrollableContent () {
-				let elements = ['html', 'body', this.$el]
+				let elements = ['html', 'body']
 				elements.forEach(function (element) {
 					let e = typeof element === 'string' ? document.querySelector(element) : element
 					e.removeAttribute('style')

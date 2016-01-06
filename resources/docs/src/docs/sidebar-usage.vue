@@ -1,6 +1,30 @@
+<template>
+	<tabs>
+		<tab-pane icon="fa fa-fw fa-html5" label="Template" active>
+			<pre><code v-highlight="html" lang="html"></code></pre>
+		</tab-pane>
+		<tab-pane label="Script" icon="fa fa-fw fa-code">
+			<h3>ES6</h3>
+			<pre><code v-highlight="javascript_import"></code></pre>
+			<pre><code v-highlight="javascript_vm_es6" lang="javascript"></code></pre>
+
+			<h3>CommonJS</h3>
+			<pre><code v-highlight="javascript_require" lang="javascript"></code></pre>
+			<pre><code v-highlight="javascript_vm_commonjs" lang="javascript"></code></pre>
+
+			<h3>Static</h3>
+			<pre><code v-highlight="javascript_static" lang="html"></code></pre>
+			<pre><code v-highlight="javascript_vm_static" lang="html"></code></pre>
+		</tab-pane>
+	</tabs>
+</template>
+
 <script>
+	import { Tabs } from 'themekit-vue'
+	import { TabPane } from 'themekit-vue'
 	import camelCase from 'mout/string/camelCase'
 	import pascalCase from 'mout/string/pascalCase'
+	import merge from 'mout/object/merge'
 
 	function unindent (str) {
 		var match = str.match(/^[ \t]*(?=\S)/gm)
@@ -17,25 +41,30 @@
 	export default {
 		data () {
 			return {
-				sidebarUsage: {
+				settings: {
 					filter: []
 				}
 			}
 		},
+		props: {
+			model: {
+				type: Object
+			}
+		},
 		computed: {
-			sidebarUsage_layout () {
-				return this.$children[0]
+			layout () {
+				return this.$parent
 			},
-			sidebarUsage_sidebars () {
-				return this.sidebarUsage_layout.queue.filter((sidebar) => {
-					return this.sidebarUsage.filter.indexOf(sidebar.sidebarId) !== -1
+			sidebars () {
+				return this.layout.queue.filter((sidebar) => {
+					return this.model.filter.indexOf(sidebar.sidebarId) !== -1
 				})
 			},
-			sidebarUsage_sidebarsMarkup () {
+			sidebarsMarkup () {
 				let html = ''
 				let propsCast = ['show', 'mini', 'reveal']
 				let props = ['sidebar-id', 'position', 'visible', 'size', 'offset']
-				this.sidebarUsage_sidebars.forEach((sidebar) => {
+				this.sidebars.forEach((sidebar) => {
 					html += `
 						<!-- Sidebar -->
 						<${ sidebar.$options.name } slot="${ sidebar.$el.getAttribute('slot') }" `
@@ -61,28 +90,28 @@
 				})
 				return html.trim()
 			},
-			sidebarUsage_html () {
+			html () {
 				return `
 					<!-- Layout -->
-					<${ this.sidebarUsage_layout.$options.name }>
+					<${ this.layout.$options.name }>
 
-						${ this.sidebarUsage_sidebarsMarkup }
+						${ this.sidebarsMarkup }
 
 						<!-- The layout content goes here -->
 
-					</${ this.sidebarUsage_layout.$options.name }>
+					</${ this.layout.$options.name }>
 					<!-- // END Layout -->
 				`.trim()
 			},
-			sidebarUsage_javascript_import () {
+			javascript_import () {
 				let html = '/* Import component(s) */'
-				this.sidebarUsage_components.forEach((component) => {
+				this.components.forEach((component) => {
 					html += unindent(`
 						import { ${ component } } from 'themekit-vue'`)
 				})
 				return html.trim()
 			},
-			sidebarUsage_javascript_vm_es6 () {
+			javascript_vm_es6 () {
 				return `
 
 					/* Create a Vue instance */
@@ -90,21 +119,21 @@
 						el: 'body',
 						replace: false,
 						components: {
-							${ this.sidebarUsage_components.join(',\n') }
+							${ this.components.join(',\n') }
 						}
 					})
 				`
 				.trim()
 			},
-			sidebarUsage_javascript_require () {
+			javascript_require () {
 				let html = '/* Require component(s) */'
-				this.sidebarUsage_components.forEach((component) => {
+				this.components.forEach((component) => {
 					html += `
 						var ${ component } = require('themekit-vue').${ component };`
 				})
 				return html.trim()
 			},
-			sidebarUsage_javascript_vm_commonjs () {
+			javascript_vm_commonjs () {
 				return `
 
 					/* Create a Vue instance */
@@ -112,7 +141,7 @@
 						el: 'body',
 						replace: false,
 						components: {
-							${ this.sidebarUsage_components.map((component) => {
+							${ this.components.map((component) => {
 								return `${ camelCase(component) }: ${ component }`
 							}).join(',\n') }
 						}
@@ -120,7 +149,7 @@
 				`
 				.trim()
 			},
-			sidebarUsage_javascript_static () {
+			javascript_static () {
 				return `
 					<!-- Load Dependencies -->
 					<!-- ... -->
@@ -130,7 +159,7 @@
 				`
 				.trim()
 			},
-			sidebarUsage_javascript_vm_static () {
+			javascript_vm_static () {
 				return `
 
 					<!-- Create a Vue instance -->
@@ -139,7 +168,7 @@
 							el: 'body',
 							replace: false,
 							components: {
-								${ this.sidebarUsage_components.map((component) => {
+								${ this.components.map((component) => {
 									return `${ camelCase(component) }: ThemeKit.${ component }`
 								}).join(',\n') }
 							}
@@ -148,10 +177,10 @@
 				`
 				.trim()
 			},
-			sidebarUsage_components () {
-				let components = [this.sidebarUsage_componentName(this.sidebarUsage_layout)]
-				this.sidebarUsage_sidebars.forEach((sidebar) => {
-					let sidebarName = this.sidebarUsage_componentName(sidebar)
+			components () {
+				let components = [this.componentName(this.layout)]
+				this.sidebars.forEach((sidebar) => {
+					let sidebarName = this.componentName(sidebar)
 					if (components.indexOf(sidebarName) === -1) {
 						components.push(sidebarName)
 					}
@@ -160,10 +189,27 @@
 			}
 		},
 		methods: {
-			sidebarUsage_componentName (component) {
+			componentName (component) {
 				let id = component.$options.name
 				return pascalCase(id)
 			}
+		},
+		created () {
+			if (this.model) {
+				this.model = merge(this.settings, this.model)
+			}
+		},
+		components: {
+			Tabs,
+			TabPane
 		}
 	}
 </script>
+
+<style>
+	pre {
+		background: transparent;
+		border: none;
+		padding: 0;
+	}
+</style>

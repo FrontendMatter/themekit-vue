@@ -190,7 +190,7 @@
 					'sidebar': true,
 					'sidebar-mini': this.mini && !this.reveal,
 					'sidebar-mini-reveal': this.mini && this.reveal,
-					'sidebar-visible': this.isVisible
+					'si-vi': this.isVisible
 				}
 				if (this.miniRevealSize) {
 					classes['sidebar-mini-reveal-size-' + this.miniRevealSize] = this.mini && this.reveal
@@ -222,13 +222,13 @@
 				return $(this.$el)
 			},
 			layout () {
-				return this.sidebar().parents('.layout-container:first')
+				return this.sidebar().parents('.la-co:first')
 			},
 			sidebarTransitionsEnabled () {
-				return this.layout().hasClass('st-layout')
+				return this.layout().hasClass('st-la')
 			},
 			layoutClass (direction, size, screen) {
-				var baseClass = 'sidebar-'
+				var baseClass = 'si-'
 				baseClass += direction
 				baseClass += size
 				if (screen) {
@@ -237,7 +237,7 @@
 				return baseClass
 			},
 			sidebarSizeClass (size, screen) {
-				var className = 'sidebar-size'
+				var className = 'si-si'
 				if (screen) {
 					className += '-' + screen
 				}
@@ -367,13 +367,17 @@
 				if (oldValue) {
 					this.removeLayoutClasses([this.layoutClass(oldValue, this.size)])
 				}
-				this.addLayoutClasses()
+				if (this.show) {
+					this.addLayoutClasses()
+				}
 			},
 			size (newValue, oldValue) {
 				if (oldValue) {
 					this.removeLayoutClasses([this.layoutClass(this.direction, oldValue)])
 				}
-				this.addLayoutClasses()
+				if (this.show) {
+					this.addLayoutClasses()
+				}
 				if (newValue !== '1' && this.mini) {
 					this.mini = false
 				}

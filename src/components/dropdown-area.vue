@@ -1,10 +1,10 @@
 <template>
-	<dropdown :is-list="isList">
+	<dropdown :dropdown-class="dropdownClass">
 		<a href="#" @click.prevent :class="btnClass">
 			<i class="dropdown-menu-icon" v-if="icon" :class="icon"></i>
 			<span>{{ label }}</span>
 		</a>
-		<div class="dropdown-menu" @click.stop>
+		<div class="dropdown-menu" :class="dropdownMenuClass" @click.stop>
 			<div v-if="header" class="dropdown-header">{{ header }}</div>
 			<template v-if="height">
 				<div v-scrollable :style="scrollHeight">
@@ -35,6 +35,12 @@
 				type: String
 			},
 			btnClass: {
+				type: String
+			},
+			dropdownClass: {
+				type: String
+			},
+			dropdownMenuClass: {
 				type: String
 			},
 			isList: {

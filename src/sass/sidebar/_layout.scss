@@ -1,479 +1,82 @@
 @import "../mixins/sidebar/layout";
 @import "../mixins/sidebar/theme";
+@import "../mixins/_breakpoints";
 
-@media (min-width: $screen-sm) {
-
-	// Apply content margins
-
-	// Content with Single sidebars on each side
-	.layout-content,
-	.st-container > .st-pusher > .st-content > .layout-content {
-
-		// left sidebars
-		@include sidebar-layout-px(margin-left, l);
-		@include sidebar-layout-pc(margin-left, l, $sidebar-width-pc-min);
-
-		// right sidebars
-		@include sidebar-layout-px(margin-right, r);
-		@include sidebar-layout-pc(margin-right, r, $sidebar-width-pc-min);
-	}
-
-	// footer
-	.container-fluid .footer {
-
-		// left sidebars
-		@include sidebar-layout-px(left, l);
-
-		// right sidebars
-		@include sidebar-layout-px(right, r);
-	}
-
-	// Multiple sidebars on each side
-	.show-sidebar {
-
-		// Content
-		@include loop-sidebar-offset-sum(margin-left, "sidebar-l-sum", " .layout-content");
-		@include loop-sidebar-offset-sum(margin-right, "sidebar-r-sum", " .layout-content");
-
-		// Footer
-		@include loop-sidebar-offset-sum(left, "sidebar-l-sum", " .container-fluid .footer");
-		@include loop-sidebar-offset-sum(right, "sidebar-r-sum", " .container-fluid .footer");
-	}
-}
-
-// ONLY SMALL to MEDIUM
-@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
-
-	// Apply content margins
-
-	// Content with Single sidebars on each side
-	.layout-content,
-	.st-container > .st-pusher > .st-content > .layout-content {
-
-		// left sidebars
-		@include sidebar-layout-px(margin-left, l, "-sm");
-		@include sidebar-layout-pc(margin-left, l, $sidebar-width-pc-min, "-sm");
-
-		// right sidebars
-		@include sidebar-layout-px(margin-right, r, "-sm");
-		@include sidebar-layout-pc(margin-right, r, $sidebar-width-pc-min, "-sm");
-	}
-
-	// footer
-	.container-fluid .footer {
-
-		// left sidebars
-		@include sidebar-layout-px(left, l, "-sm");
-
-		// right sidebars
-		@include sidebar-layout-px(right, r, "-sm");
-	}
-
-	// Multiple sidebars on each side
-	.show-sidebar {
-
-		// Content
-		@include loop-sidebar-offset-sum(margin-left, "sidebar-l-sum-sm", " .layout-content");
-		@include loop-sidebar-offset-sum(margin-right, "sidebar-r-sum-sm", " .layout-content");
-
-		// Footer
-		@include loop-sidebar-offset-sum(left, "sidebar-l-sum-sm", " .container-fluid .footer");
-		@include loop-sidebar-offset-sum(right, "sidebar-r-sum-sm", " .container-fluid .footer");
-	}
-}
-
-// ONLY MEDIUM
-@media (min-width: $screen-md) and (max-width: $screen-md-max) {
-
-	// Apply content margins
-
-	// Content with Single sidebars on each side
-	.layout-content,
-	.st-container > .st-pusher > .st-content > .layout-content {
-
-		// left sidebars
-		@include sidebar-layout-px(margin-left, l, "-md");
-		@include sidebar-layout-pc(margin-left, l, $sidebar-width-pc-min, "-md");
-
-		// right sidebars
-		@include sidebar-layout-px(margin-right, r, "-md");
-		@include sidebar-layout-pc(margin-right, r, $sidebar-width-pc-min, "-md");
-	}
-
-	// footer
-	.container-fluid .footer {
-
-		// left sidebars
-		@include sidebar-layout-px(left, l, "-md");
-
-		// right sidebars
-		@include sidebar-layout-px(right, r, "-md");
-	}
-
-	// Multiple sidebars on each side
-	.show-sidebar {
-
-		// Content
-		@include loop-sidebar-offset-sum(margin-left, "sidebar-l-sum-md", " .layout-content");
-		@include loop-sidebar-offset-sum(margin-right, "sidebar-r-sum-md", " .layout-content");
-
-		// Footer
-		@include loop-sidebar-offset-sum(left, "sidebar-l-sum-md", " .container-fluid .footer");
-		@include loop-sidebar-offset-sum(right, "sidebar-r-sum-md", " .container-fluid .footer");
-	}
-
-}
-
-// ONLY LARGE
-@media (min-width: $screen-lg) {
-
-	// Apply content margins
-
-	// Content with Single sidebars on each side
-	.layout-content,
-	.st-container > .st-pusher > .st-content > .layout-content {
-
-		// left sidebars
-		@include sidebar-layout-px(margin-left, l, "-lg");
-		@include sidebar-layout-pc(margin-left, l, $sidebar-width-pc-min, "-lg");
-
-		// right sidebars
-		@include sidebar-layout-px(margin-right, r, "-lg");
-		@include sidebar-layout-pc(margin-right, r, $sidebar-width-pc-min, "-lg");
-	}
-
-	// footer
-	.container-fluid .footer {
-
-		// left sidebars
-		@include sidebar-layout-px(left, l, "-lg");
-
-		// right sidebars
-		@include sidebar-layout-px(right, r, "-lg");
-	}
-
-	// Multiple sidebars on each side
-	.show-sidebar {
-
-		// Content
-		@include loop-sidebar-offset-sum(margin-left, "sidebar-l-sum-lg", " .layout-content");
-		@include loop-sidebar-offset-sum(margin-right, "sidebar-r-sum-lg", " .layout-content");
-
-		// Footer
-		@include loop-sidebar-offset-sum(left, "sidebar-l-sum-lg", " .container-fluid .footer");
-		@include loop-sidebar-offset-sum(right, "sidebar-r-sum-lg", " .container-fluid .footer");
-	}
-
-}
-
-// ONLY MOBILE
-@media (max-width: $screen-sm-min) {
-
-	// Apply content margins
-
-	// Content with Single sidebars on each side
-	.layout-content,
-	.st-container > .st-pusher > .st-content > .layout-content {
-
-		// left sidebars
-		@include sidebar-layout-px(margin-left, l, "-xs");
-		@include sidebar-layout-pc(margin-left, l, $sidebar-width-pc-min, "-xs");
-
-		// right sidebars
-		@include sidebar-layout-px(margin-right, r, "-xs");
-		@include sidebar-layout-pc(margin-right, r, $sidebar-width-pc-min, "-lg");
-
-		// override .sidebar-[l|r]1-xs
-		.show-sidebar.sidebar-l1-xs & {
-			margin-left: 0;
-		}
-		.show-sidebar.sidebar-r1-xs & {
-			margin-right: 0;
-		}
-	}
-
-	// footer
-	.container-fluid .footer {
-
-		// left sidebars
-		@include sidebar-layout-px(left, l, "-xs");
-
-		// right sidebars
-		@include sidebar-layout-px(right, r, "-xs");
-	}
-
-	// Multiple sidebars on each side
-	.show-sidebar {
-
-		// Content
-		@include loop-sidebar-offset-sum(margin-left, "sidebar-l-sum-xs", " .layout-content");
-		@include loop-sidebar-offset-sum(margin-right, "sidebar-r-sum-xs", " .layout-content");
-
-		// Footer
-		@include loop-sidebar-offset-sum(left, "sidebar-l-sum-xs", " .container-fluid .footer");
-		@include loop-sidebar-offset-sum(right, "sidebar-r-sum-xs", " .container-fluid .footer");
-	}
-
-}
-
-// Mobile first
+// GENERAL
 .sidebar {
 	position: absolute;
 	bottom: 0;
 	z-index: 3;
 	display: none;
 	top: 0;
-	
 	// theme
 	@include sidebar-variant();
+	@each $direction in (left, right) {
+		&.#{$direction} {
+			#{$direction}: 0;
+		}
+	}
+}
 
+// ANY SCREEN SIZE
+@include make-sidebars();
+
+// BREAKPOINTS
+@each $breakpoint in map-keys($grid-breakpoints) {
+	// specific
+	@include media-breakpoint-only($breakpoint) {
+		@include make-sidebars($breakpoint);
+	}
+	// larger
+	@include media-breakpoint-up($breakpoint) {
+		// visibility	
+		.sh-si > .si-vi-#{$breakpoint}-up,
+		.sh-si > .st-co > .si-vi-#{$breakpoint}-up,
+		.sh-si > .st-co > .st-pu > .si-vi-#{$breakpoint}-up {
+			display: block;
+		}
+	}
+}
+
+// NAVBAR MODIFIERS
+.sidebar {
 	[class*="top-navbar"] > &,
-	[class*="top-navbar"] > .st-container > & {
+	[class*="top-navbar"] > .st-co > & {
 		top: $navbar-height;
 	}
-
 	[class*="top-navbar-large"] > &,
-	[class*="top-navbar-large"] > .st-container > & {
+	[class*="top-navbar-large"] > .st-co > & {
 		top: $navbar-height;
 		@media (min-width: $navbar-large-breakpoint) {
 			top: $navbar-large-height;
 		}
 	}
-
 	[class*="top-navbar-xlarge"] > &,
-	[class*="top-navbar-xlarge"] > .st-container > & {
+	[class*="top-navbar-xlarge"] > .st-co > & {
 		top: $navbar-height;
 		@media (min-width: $navbar-large-breakpoint) {
 			top: $navbar-xlarge-height;
 		}
 	}
-
-	@media (min-width: $screen-sm) {
-		[class*="bottom-footer"] .st-container > & {
-			bottom: $footer-height;
-		}
-	}
-
-	// Left sidebars
-	&.left {
-		left: 0;
-
-		// Tablet resolutions and above
-		@media (min-width: $screen-sm-min) {
-			&.sidebar-offset-0 {
-				left: 0;
-			}
-			@include sidebar-offset(left);
-			@include loop-sidebar-offset-sum(left, "sidebar-offset-sum");
-		}
-
-		// ONLY SMALL to MEDIUM
-		@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
-			&.sidebar-offset-sm-0 {
-				left: 0;
-			}
-			@include sidebar-offset(left, "-sm");
-			@include loop-sidebar-offset-sum(left, "sidebar-offset-sum-sm");
-		}
-
-		// ONLY MEDIUM
-		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
-			&.sidebar-offset-md-0 {
-				left: 0;
-			}
-			@include sidebar-offset(left, "-md");
-			@include loop-sidebar-offset-sum(left, "sidebar-offset-sum-md");
-		}
-
-		// ONLY LARGE
-		@media (min-width: $screen-lg) {
-			&.sidebar-offset-lg-0 {
-				left: 0;
-			}
-			@include sidebar-offset(left, "-lg");
-			@include loop-sidebar-offset-sum(left, "sidebar-offset-sum-lg");
-		}
-
-		// ONLY MOBILE
-		@media (max-width: $screen-sm-min) {
-			&.sidebar-offset-xs-0 {
-				left: 0;
-			}
-			@include sidebar-offset(left, "-xs");
-			@include loop-sidebar-offset-sum(left, "sidebar-offset-sum-xs");
-		}
-	}
-
-	// Right sidebars
-	&.right {
-		right: 0;
-
-		// Tablet resolutions and above
-		@media (min-width: $screen-sm-min) {
-			&.sidebar-offset-0 {
-				right: 0;
-			}
-			@include sidebar-offset(right);
-			@include loop-sidebar-offset-sum(right, "sidebar-offset-sum");
-		}
-
-		// ONLY SMALL to MEDIUM
-		@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
-			&.sidebar-offset-sm-0 {
-				right: 0;
-			}
-			@include sidebar-offset(right, "-sm");
-			@include loop-sidebar-offset-sum(right, "sidebar-offset-sum-sm");
-		}
-
-		// ONLY MEDIUM
-		@media (min-width: $screen-md) and (max-width: $screen-md-max) {
-			&.sidebar-offset-md-0 {
-				right: 0;
-			}
-			@include sidebar-offset(right, "-md");
-			@include loop-sidebar-offset-sum(right, "sidebar-offset-sum-md");
-		}
-
-		// ONLY LARGE
-		@media (min-width: $screen-lg) {
-			&.sidebar-offset-lg-0 {
-				right: 0;
-			}
-			@include sidebar-offset(right, "-lg");
-			@include loop-sidebar-offset-sum(right, "sidebar-offset-sum-lg");
-		}
-
-		// ONLY MOBILE
-		@media (max-width: $screen-sm-min) {
-			&.sidebar-offset-xs-0 {
-				right: 0;
-			}
-			@include sidebar-offset(right, "-xs");
-			@include loop-sidebar-offset-sum(right, "sidebar-offset-sum-xs");
-		}
-	}
-}
-
-// Sidebar Sizes
-// MOBILE FIRST
-.sidebar-size-1 {
-	width: 100%;
-}
-.sidebar-size-2 {
-	width: $sidebar-width-2;
-}
-.sidebar-size-3 {
-	width: $sidebar-width-3;
-}
-
-// SMALL AND LARGER
-@media (min-width: $screen-sm) {
-
-	// Sidebar Sizes
-	@include sidebar-size-px(1);
-	@include sidebar-size-pc($sidebar-width-pc-min);
-
-	// Sidebar Visibility
-	.show-sidebar > .sidebar-visible-sm-up,
-	.show-sidebar > .st-container > .sidebar-visible-sm-up,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-sm-up {
-		display: block;
-	}
-}
-
-// ONLY SMALL to MEDIUM
-@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
-
-	// Sidebar Sizes
-	@include sidebar-size-px(1, "-sm");
-	@include sidebar-size-pc($sidebar-width-pc-min, "-sm");
-	
-	// Sidebar Visibility
-	.show-sidebar > .sidebar-visible-sm,
-	.show-sidebar > .st-container > .sidebar-visible-sm,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-sm {
-		display: block;
-	}
-}
-
-// ONLY MEDIUM
-@media (min-width: $screen-md) and (max-width: $screen-md-max) {
-
-	// Sidebar Sizes
-	@include sidebar-size-px(1, "-md");
-	@include sidebar-size-pc($sidebar-width-pc-min, "-md");
-	
-	// Sidebar Visibility
-	.show-sidebar > .sidebar-visible-md,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-md,
-	.show-sidebar > .st-container > .sidebar-visible-md {
-		display: block;
-	}
-}
-
-// MEDIUM AND LARGER
-@media (min-width: $screen-md) {
-	// Sidebar Visibility
-	.show-sidebar > .sidebar-visible-md-up,
-	.show-sidebar > .st-container > .sidebar-visible-md-up,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-md-up {
-		display: block;
-	}
-}
-
-// ONLY LARGE
-@media (min-width: $screen-lg) {
-
-	// Sidebar Sizes
-	@include sidebar-size-px(1, "-lg");
-	@include sidebar-size-pc($sidebar-width-pc-min, "-lg");
-
-	// Sidebar Visibility
-	.show-sidebar > .sidebar-visible-lg,
-	.show-sidebar > .sidebar-visible-lg-up,
-	.show-sidebar > .st-container > .sidebar-visible-lg,
-	.show-sidebar > .st-container > .sidebar-visible-lg-up,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-lg,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-lg-up {
-		display: block;
-	}
 }
 
 // ONLY MOBILE
-@media (max-width: $screen-sm-min) {
-
-	// Sidebar Sizes
-	.sidebar-size-xs-1 {
+@include media-breakpoint-only(xs) {
+	// reset .si-si-1
+	.si-si-1,
+	.si-si-xs-1 {
 		width: 100%;
 	}
-	@include sidebar-size-px(2, "-xs");
-	@include sidebar-size-pc($sidebar-width-pc-min, "-xs");
-
+	// reset content margins for .si-si-1
+	// override .si-[l|r]1-xs
+	@each $d, $direction in (l: left, r: right) {
+		.sh-si.si-#{$d}1-xs & {
+			margin-#{$direction}: 0;
+		}
+	}
 	// Prevent page scroll under the sidebar
-	.show-sidebar {
+	.sh-si {
 		position: relative;
 		overflow: hidden;
 	}
-
-	// Sidebar Visibility
-	.show-sidebar > .sidebar-visible-xs,
-	.show-sidebar > .st-container > .sidebar-visible-xs,
-	.show-sidebar > .st-container > .st-pusher > .sidebar-visible-xs {
-		display: block;
-	}
-}
-
-// EXTRA SMALL AND LARGER
-// Sidebar Visibility
-.show-sidebar > .sidebar-visible-xs-up,
-.show-sidebar > .st-container > .sidebar-visible-xs-up,
-.show-sidebar > .st-container > .st-pusher > .sidebar-visible-xs-up {
-	display: block;
-}
-
-.show-sidebar > .sidebar-visible,
-.show-sidebar > .st-container > .sidebar-visible,
-.show-sidebar > .st-container > .st-pusher > .sidebar-visible {
-	display: block;
 }

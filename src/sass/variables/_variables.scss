@@ -34,6 +34,30 @@ $sizing-utils: (width: w, height: h) !default;
 	)) 
 }
 
+// GRID BREAKPOINTS
+
+$grid-breakpoints: (
+	xs: 0,
+	sm: 768px,
+	md: 992px,
+	lg: 1200px,
+	xl: 1600px
+) !default;
+
+// SIDEBAR SIZES
+
+$sidebar-sizes: (
+	1: 56px,
+	2: 200px,
+	3: 250px
+) !default;
+
+// SIDEBAR PERCENTAGE SIZES
+
+$sidebar-percent-step: 5 !default;
+$sidebar-percent-from: ceil(20 / $sidebar-percent-step);
+$sidebar-percent-through: ceil(100 / $sidebar-percent-step);
+
 // BUTTON
 
 $button-font-size: 14px !default;
@@ -227,16 +251,7 @@ $sm-open-toggle-color: $sm-open-button-color !default;
 
 // SIDEBAR SIZING, SPACING, OTHER
 
-// sidebar sizes
-$sidebar-width-1: 56px !default;
-$sidebar-width-2: 200px !default;
-$sidebar-width-3: 250px !default;
-
-// default sidebar size
-$sidebar-width: $sidebar-width-2 !default;
-
-// minimum width for percentage sidebar sizes
-$sidebar-width-pc-min: 25 !default;
+$sidebar-mini-width: 56px;
 
 // brand
 $sidebar-brand-height: $navbar-height !default;

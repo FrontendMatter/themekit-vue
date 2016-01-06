@@ -64,7 +64,8 @@
 					top: parseInt($(document.body).css('padding-top'), 10),
 					bottom: parseInt($(document.body).css('padding-bottom'), 10)
 				}
-				var $contentScrollable = $('.st-content-inner')
+				// @TODO: content scrollable not OK!
+				var $contentScrollable = $('.st-cnt-inner')
 				var $scrollable = $contentScrollable.length ? $contentScrollable : $(window)
 				var wHeight = $scrollable.innerHeight() - (bodyPadding.top + bodyPadding.bottom)
 				var changed = false

@@ -5,7 +5,7 @@
 		@click="toggle($event)">
 		<slot></slot>
 	</li>
-	<div v-else :class="containerClass" 
+	<div v-else :class="containerClass"
 		@mouseenter="show()"
 		@mouseleave="hide()"
 		@click="toggle($event)">
@@ -31,16 +31,23 @@
 			onClick: {
 				type: Boolean,
 				default: true
+			},
+			dropdownClass: {
+				type: String
 			}
 		},
 		computed: {
 			containerClass () {
-				return { 
+				let obj = { 
 					dropdown: true, 
 					active: this.active, 
 					hasSubmenu: this.isSubmenu, 
 					open: this.open
 				}
+				if (this.dropdownClass) {
+					obj[this.dropdownClass] = true
+				}
+				return obj
 			}
 		},
 		methods: {

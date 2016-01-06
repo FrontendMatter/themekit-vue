@@ -1,9 +1,9 @@
-.layout-content {
+.la-cnt {
 	min-width: 320px;
 	position: relative;
 	z-index: 2; // has to be less than sidebar's z-index
 }
-.layout-container {
+.la-co {
 	height: 100%;
 	position: relative;
 }

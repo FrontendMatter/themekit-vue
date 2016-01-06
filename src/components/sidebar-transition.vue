@@ -63,7 +63,7 @@
 				if (this.toggleLayout !== 'auto') {
 					return this.toggleLayout.split(',').join(' ')
 				}
-				var match = new RegExp('sidebar-' + this.direction + '(\\S+)', 'ig')
+				var match = new RegExp('si-' + this.direction + '(\\S+)', 'ig')
 				var layoutClasses = this.layout().get(0).className.match(match)
 				if (layoutClasses !== null && layoutClasses.length) {
 					return layoutClasses.join(' ')
@@ -73,13 +73,13 @@
 		},
 		methods: {
 			container () {
-				return this.layout().find('.st-container:first')
+				return this.layout().find('.st-co:first')
 			},
 			sidebarTransitionsEnabled () {
 				if (!this.effect) {
 					return false
 				}
-				return this.layout().hasClass('st-layout')
+				return this.layout().hasClass('st-la')
 			},
 			layoutSidebarTransitionClass (direction, size, screen) {
 				var className = 'st-effect-'
@@ -124,7 +124,7 @@
 				this.sidebar().addClass(this.sidebarEffectClass)
 				this.container().addClass(this.sidebarEffectClass)
 				if (this.overlay) {
-					this.container().addClass('st-pusher-overlay')
+					this.container().addClass('st-pu-overlay')
 				}
 				this.isVisible = true
 				this.enterTimer = setTimeout(function () {
@@ -151,7 +151,7 @@
 				this.animating = true
 				this.leaveTimer = setTimeout(function () {
 					this.removeLayoutClasses()
-					this.container().get(0).className = 'st-container'
+					this.container().get(0).className = 'st-co'
 					this.layout().removeClass(this.layoutSidebarTransitionClasses)
 					if (this.toggleLayout) {
 						this.layout().removeClass(this.toggleLayoutClasses)
@@ -179,13 +179,17 @@
 				if (oldValue) {
 					this.layout().removeClass(this.layoutSidebarTransitionClass(oldValue, this.size))
 				}
-				this.layout().addClass(this.layoutSidebarTransitionClasses)
+				if (this.show) {
+					this.layout().addClass(this.layoutSidebarTransitionClasses)
+				}
 			},
 			size (newValue, oldValue) {
 				if (oldValue) {
 					this.layout().removeClass(this.layoutSidebarTransitionClass(this.direction, oldValue))
 				}
-				this.layout().addClass(this.layoutSidebarTransitionClasses)
+				if (this.show) {
+					this.layout().addClass(this.layoutSidebarTransitionClasses)
+				}
 			}
 		}
 	}
