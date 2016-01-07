@@ -77,11 +77,11 @@
 	}
 </script>
 
-<style lang="sass">
+<style>
 	.dropdown-settings {
 		display: block !important;
-		.dropdown-menu {
-			width: 100%;
-		}
+	}
+	.dropdown-settings .dropdown-menu {
+		width: 100%;
 	}
 </style>

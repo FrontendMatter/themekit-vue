@@ -1,8 +1,9 @@
 <script>
-	import component from '../../../../src/components/sidebar'
+	import component from 'themekit-vue/src/components/sidebar'
 	import merge from 'mout/object/merge'
 
 	let docs = merge(component, {
+		demo: 'sidebar',
 		description: `Create a side navigation panel.`,
 		requirements: [
 			'layout',

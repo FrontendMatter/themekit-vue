@@ -21,11 +21,9 @@ import Mprogress from './components/mprogress'
 import SidebarToggleButton from './components/sidebar-toggle-button'
 import SidebarTransition from './components/sidebar-transition'
 import Sidebar from './components/sidebar'
-import SidebarBlock from './components/sidebar-block'
 import SidebarCollapseItem from './components/sidebar-collapse-item'
 import SidebarDropdownController from './components/sidebar-dropdown-controller'
 import SidebarDropdownItem from './components/sidebar-dropdown-item'
-import SidebarFeedItem from './components/sidebar-feed-item'
 import SidebarFeed from './components/sidebar-feed'
 import SidebarMenuItem from './components/sidebar-menu-item'
 import SidebarMenu from './components/sidebar-menu'
@@ -59,11 +57,9 @@ let ThemeKit = {
 	SidebarToggleButton,
 	SidebarTransition,
 	Sidebar,
-	SidebarBlock,
 	SidebarCollapseItem,
 	SidebarDropdownController,
 	SidebarDropdownItem,
-	SidebarFeedItem,
 	SidebarFeed,
 	SidebarMenuItem,
 	SidebarMenu,

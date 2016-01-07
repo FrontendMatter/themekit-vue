@@ -1,6 +1,10 @@
 var extend = require('themekit-webpack-config/extend')
 var Base = require('themekit-webpack-config/base')
 var config = new Base()
+var path = require('path')
+var resolveAlias = {
+	'themekit-vue': path.resolve(__dirname, '../..')
+}
 
 module.exports = extend(config.getConfig(), {
 	entry: {
@@ -11,6 +15,7 @@ module.exports = extend(config.getConfig(), {
 		libraryTarget: 'umd'
 	},
 	externals: [
+		{ 'vue': 'Vue' },
 		{ 'jquery': 'jQuery' },
 		{
 			'isotope-layout': 'Isotope',
@@ -24,5 +29,11 @@ module.exports = extend(config.getConfig(), {
 		'bootstrap-datepicker',
 		{ 'dropzone/dist/dropzone': 'Dropzone' },
 		{ 'mprogress/build/js/mprogress': 'Mprogress' }
-	]
+	],
+	resolve: {
+		alias: resolveAlias
+	},
+	resolveLoader: {
+		alias: resolveAlias
+	}
 })

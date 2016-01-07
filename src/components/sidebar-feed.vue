@@ -1,8 +1,9 @@
 <template>
 	<template v-if="items.length">
-		<sidebar-block :heading="heading">
+		<h4 class="sidebar-category" v-if="heading">{{ heading }}</h4>
+		<div class="sidebar-block">
 			<div class="sidebar-feed">
-				<div class="media sidebar-feed-item sidebar-feed-unread" v-for="item in items">
+				<div class="media sidebar-feed-item sidebar-feed-unread" v-for="item in model">
 					<span v-if="item.unread" class="sidebar-feed-status pull-right">
 						<i class="fa fa-circle"></i>
 					</span>
@@ -10,25 +11,17 @@
 						<i class="{{ icon }}"></i>
 					</span>
 					<div class="media-body">
-						<a href="">{{ item.user }}</a> {{ item.action }}
+						<a v-link="item.user.route">{{ item.user.name }}</a> {{ item.action }}
 						<span class="time">{{ item.time }}</span>
 					</div>
 				</div>
 			</div>
-		</sidebar-block>
+		</div>
 	</template>
-	<slot></slot>
 </template>
 
 <script>
-	import SidebarBlock from './sidebar-block.vue'
-	
 	export default {
-		data () {
-			return {
-				items: []
-			}
-		},
 		props: {
 			heading: {
 				type: String
@@ -36,15 +29,10 @@
 			icon: {
 				type: String,
 				default: 'fa fa-fw fa-bell'
+			},
+			model: {
+				type: Array
 			}
-		},
-		events: {
-			'item.tk.sidebar-feed': function (item) {
-				this.items.push(item)
-			}
-		},
-		components: {
-			SidebarBlock
 		}
 	}
 </script>

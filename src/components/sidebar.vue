@@ -435,6 +435,7 @@
 	@import "../sass/sidebar/sidebar-mini";
 	@import "../sass/sidebar/toggle-bar";
 	// ELEMENTS
+	@import "../sass/sidebar-elements/sidebar-block";
 	@import "../sass/sidebar-elements/badge";
 	@import "../sass/sidebar-elements/brand";
 	@import "../sass/sidebar-elements/datepicker";

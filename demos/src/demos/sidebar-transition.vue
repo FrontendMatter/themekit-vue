@@ -132,8 +132,9 @@
 	import { Sidebar } from 'themekit-vue'
 	import { SidebarToggleButton } from 'themekit-vue'
 	import { DropdownArea } from 'themekit-vue'
-	import SidebarUsage from '../docs/sidebar-usage'
-	import SidebarSettings from '../util/sidebar-settings'
+	import { Util } from 'themekit-vue/dist/util.js'
+	import 'themekit-vue/dist/util.css'
+	let { SidebarUsage, SidebarSettings } = Util
 
 	export default {
 		data () {

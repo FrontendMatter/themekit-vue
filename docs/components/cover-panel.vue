@@ -1,5 +1,5 @@
 <script>
-	import component from '../../../../src/components/cover-panel'
+	import component from 'themekit-vue/src/components/cover-panel'
 	import merge from 'mout/object/merge'
 
 	let docs = merge(component, {

@@ -1,5 +1,5 @@
 <script>
-	import component from '../../../../src/components/carousel-item'
+	import component from 'themekit-vue/src/components/carousel-item'
 	import merge from 'mout/object/merge'
 
 	let docs = merge(component, {

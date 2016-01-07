@@ -5,12 +5,14 @@
   "main": "dist/themekit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --config src/build/webpack.config.dev.js --display-error-details --progress --watch",
-    "build-dev": "webpack --config src/build/webpack.config.dev.js --display-error-details --progress",
-    "build": "NODE_ENV=production webpack --config src/build/webpack.config.production.js --display-error-details --progress",
-    "dev-docs": "webpack --config resources/docs/src/build/webpack.config.dev.js --display-error-details --progress --watch",
-    "build-dev-docs": "webpack --config resources/docs/src/build/webpack.config.dev.js --display-error-details --progress",
-    "build-docs": "NODE_ENV=production webpack --config resources/docs/src/build/webpack.config.production.js --display-error-details --progress"
+    "dev": "node ./node_modules/.bin/webpack --config build/src/webpack.config.dev.js --progress --watch",
+    "build": "NODE_ENV=production node ./node_modules/.bin/webpack --config build/src/webpack.config.production.js --progress",
+    "docs-dev": "node ./node_modules/.bin/webpack --config build/docs/webpack.config.dev.js --progress --watch",
+    "docs-build": "NODE_ENV=production node ./node_modules/.bin/webpack --config build/docs/webpack.config.production.js --progress",
+    "demos-dev": "node ./node_modules/.bin/webpack-dev-server --config build/demos/webpack.config.dev.js --inline --hot --port 8082",
+    "demos-build": "NODE_ENV=production node ./node_modules/.bin/webpack --config build/demos/webpack.config.production.js --progress",
+    "demos-build-dev": "node ./node_modules/.bin/webpack --config build/demos/webpack.config.dev.js --progress",
+    "demos-serve": "node ./node_modules/.bin/http-server ./demos/dist -o -p 8081 --cors --silent"
   },
   "author": "",
   "license": "ISC",
@@ -40,6 +42,7 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.0",
+    "http-server": "^0.8.5",
     "imports-loader": "^0.6.5",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
@@ -52,6 +55,8 @@
     "vue-hot-reload-api": "^1.2.2",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^7.5.1",
-    "webpack": "^1.12.9"
+    "vue-router": "^0.7.7",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   }
 }
