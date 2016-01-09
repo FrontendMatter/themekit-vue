@@ -46,46 +46,52 @@
 			debouncedResize () {
 				clearTimeout(this.resizeTimer)
 				this.resizeTimer = setTimeout(this.handleResize, 10)
+			},
+			init () {
+				if (depsLoaded) {
+					this.$el.classList.add('isotope')
+
+					/*global Isotope*/
+					this.isotope = new Isotope(this.$el, {
+						layoutMode: this.layoutMode,
+						itemSelector: this.itemSelector,
+						percentPosition: true,
+						transitionDuration: 0,
+						isResizeBound: false
+					})
+
+					this.isotope.on('layoutComplete', this.broadcast)
+					window.addEventListener('resize', this.debouncedResize)
+				}
+			},
+			destroy () {
+				if (this.isotope) {
+					this.isotope.off('layoutComplete', this.broadcast)
+					window.removeEventListener('resize', this.debouncedResize)
+					this.isotope.destroy()
+				}
 			}
 		},
 		ready () {
-			if (!depsLoaded) {
-				return
-			}
-			this.$el.classList.add('isotope')
-			var columns = this.$el.children
-			for (var i = 0; i < columns.length; i++) {
-				['item', 'col-xs-12'].forEach(function (className) {
-					columns[i].classList.add(className)
-				})
-			}
-
-			/*global Isotope*/
-			this.isotope = new Isotope(this.$el, {
-				layoutMode: this.layoutMode,
-				itemSelector: this.itemSelector,
-				percentPosition: true,
-				transitionDuration: 0,
-				isResizeBound: false
-			})
-
-			this.isotope.on('layoutComplete', this.broadcast)
-			window.addEventListener('resize', this.debouncedResize)
-			this.debouncedResize()
+			this.init()
 		},
 		beforeDestroy () {
-			if (!depsLoaded) {
-				return
-			}
-			this.isotope.off('layoutComplete', this.broadcast)
-			window.removeEventListener('resize', this.debouncedResize)
+			this.destroy()
 		},
 		events: {
-			'layout.tk.isotope': function (sender) {
-				if (!depsLoaded) {
-					return
+			'ready.tk.isotope-item': function (item) {
+				if (this.isotope) {
+					this.isotope.insert(item.$el)
 				}
-				if (sender && sender !== this) {
+			},
+			'destroy.tk.isotope-item': function (item) {
+				if (this.isotope) {
+					this.isotope.remove(item.$el)
+					this.isotope.layout()
+				}
+			},
+			'layout.tk.isotope': function (sender) {
+				if (this.isotope && sender && sender !== this) {
 					this.handleResize()
 				}
 			}

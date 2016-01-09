@@ -18,7 +18,12 @@ module.exports = extend(config.getConfig(), {
 		{ 'vue': 'Vue' },
 		{ 'jquery': 'jQuery' },
 		{
-			'isotope-layout': 'Isotope',
+			'isotope-layout': {
+				root: 'Isotope',
+				commonjs: 'isotope-layout',
+				commonjs2: 'isotope-layout',
+				amd: 'isotope-layout'
+			},
 			'isotope-packery': {
 				root: 'Packery',
 				commonjs: 'isotope-packery',
@@ -28,7 +33,14 @@ module.exports = extend(config.getConfig(), {
 		},
 		'bootstrap-datepicker',
 		{ 'dropzone/dist/dropzone': 'Dropzone' },
-		{ 'mprogress/build/js/mprogress': 'Mprogress' }
+		{ 'mprogress/build/js/mprogress': 'Mprogress' },
+		'load_image/load_image',
+		'jquery.breakpoints/breakpoints',
+		'simplebar/src/simplebar',
+		'highlight.js/lib/highlight',
+		'highlight.js/lib/languages/xml',
+		'highlight.js/lib/languages/javascript',
+		'js-beautify'
 	],
 	resolve: {
 		alias: resolveAlias

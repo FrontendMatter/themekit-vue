@@ -1,5 +1,5 @@
 <template>
-	<div :class="modal" :id="id">
+	<div :class="modalClass" :id="id">
 		<div class="modal-dialog" :class="dialog">
 			<div class="v-cell">
 				<div class="modal-content" :class="content">
@@ -14,7 +14,7 @@
 					</div>
 					<div class="modal-footer" v-if="footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+						<button type="button" class="btn btn-primary" @click="save">Save</button>
 					</div>
 				</div>
 			</div>
@@ -26,6 +26,13 @@
 	import Attach from '../mixins/attach.vue'
 	export default {
 		mixins: [Attach],
+		data () {
+			return {
+				hasAbort: {
+					save: false
+				}
+			}
+		},
 		props: {
 			id: {
 				type: String,
@@ -105,7 +112,7 @@
 			slideDirectionClass () {
 				return 'slide-' + this.computedSlideDirection
 			},
-			modal () {
+			modalClass () {
 				var obj = {
 					'modal': true,
 					'fade': this.isFade,
@@ -144,6 +151,18 @@
 			}
 		},
 		methods: {
+			setupEvents () {
+				$(this.$el)
+					.on('show.bs.modal', this.showBackdrop)
+					.on('hidden.bs.modal', this.hideBackdrop)
+
+				let events = ['show', 'hide', 'shown', 'hidden']
+				events.forEach((eventName) => {
+					$(this.$el).on(`${ eventName }.bs.modal`, () => {
+						this.emit.call(this, eventName)
+					})
+				})
+			},
 			showBackdrop () {
 				if (this.backdrop) {
 					$('body').addClass('modal-backdrop-' + this.backdrop)
@@ -153,12 +172,46 @@
 				if (this.backdrop) {
 					$('body').removeClass('modal-backdrop-' + this.backdrop)
 				}
+			},
+			emit (eventName) {
+				this.hasAbort[eventName] = false
+				this.$dispatch(`${ eventName }.tk.modal`, this)
+			},
+			save () {
+				this.emit('save')
+			},
+			modal (methodName) {
+				$(this.$el).modal(methodName)
+			},
+			show () {
+				this.modal('show')
+			},
+			hide () {
+				this.modal('hide')
+			},
+			abort (hook) {
+				this.hasAbort[hook] = true
+			},
+			next (hook) {
+				this.hasAbort[hook] = false
 			}
 		},
+		beforeDestroy () {
+			$('.modal-backdrop').remove()
+		},
 		ready () {
-			$(this.$el)
-				.on('show.bs.modal', this.showBackdrop)
-				.on('hidden.bs.modal', this.hideBackdrop)
+			this.emit('ready')
+			this.setupEvents()
+			if ($('body').hasClass('modal-open')) {
+				this.show()
+			}
+		},
+		events: {
+			'save.tk.modal': function (modal) {
+				if (modal.id === this.id && !this.hasAbort.save) {
+					this.hide()
+				}
+			}
 		}
 	}
 </script>

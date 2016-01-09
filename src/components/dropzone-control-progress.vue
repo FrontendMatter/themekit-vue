@@ -14,7 +14,7 @@
 			}
 		},
 		mixins: [ DropzoneControl ],
-		params: {
+		props: {
 			control: {
 				type: String,
 				default: 'progress'

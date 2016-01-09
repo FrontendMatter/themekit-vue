@@ -13,6 +13,7 @@ import Dropzone from './components/dropzone'
 import ExpandablePanel from './components/expandable-panel'
 import Expandable from './components/expandable'
 import Isotope from './components/isotope'
+import IsotopeItem from './components/isotope-item'
 import LayoutTransition from './components/layout-transition'
 import Layout from './components/layout'
 import Modal from './components/modal'
@@ -49,6 +50,7 @@ let ThemeKit = {
 	ExpandablePanel,
 	Expandable,
 	Isotope,
+	IsotopeItem,
 	LayoutTransition,
 	Layout,
 	Modal,

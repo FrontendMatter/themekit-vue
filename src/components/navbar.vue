@@ -19,13 +19,20 @@
 </template>
 
 <script>
-	import shortid from 'shortid'
-	import 'jquery.breakpoints/breakpoints'
+	// optional external
+	try {
+		require('jquery.breakpoints/breakpoints')
+	}
+	catch (e) {
+		// do nothing, we can check for $.fn.setBreakpoints
+	}
+
+	import randString from 'mout/random/randString'
 
 	export default {
 		data () {
 			return {
-				id: shortid.generate()
+				id: 'navbar-' + randString()
 			}
 		},
 		props: {
@@ -110,6 +117,7 @@
 				// $(window).setBreakpoints({
 				// 	breakpoints: ['320', '480']
 				// })
+
 				$(window)[reset ? 'off' : 'on']('enterBreakpoint320', function () {
 					this.lastFixed = this.fixed
 					this.fixed = 'top'

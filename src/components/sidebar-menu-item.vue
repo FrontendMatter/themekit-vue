@@ -1,5 +1,5 @@
 <script>
-	import shortid from 'shortid'
+	import randString from 'mout/random/randString'
 	import deepMatches from 'mout/object/deepMatches'
 
 	export default {
@@ -19,7 +19,7 @@
 				if (!this.isSubmenu) {
 					return null
 				}
-				return `sm-${ shortid.generate() }`
+				return `sm-${ randString() }`
 			},
 			isSubmenu () {
 				return this.model.children && this.model.children.length

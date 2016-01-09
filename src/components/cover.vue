@@ -1,5 +1,11 @@
 <script>
-	import 'load_image/load_image'
+	// optional external
+	try {
+		require('load_image/load_image')
+	}
+	catch (e) {
+		// do nothing, we can check for $.fn.loadImage
+	}
 
 	export default {
 		name: 'cover',
@@ -154,9 +160,12 @@
 				if (!img) { 
 					return this.cover()
 				}
-				$.loadImage(img.attr('src')).done(function (image) {
+				if (typeof $.loadImage === 'undefined') {
+					return this.cover()
+				}
+				$.loadImage(img.attr('src')).done((image) => {
 					this.cover()
-				}.bind(this))
+				})
 			},
 			handleCover () {
 				clearTimeout(this.layoutTimer)

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-	import shortid from 'shortid'
+	import randString from 'mout/random/randString'
 
 	var depsLoaded
 
@@ -20,7 +20,7 @@
 	export default {
 		data () {
 			return {
-				id: 'mprogress-' + shortid.generate(),
+				id: 'mprogress-' + randString(),
 				mp: null
 			}
 		},

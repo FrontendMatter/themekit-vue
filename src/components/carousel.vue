@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	import shortid from 'shortid'
+	import randString from 'mout/random/randString'
 
 	export default {
 		props: {
@@ -45,7 +45,7 @@
 		},
 		computed: {
 			carouselId () {
-				return shortid.generate()
+				return randString()
 			}
 		},
 		events: {

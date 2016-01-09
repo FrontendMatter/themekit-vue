@@ -12,7 +12,7 @@
 </template>
 
 <script>
-	import shortid from 'shortid'
+	import randString from 'mout/random/randString'
 
 	export default {
 		props: {
@@ -35,7 +35,7 @@
 		},
 		computed: {
 			tabId () {
-				return this.id ? this.id : `tab-${ shortid.generate() }`
+				return this.id ? this.id : `tab-${ randString() }`
 			}
 		},
 		created () {

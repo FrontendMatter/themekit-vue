@@ -25,8 +25,15 @@
 </template>
 
 <script>
+	// optional external
+	try {
+		require('jquery.breakpoints/breakpoints')
+	}
+	catch (e) {
+		// do nothing, we can check for $.fn.setBreakpoints
+	}
+
 	import SidebarToggleButton from './sidebar-toggle-button.vue'
-	import 'jquery.breakpoints/breakpoints'
 	import camelCase from 'mout/string/camelCase'
 	import objectKeys from 'mout/object/keys'
 	import objectValues from 'mout/object/values'
@@ -245,7 +252,10 @@
 				return className
 			},
 			breakpoints (reset) {
-				$(window).setBreakpoints({ breakpoints: breakpointValues })
+
+				if (typeof $.fn.setBreakpoints !== 'undefined') {
+					$(window).setBreakpoints({ breakpoints: breakpointValues })
+				}
 
 				// always close on xs
 				$(window)[reset ? 'off' : 'on']('enterBreakpoint320', this.close)

@@ -29,7 +29,7 @@
 		depsLoaded = false
 	}
 
-	import shortid from 'shortid'
+	import randString from 'mout/random/randString'
 
 	export default {
 		data () {
@@ -84,7 +84,7 @@
 				if (this.dropzoneId) {
 					return this.dropzoneId
 				}
-				return 'dropzone-' + shortid.generate()
+				return 'dropzone-' + randString()
 			},
 			dropzoneClass () {
 				var classes = {}
