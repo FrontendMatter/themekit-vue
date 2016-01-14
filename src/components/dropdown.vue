@@ -1,14 +1,5 @@
 <template>
-	<li v-if="isList" :class="containerClass"
-		@mouseenter="show()"
-		@mouseleave="hide()"
-		@click="toggle($event)">
-		<slot></slot>
-	</li>
-	<div v-else :class="containerClass"
-		@mouseenter="show()"
-		@mouseleave="hide()"
-		@click="toggle($event)">
+	<div :class="containerClass" :aria-role="ariaRole">
 		<slot></slot>
 	</div>
 </template>
@@ -17,8 +8,7 @@
 	export default {
 		data () {
 			return {
-				open: false,
-				isList: true
+				open: false
 			}
 		},
 		props: {
@@ -28,11 +18,13 @@
 			active: {
 				type: Boolean
 			},
-			onClick: {
-				type: Boolean,
-				default: true
+			openEvent: {
+				default: 'click'
 			},
-			dropdownClass: {
+			class: {
+				type: String
+			},
+			ariaRole: {
 				type: String
 			}
 		},
@@ -44,41 +36,46 @@
 					hasSubmenu: this.isSubmenu, 
 					open: this.open
 				}
-				if (this.dropdownClass) {
-					obj[this.dropdownClass] = true
+				if (this.class) {
+					obj[this.class] = true
 				}
 				return obj
 			}
 		},
 		methods: {
-			toggle (event) {
-				if (this.onClick) {
-					this.open = !this.open
-					event.stopPropagation()
+			toggle (e) {
+				if (/input|textarea/i.test(e.target.tagName)) {
+					return
 				}
+				this.open = !this.open
 			},
 			show () {
-				if (!this.onClick) {
-					this.open = true
-				}
+				this.open = true
 			},
 			hide () {
-				if (!this.onClick) {
-					this.open = false
-				}
+				this.open = false
 			},
-			closePageDropdownMenus () {
-				this.$root.$broadcast('close.tk.dropdown', null, true)
+			rootHide (e) {
+				if (!this.$el || /input|textarea/i.test(e.target.tagName)) {
+					return
+				}
+				if (e.target === this.$el || this.$el.contains(e.target)) {
+					return
+				}
+				this.hide() 
 			},
 			getTree (dropdown) {
 				let tree = []
-				if (!dropdown) {
-					return tree
-				}
-				if (dropdown.$options.name === 'dropdown') {
+				if (dropdown && dropdown.$options.name && dropdown.$options.name.indexOf('dropdown') !== -1) {
 					tree.push(dropdown)
+					if (dropdown.$parent) {
+						return tree.concat(this.getTree(dropdown.$parent))
+					}
 				}
-				return tree.concat(this.getTree(dropdown.$parent))
+				return tree
+			},
+			emit (eventName) {
+				this.$dispatch(`${ eventName }.tk.dropdown`, this)
 			},
 			propagate (propagate) {
 				if (propagate) {
@@ -88,16 +85,21 @@
 			}
 		},
 		ready () {
-			if (this.onClick) {
-				this.$root.$el.addEventListener('click', this.closePageDropdownMenus)
+			if (this.openEvent === 'click') {
+				this.$el.addEventListener('click', this.toggle)
 			}
-			this.$nextTick(() => {
-				this.isList = $(this.$el).parent('ul').length > 0
-			})
+			else if (this.openEvent === 'mouseenter') {
+				this.$el.addEventListener('mouseenter', this.show)
+				this.$el.addEventListener('mouseleave', this.hide)
+			}
 		},
 		beforeDestroy () {
-			if (this.onClick) {
-				this.$root.$el.removeEventListener('click', this.closePageDropdownMenus)
+			if (this.openEvent === 'click') {
+				this.$el.removeEventListener('click', this.toggle)
+			}
+			else if (this.openEvent === 'mouseenter') {
+				this.$el.removeEventListener('mouseenter', this.show)
+				this.$el.removeEventListener('mouseleave', this.hide)
 			}
 		},
 		watch: {
@@ -107,23 +109,28 @@
 					this.$broadcast('close.tk.dropdown', this)
 					// close dropdown menu tree
 					this.$root.$broadcast('close.tk.dropdown', this.getTree(this), true)
+					// bind root
+					this.$root.$el.addEventListener('click', this.rootHide)
+					this.emit('opened')
+				}
+				else {
+					this.$root.$el.removeEventListener('click', this.rootHide)
+					this.emit('closed')
 				}
 			}
 		},
 		events: {
 			'close.tk.dropdown': function (dropdown, propagate) {
-				dropdown = dropdown && (
-					dropdown === this || 
-					(Array.isArray(dropdown) && dropdown.indexOf(this) !== -1)
-				)
+				dropdown = (dropdown && Array.isArray(dropdown) && dropdown.indexOf(this) !== -1)
+				dropdown = dropdown || dropdown === this
 				if (dropdown) {
 					return this.propagate(propagate)
 				}
-				this.open = false
+				this.hide()
 				return this.propagate(propagate)
 			},
-			'open.tk.dropdown': function (dropdown) {
-				this.$broadcast('close.tk.dropdown', dropdown, true)
+			'open.tk.dropdown': function () {
+				this.show()
 			}
 		}
 	}

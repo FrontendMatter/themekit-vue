@@ -1,5 +1,5 @@
 <template>
-	<dropdown :dropdown-class="dropdownClass">
+	<dropdown :class="dropdownClass">
 		<a href="#" @click.prevent :class="btnClass">
 			<i class="dropdown-menu-icon" v-if="icon" :class="icon"></i>
 			<span>{{ label }}</span>
@@ -37,7 +37,7 @@
 			btnClass: {
 				type: String
 			},
-			dropdownClass: {
+			class: {
 				type: String
 			},
 			dropdownMenuClass: {
