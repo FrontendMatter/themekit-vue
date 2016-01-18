@@ -2,9 +2,17 @@
 
 Vue.js components for rapid development.
 
-### Pre-release notes
+### Pre-release notice
 
 > **Work in progress!** For the moment, themekit-vue is to be considered in heavy development towards an inital release. After the initial release (which is TBA), we'll be in Beta for the foreseeable future, which means the API might change without notice. If you'd like to use themekit-vue in production, keep that in mind.
+
+### Beta release roadmap
+
+- [ ] online documentation
+- [ ] online demos
+- [ ] unit testing
+- [ ] end to end testing
+- [ ] setup CI & coverage
 
 ## Build
 
@@ -48,25 +56,25 @@ Start an initial development build and then FAST continuous incremental builds:
 
 ### Prerequisites
 
-> The demos are using dist/themekit.css and dist/themekit.js so a static build (dev or production) is required first. Se above.
+> The demos are using dist/themekit.css and dist/themekit.js. Before building the demos, make sure you make a static build first (dev or production - see above) in order to create the required files.
 
-### Build
+### Build demos
 
-#### Production build
+#### Production build demos
 
 Includes minification and several optimizations:
 
 	npm run demos-build
 
-#### Development build
+#### Development build demos
 
 A faster build suited for development, with no optimizations and without minification:
 
 	npm run demos-build-dev
 	
-### Development server
+### Demos development server
 
-> You can start a development server on http://localhost:8082 with FAST incremental builds and HOT reloading using webpack-dev-server. 
+> You can start a development server on http://localhost:8082 specifically for the demos, with FAST incremental builds and HOT reloading (using webpack-dev-server). 
 
 #### Prerequisites
 
@@ -76,7 +84,7 @@ A faster build suited for development, with no optimizations and without minific
 
 	npm run demos-dev
 	
-### Static server
+### Demos static server
 
 > You can also start a simple HTTP server on http://localhost:8081. Note this will NOT build anyting! Before starting this server, make sure you make a static build first (dev or production - see above):
 
@@ -84,4 +92,4 @@ A faster build suited for development, with no optimizations and without minific
 	
 ## Documentation
 
-> **Work in progress!** A proper documentation will be available as soon as possible. Meanwhile, run the demos and see [examples](examples/).
+> **Work in progress!** A proper documentation will be available as soon as possible. Meanwhile, run the demos and see [examples](examples/) for basic usage.
