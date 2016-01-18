@@ -8,37 +8,37 @@ Vue.js components for rapid development.
 
 ## Build
 
-> Until the initial release is ready, you can build themekit-vue yourself:
+> Until the initial release is ready, you can build themekit-vue yourself.
 
 ### Prerequisites
 
-> Our build tool of choice is Webpack. You should have webpack installed globally:
+Our build tool of choice is Webpack. You should have webpack installed globally:
 
 	npm install -g webpack
 
-> And the build dependencies:
+And the build dependencies:
 
 	npm install && bower install
 	
 ### Build
 
-> Any of the following will create the files dist/themekit.js and dist/themekit.css
+> Any of the following will create the files dist/themekit.js and dist/themekit.css.
 
 #### Production build
 
-> Includes minification and several optimizations:
+Includes minification and several optimizations:
 
 	npm run build
 
 #### Development build
 
-> A faster build suited for development, with no optimizations and without minification:
+A faster build suited for development, with no optimizations and without minification:
 
 	npm run build-dev
 	
 ### Watch
 
-> Will start an initial development build and then FAST continuous incremental builds:
+Start an initial development build and then FAST continuous incremental builds:
 
 	npm run dev
 	
@@ -54,13 +54,13 @@ Vue.js components for rapid development.
 
 #### Production build
 
-> Includes minification and several optimizations:
+Includes minification and several optimizations:
 
 	npm run demos-build
 
 #### Development build
 
-> A faster build suited for development, with no optimizations and without minification:
+A faster build suited for development, with no optimizations and without minification:
 
 	npm run demos-build-dev
 	
@@ -84,4 +84,4 @@ Vue.js components for rapid development.
 	
 ## Documentation
 
-> **Work in progress!** A proper documentation will be available as soon as possible.
+> **Work in progress!** A proper documentation will be available as soon as possible. Meanwhile, run the demos and see [examples](examples/).
