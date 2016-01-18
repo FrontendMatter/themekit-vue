@@ -46,7 +46,7 @@
     "shortid": "^2.2.4",
     "style-import-loader": "^0.2.0",
     "style-loader": "^0.13.0",
-    "themekit-webpack-config": "github:themekit/themekit-webpack-config",
+    "themekit-webpack-config": "^1.0.0",
     "url-loader": "^0.5.7",
     "vue": "^1.0.14",
     "vue-hot-reload-api": "^1.2.2",
