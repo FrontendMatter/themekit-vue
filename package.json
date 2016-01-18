@@ -1,7 +1,7 @@
 {
   "name": "themekit-vue",
   "version": "0.1.0",
-  "description": "",
+  "description": "Vue.js components for rapid development.",
   "main": "dist/themekit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "demos-build-dev": "webpack --config build/demos/webpack.config.dev.js --progress",
     "demos-serve": "http-server ./demos/dist -o -p 8081 --cors --silent"
   },
-  "author": "",
+  "author": "Laza Bogdan <laza.bogdan@macro-net.ro>",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.4.0",
@@ -56,5 +56,22 @@
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.11",
     "webpack-dev-server": "^1.14.1"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themekit/themekit-vue.git"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue.js",
+    "bootstrap",
+    "components",
+    "themekit"
+  ],
+  "bugs": {
+    "url": "https://github.com/themekit/themekit-vue/issues"
+  },
+  "homepage": "https://github.com/themekit/themekit-vue#readme"
 }
