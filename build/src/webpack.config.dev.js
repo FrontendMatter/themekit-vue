@@ -1,6 +1,2 @@
-var extend = require('themekit-webpack-config/extend')
-var base = require('./webpack.config.js')
-var dev = require('themekit-webpack-config/dev')
-module.exports = extend(base, dev, {
-	devtool: 'eval'
-})
+var config = require('./webpack.config')
+module.exports = config.dev({ devtool: 'eval' }).getConfig()

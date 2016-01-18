@@ -1,4 +1,4 @@
-var extend = require('themekit-webpack-config/extend')
-var base = require('./webpack.config.js')
-var production = require('themekit-webpack-config/production')
-module.exports = extend(base, production)
+var config = require('./webpack.config')
+module.exports = config.map(function (config) {
+	return config.production().getConfig()
+})

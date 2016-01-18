@@ -2,16 +2,12 @@
 	<div v-show="isVisible" :class="sidebarClass">
 		
 		<!-- Scrollable -->
-		<template v-if="scrollable">
-			<div v-scrollable>
-				<slot></slot>
-			</div>
-		</template>
+		<div v-if="scrollable" v-scrollable>
+			<slot></slot>
+		</div>
 		
 		<!-- Non Scrollable -->
-		<template v-else>
-			<slot></slot>
-		</template>
+		<slot v-else></slot>
 		
 		<!-- Toggle Bar -->
 		<sidebar-toggle-button

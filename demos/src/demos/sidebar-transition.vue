@@ -74,7 +74,7 @@
 				<dropdown-area label="Settings" 
 					icon="fa fa-fw fa-cog" 
 					btn-class="btn btn-link"
-					dropdown-class="dropdown-settings">
+					class="dropdown-settings">
 					
 					<div class="panel panel-body">
 						<sidebar-settings :model.sync="props"></sidebar-settings>
@@ -132,9 +132,7 @@
 	import { Sidebar } from 'themekit-vue'
 	import { SidebarToggleButton } from 'themekit-vue'
 	import { DropdownArea } from 'themekit-vue'
-	import { Util } from 'themekit-vue/dist/util.js'
-	import 'themekit-vue/dist/util.css'
-	let { SidebarUsage, SidebarSettings } = Util
+	const { SidebarUsage, SidebarSettings } = window.Util
 
 	export default {
 		data () {

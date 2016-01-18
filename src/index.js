@@ -4,7 +4,9 @@ import CoverBanner from './components/cover-banner'
 import CoverLink from './components/cover-link'
 import CoverOverlay from './components/cover-overlay'
 import Cover from './components/cover'
+import DropdownAreaList from './components/dropdown-area-list'
 import DropdownArea from './components/dropdown-area'
+import DropdownListItem from './components/dropdown-list-item'
 import DropdownMenu from './components/dropdown-menu'
 import Dropdown from './components/dropdown'
 import DropzoneControlProgress from './components/dropzone-control-progress'
@@ -41,7 +43,9 @@ let ThemeKit = {
 	CoverLink,
 	CoverOverlay,
 	Cover,
+	DropdownAreaList,
 	DropdownArea,
+	DropdownListItem,
 	DropdownMenu,
 	Dropdown,
 	DropzoneControlProgress,

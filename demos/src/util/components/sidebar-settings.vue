@@ -84,4 +84,8 @@
 	.dropdown-settings .dropdown-menu {
 		width: 100%;
 	}
+	.dropdown-settings .panel {
+		margin: 0;
+		border: none;
+	}
 </style>

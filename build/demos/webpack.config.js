@@ -1,20 +1,32 @@
-var extend = require('themekit-webpack-config/extend')
-var Base = require('themekit-webpack-config/base')
-var config = new Base()
 var main = require('../src/webpack.config')
+var WebpackConfig = require('themekit-webpack-config')
+var commonOptions = {
+	distPath: 'demos/dist'
+}
+var commonWebpack = {
+	resolve: main.instOptions.webpack.resolve,
+	resolveLoader: main.instOptions.webpack.resolveLoader,
+	sassImportLoader: main.instOptions.webpack.sassImportLoader
+}
 
-module.exports = extend(config.getConfig(), {
-	entry: {
-		demo: config.srcPath('demo.js'),
-		vendor: config.srcPath('vendor.js')
-	},
-	styleImportLoader: {
-		base: './src/sass/_common.scss'
-	},
-	resolve: {
-		alias: main.resolve.alias
-	},
-	resolveLoader: {
-		alias: main.resolveLoader.alias
-	}
-})
+var demo = new WebpackConfig(commonOptions)
+	.options({ srcPath: 'demos/src' })
+	.webpack(commonWebpack)
+	.withEntry('demo.js')
+	.withEntry('vendor.js')
+	.use('bower')
+	.use('extract')
+	.use('vendor')
+	.use('commons')
+
+var util = new WebpackConfig(commonOptions)
+	.options({ srcPath: 'demos/src/util' })
+	.webpack(commonWebpack)
+	.webpack({
+		externals: main.instOptions.webpack.externals
+	})
+	.withLibrary('Util')
+	.withEntry('util')
+	.use('extract')
+
+module.exports = [demo, util]
