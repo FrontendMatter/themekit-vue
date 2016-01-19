@@ -1,11 +1,10 @@
 {
   "name": "themekit-vue",
-  "description": "ThemeKit Lite",
+  "description": "Vue.js components for rapid development.",
   "license": "ISC",
   "private": true,
   "dependencies": {
     "jquery.breakpoints": "*",
-    "font-awesome": "~4.5.0",
     "simplebar": "lazabogdan/simplebar#master",
     "bootstrap-datepicker": "~1.5.0",
     "load_image": "mixonic/load_image",
