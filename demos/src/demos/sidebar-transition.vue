@@ -70,16 +70,9 @@
 		<div class="container-fluid">
 
 			<div style="margin: 20px 0;">
-
-				<dropdown-area label="Settings" 
-					icon="fa fa-fw fa-cog" 
-					btn-class="btn btn-link"
-					class="dropdown-settings">
-					
-					<div class="panel panel-body">
-						<sidebar-settings :model.sync="props"></sidebar-settings>
-					</div>
-				</dropdown-area>
+				<dropdown-settings>	
+					<sidebar-settings :model.sync="props"></sidebar-settings>
+				</dropdown-settings>
 
 				<hr>
 				
@@ -131,8 +124,7 @@
 	import { SidebarTransition } from 'themekit-vue'
 	import { Sidebar } from 'themekit-vue'
 	import { SidebarToggleButton } from 'themekit-vue'
-	import { DropdownArea } from 'themekit-vue'
-	const { SidebarUsage, SidebarSettings } = window.Util
+	const { SidebarUsage, SidebarSettings, DropdownSettings } = window.Util
 
 	export default {
 		data () {
@@ -178,9 +170,9 @@
 			SidebarTransition,
 			Sidebar,
 			SidebarToggleButton,
-			DropdownArea,
 			SidebarSettings,
-			SidebarUsage
+			SidebarUsage,
+			DropdownSettings
 		}
 	}
 </script>
