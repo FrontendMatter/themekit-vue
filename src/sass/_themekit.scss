@@ -1,71 +1,221 @@
 /* PAGE */
-@import './page/_scaffolding';
-@import './page/_typography';
+@if ($themekit-enable-page) {
+	@if ($themekit-enable-page-scaffolding) {
+		@import './page/_scaffolding';
+	}
+	@if ($themekit-enable-page-typography) {
+		@import './page/_typography';
+	}
+}
 
 /* HELPERS */
-@import './helpers/_general';
-@import './helpers/_sizing';
-@import './helpers/_spacing';
+@if ($themekit-enable-helpers) {
+	
+	@import './helpers/_general';
 
-/* COLORS */
-@import './colors/_alert';
-@import './colors/_background';
-@import './colors/_button';
-@import './colors/_helpers';
-@import './colors/_progress-bar';
-@import './colors/_ribbon';
-@import './colors/_text';
+	@if ($themekit-enable-helpers-sizing) {
+		@import './helpers/_sizing';
+	}
+	@if ($themekit-enable-helpers-spacing) {
+		@import './helpers/_spacing';
+	}
+}
 
-/* ELEMENTS */
-@import './elements/_button';
-@import './elements/_dropzone';
-@import './elements/_expandable';
-@import './elements/_jumbotron';
-@import './elements/_modal';
-@import './elements/_mprogress';
-@import './elements/_panel';
-@import './elements/_tabs';
+/**
+ * COLORS
+ * Not loaded specifically by any component.
+ * $themekit-enable-colors default value === false
+ */
+@if ($themekit-enable-colors) {
 
-/* COMPONENTS */
-@import './cover/_cover';
-@import './dropdown/_dropdown-menu';
+	@import './colors/_helpers';
 
-/* LAYOUT */
-@import './layout/_content';
-@import './layout/_footer';
-@import './layout/_grid';
-@import './layout/_navbar';
-@import './layout/_scrollable';
-@import './layout/_split';
+	/**
+	 * Alert(s)
+	 * $themekit-enable-colors-alert default value === false
+	 */
+	@if ($themekit-enable-colors-alert) {
+		@import './colors/_alert';
+	}
 
-/* NAVBAR */
-@import './navbar/_navbar';
+	/**
+	 * Background(s)
+	 * $themekit-enable-colors-background default value === false
+	 */
+	@if ($themekit-enable-colors-background) {
+		@import './colors/_background';
+	}
 
-/* SIDEBAR */
-@import './sidebar/_layout';
-@import './sidebar/_scrollable';
-@import './sidebar/_sidebar-mini';
-@import './sidebar/_toggle-bar';
-@import './sidebar/_transition';
+	/**
+	 * Button(s)
+	 * $themekit-enable-colors-button default value === false
+	 */
+	@if ($themekit-enable-colors-button) {
+		@import './colors/_button';
+	}
 
-/* SIDEBAR ELEMENTS */
-@import './sidebar-elements/badge';
-@import './sidebar-elements/brand';
-@import './sidebar-elements/datepicker';
-@import './sidebar-elements/list-group';
-@import './sidebar-elements/media';
-@import './sidebar-elements/panel';
-@import './sidebar-elements/progress';
-@import './sidebar-elements/slider';
+	/**
+	 * Progress Bar(s)
+	 * $themekit-enable-colors-progress-bar default value === false
+	 */
+	@if ($themekit-enable-colors-progress-bar) {
+		@import './colors/_progress-bar';
+	}
 
-/* SIDEBAR BLOCK */
-@import './sidebar-elements/_sidebar-block';
-/* SIDEBAR FEED */
-@import './sidebar-elements/_sidebar-feed';
-/* SIDEBAR TABS */
-@import './sidebar-elements/_sidebar-tabs';
+	/**
+	 * Ribbon(s)
+	 * $themekit-enable-colors-ribbon default value === false
+	 */
+	@if ($themekit-enable-colors-ribbon) {
+		@import './colors/_ribbon';
+	}
 
-/* SIDEBAR MENU */
-@import './sidebar-menu/_sidebar-dropdown';
-@import './sidebar-menu/_sidebar-menu';
-@import './sidebar-menu/_utils';
+	/**
+	 * Text(s)
+	 * $themekit-enable-colors-text default value === false
+	 */
+	@if ($themekit-enable-colors-text) {
+		@import './colors/_text';
+	}
+}
+
+/**
+ * ELEMENTS
+ * General elements.
+ * $themekit-enable-elements default value === true
+ */
+@if ($themekit-enable-elements) {
+	@import './elements/_button';
+	@import './elements/_jumbotron';
+	@import './elements/_panel';
+}
+
+/**
+ * COMPONENT ELEMENTS
+ * Elements loaded by individual components.
+ * $themekit-enable-components default value === false
+ */
+@if ($themekit-enable-components) {
+
+	/**
+	 * Dropzone component
+	 * $themekit-enable-dropzone default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-dropzone) {
+		@import './elements/_dropzone';
+	}
+
+	/**
+	 * Expandable component
+	 * $themekit-enable-expandable default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-expandable) {
+		@import './elements/_expandable';
+	}
+
+	/**
+	 * Modal component
+	 * $themekit-enable-modal default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-modal) {
+		@import './elements/_modal';
+	}
+
+	/**
+	 * Mprogress component
+	 * $themekit-enable-mprogress default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-mprogress) {
+		@import './elements/_mprogress';
+	}
+
+	/**
+	 * Tabs component
+	 * $themekit-enable-tabs default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-tabs) {
+		@import './elements/_tabs';
+	}
+
+	/**
+	 * Cover component(s)
+	 * $themekit-enable-cover default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-cover) {
+		@import './cover/_cover';
+	}
+
+	/**
+	 * Dropdown component
+	 * $themekit-enable-dropdown default value === $themekit-enable-components
+	 */
+	@if ($themekit-enable-dropdown) {
+		@import './dropdown/_dropdown-menu';
+	}
+}
+
+/**
+ * LAYOUT
+ * Loaded by the Layout component.
+ * $themekit-enable-layout default value === $themekit-enable-components
+ */
+@if ($themekit-enable-layout) {
+	@import './layout/_content';
+	@import './layout/_footer';
+	@import './layout/_grid';
+	@import './layout/_navbar';
+	@import './layout/_scrollable';
+	@import './layout/_split';
+}
+
+/**
+ * NAVBAR
+ * Loaded by the Navbar component.
+ * $themekit-enable-navbar default value === $themekit-enable-components
+ */
+@if ($themekit-enable-navbar) {
+	@import './navbar/_navbar';
+}
+
+/**
+ * SIDEBAR
+ * Loaded by the Sidebar component.
+ * $themekit-enable-sidebar default value === $themekit-enable-components
+ */
+@if ($themekit-enable-sidebar) {
+	@import './sidebar/_layout';
+	@import './sidebar/_scrollable';
+	@import './sidebar/_sidebar-mini';
+	@import './sidebar/_toggle-bar';
+	@import './sidebar/_transition';
+}
+
+/**
+ * SIDEBAR ELEMENTS
+ * Elements loaded by the Sidebar component(s).
+ * $themekit-enable-sidebar-elements default value === $themekit-enable-sidebar
+ */
+@if ($themekit-enable-sidebar-elements) {
+	@import './sidebar-elements/badge';
+	@import './sidebar-elements/brand';
+	@import './sidebar-elements/datepicker';
+	@import './sidebar-elements/list-group';
+	@import './sidebar-elements/media';
+	@import './sidebar-elements/panel';
+	@import './sidebar-elements/progress';
+	@import './sidebar-elements/slider';
+	@import './sidebar-elements/_sidebar-block';
+	@import './sidebar-elements/_sidebar-feed';
+	@import './sidebar-elements/_sidebar-tabs';
+}
+
+/**
+ * SIDEBAR MENU
+ * Loaded by the SidebarMenu component.
+ * $themekit-enable-sidebar-menu default value === $themekit-enable-sidebar
+ */
+@if ($themekit-enable-sidebar-menu) {
+	@import './sidebar-menu/_sidebar-dropdown';
+	@import './sidebar-menu/_sidebar-menu';
+	@import './sidebar-menu/_utils';
+}

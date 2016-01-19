@@ -1,5 +1,51 @@
 @import "../functions/_strip-unit";
 
+// THEMEKIT FEATURE TOGGLE
+
+// PAGE STYLES
+
+$themekit-enable-page: 					true !default;
+$themekit-enable-page-scaffolding: 		$themekit-enable-page !default;
+$themekit-enable-page-typography: 		$themekit-enable-page !default;
+
+// HELPERS
+
+$themekit-enable-helpers: 				true !default;
+$themekit-enable-helpers-sizing: 		$themekit-enable-helpers !default;
+$themekit-enable-helpers-spacing: 		$themekit-enable-helpers !default;
+
+// GENERAL ELEMENTS
+
+$themekit-enable-elements: 				true !default;
+
+// COLORS
+
+$themekit-enable-colors: 				false !default;
+$themekit-enable-colors-alert: 			false !default;
+$themekit-enable-colors-background: 	false !default;
+$themekit-enable-colors-button: 		false !default;
+$themekit-enable-colors-progress-bar: 	false !default;
+$themekit-enable-colors-ribbon: 		false !default;
+$themekit-enable-colors-text: 			false !default;
+
+// COMPONENTS
+
+$themekit-enable-components: 			false !default;
+
+$themekit-enable-layout: 				$themekit-enable-components !default;
+$themekit-enable-navbar: 				$themekit-enable-components !default;
+$themekit-enable-sidebar: 				$themekit-enable-components !default;
+$themekit-enable-sidebar-elements: 		$themekit-enable-sidebar !default;
+$themekit-enable-sidebar-menu: 			$themekit-enable-sidebar !default;
+
+$themekit-enable-dropzone: 				$themekit-enable-components !default;
+$themekit-enable-expandable: 			$themekit-enable-components !default;
+$themekit-enable-modal: 				$themekit-enable-components !default;
+$themekit-enable-cover: 				$themekit-enable-components !default;
+$themekit-enable-dropdown: 				$themekit-enable-components !default;
+$themekit-enable-tabs: 					$themekit-enable-components !default;
+$themekit-enable-mprogress: 			$themekit-enable-components !default;
+
 // BRAND
 // Custom bootstrap model brand colors
 
