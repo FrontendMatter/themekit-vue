@@ -6,10 +6,7 @@
   "dependencies": {
     "jquery.breakpoints": "*",
     "simplebar": "lazabogdan/simplebar#master",
-    "bootstrap-datepicker": "~1.5.0",
     "load_image": "mixonic/load_image",
-    "mprogress": "lazabogdan/MProgress.js#master",
-    "modernizr": "~2.8.3",
-    "dropzone": "~4.0.1"
+    "modernizr": "~2.8.3"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-	<div :class="modalClass" :id="id">
+	<div :class="modalClass" :id="id" v-transfer-dom v-if="ready">
 		<div class="modal-dialog" :class="dialog">
 			<div class="v-cell">
 				<div class="modal-content" :class="content">
@@ -23,14 +23,13 @@
 </template>
 
 <script>
-	import Attach from '../mixins/attach.vue'
 	export default {
-		mixins: [Attach],
 		data () {
 			return {
 				hasAbort: {
 					save: false
-				}
+				},
+				ready: null
 			}
 		},
 		props: {
@@ -202,6 +201,7 @@
 		ready () {
 			this.emit('ready')
 			this.setupEvents()
+			this.ready = true
 			if ($('body').hasClass('modal-open')) {
 				this.show()
 			}

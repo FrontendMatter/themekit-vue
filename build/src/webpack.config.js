@@ -8,33 +8,10 @@ var config = new WebpackConfig()
 	})
 	.webpack({
 		externals: [
-			{ 'jquery': 'jQuery' },
-			{
-				'isotope-layout': {
-					root: 'Isotope',
-					commonjs: 'isotope-layout',
-					commonjs2: 'isotope-layout',
-					amd: 'isotope-layout'
-				},
-				'isotope-packery': {
-					root: 'Packery',
-					commonjs: 'isotope-packery',
-					commonjs2: 'isotope-packery',
-					amd: 'isotope-packery'
-				}
-			},
-			{ 'dropzone/dist/dropzone': 'Dropzone' },
-			{ 'mprogress/build/js/mprogress': 'Mprogress' },
-			'bootstrap-datepicker',
-			'load_image/load_image',
-			'jquery.breakpoints/breakpoints',
-			'simplebar/src/simplebar',
-			'highlight.js/lib/highlight',
-			'highlight.js/lib/languages/xml',
-			'highlight.js/lib/languages/javascript',
-			'js-beautify'
+			{ 'jquery': 'jQuery' }
 		]
 	})
 	.use('extract')
+	.use('bower')
 
 module.exports = config

@@ -1,11 +1,5 @@
 <script>
-	// optional external
-	try {
-		require('load_image/load_image')
-	}
-	catch (e) {
-		// do nothing, we can check for $.fn.loadImage
-	}
+	import 'load_image/load_image'
 
 	export default {
 		name: 'cover',

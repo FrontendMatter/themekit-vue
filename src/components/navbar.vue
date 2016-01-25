@@ -19,14 +19,7 @@
 </template>
 
 <script>
-	// optional external
-	try {
-		require('jquery.breakpoints/breakpoints')
-	}
-	catch (e) {
-		// do nothing, we can check for $.fn.setBreakpoints
-	}
-
+	import 'jquery.breakpoints/breakpoints'
 	import randString from 'mout/random/randString'
 
 	export default {

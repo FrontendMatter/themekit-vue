@@ -1,19 +1,11 @@
-// optional externals
-try {
-	var highlight = require('highlight.js/lib/highlight')
-	let langXml = require('highlight.js/lib/languages/xml')
-	let langJavaScript = require('highlight.js/lib/languages/javascript')
-
-	highlight.registerLanguage('xml', langXml)
-	highlight.registerLanguage('javascript', langJavaScript)
-}
-catch (e) {}
-try {
-	var beautify = require('js-beautify')
-}
-catch (e) {}
-
+import highlight from 'highlight.js/lib/highlight'
+import langXml from 'highlight.js/lib/languages/xml'
+import langJavaScript from 'highlight.js/lib/languages/javascript'
+import beautify from 'js-beautify'
 import merge from 'mout/object/merge'
+
+highlight.registerLanguage('xml', langXml)
+highlight.registerLanguage('javascript', langJavaScript)
 
 export default {
 	params: ['lang'],

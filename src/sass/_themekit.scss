@@ -98,14 +98,6 @@
 @if ($themekit-enable-components) {
 
 	/**
-	 * Dropzone component
-	 * $themekit-enable-dropzone default value === $themekit-enable-components
-	 */
-	@if ($themekit-enable-dropzone) {
-		@import './elements/_dropzone';
-	}
-
-	/**
 	 * Expandable component
 	 * $themekit-enable-expandable default value === $themekit-enable-components
 	 */
@@ -119,14 +111,6 @@
 	 */
 	@if ($themekit-enable-modal) {
 		@import './elements/_modal';
-	}
-
-	/**
-	 * Mprogress component
-	 * $themekit-enable-mprogress default value === $themekit-enable-components
-	 */
-	@if ($themekit-enable-mprogress) {
-		@import './elements/_mprogress';
 	}
 
 	/**

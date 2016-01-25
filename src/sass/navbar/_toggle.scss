@@ -29,7 +29,7 @@
 	}
 	.navbar-default & {
 		color: $navbar-default-link-color;
-		&.active {
+		&.toggle-active-bg.active {
 			background: darken($brand-primary, 4%);
 			color: #fff;
 		}
@@ -37,7 +37,7 @@
 	.navbar-primary & {
 		background: darken($brand-primary, 4%);
 		color: #fff;
-		&.active {
+		&.toggle-active-bg.active {
 			color: $brand-primary;
 			background: $white;
 		}
