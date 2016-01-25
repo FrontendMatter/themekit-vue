@@ -4,7 +4,7 @@ var config = new WebpackConfig()
 	.withStandaloneEntry('themekit')
 	.withLibrary('ThemeKit')
 	.withAlias({
-		'themekit-vue': path.resolve(__dirname, '../..')
+		'themekit-vue': path.resolve(__dirname, '..')
 	})
 	.webpack({
 		externals: [
