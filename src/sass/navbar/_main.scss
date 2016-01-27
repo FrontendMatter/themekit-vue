@@ -50,22 +50,11 @@
 	}
 }
 
-@media (min-width: $grid-float-breakpoint) {
-	.navbar .container-fluid {
-		.navbar-right:last-of-type {
-			margin-right: -$navbar-padding-horizontal;
-		}
-	}
-	.navbar-left-m {
-		margin-left: -$navbar-padding-horizontal;
-	}
-}
-
-.navbar .container {
+.navbar {
 	.navbar-brand {
 		margin-left: 0;
 	}
-	.navbar-right:last-of-type {
+	.navbar-right {
 		margin-right: 0;
 	}
 }
