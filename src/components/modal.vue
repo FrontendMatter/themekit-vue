@@ -1,5 +1,5 @@
 <template>
-	<div :class="modalClass" :id="id" v-transfer-dom v-if="ready">
+	<div :class="modalClass" :id="id" v-transfer-dom>
 		<div class="modal-dialog" :class="dialog">
 			<div class="v-cell">
 				<div class="modal-content" :class="content">
@@ -20,6 +20,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- !!! Fragment !!!  -->
 </template>
 
 <script>
@@ -28,8 +29,7 @@
 			return {
 				hasAbort: {
 					save: false
-				},
-				ready: null
+				}
 			}
 		},
 		props: {
@@ -134,9 +134,9 @@
 				if (this.sidebar) {
 					obj['sidebar'] = true
 					obj[this.computedSlideDirection] = true
-					obj['sidebar-offset-0'] = true
-					obj['sidebar-size-' + this.sidebarSize] = true
-					obj['sidebar-size-xs-' + this.sidebarSizeXs] = true
+					obj['si-offset-0'] = true
+					obj['si-si-' + this.sidebarSize] = true
+					obj['si-si-xs-' + this.sidebarSizeXs] = true
 				}
 				return obj
 			},
@@ -147,17 +147,20 @@
 					'modal-lg': this.size === 'large'
 				}
 				return obj
+			},
+			element () {
+				return document.querySelector(`#${this.id}`)
 			}
 		},
 		methods: {
 			setupEvents () {
-				$(this.$el)
+				$(this.element)
 					.on('show.bs.modal', this.showBackdrop)
 					.on('hidden.bs.modal', this.hideBackdrop)
 
 				let events = ['show', 'hide', 'shown', 'hidden']
 				events.forEach((eventName) => {
-					$(this.$el).on(`${ eventName }.bs.modal`, () => {
+					$(this.element).on(`${ eventName }.bs.modal`, () => {
 						this.emit.call(this, eventName)
 					})
 				})
@@ -180,7 +183,7 @@
 				this.emit('save')
 			},
 			modal (methodName) {
-				$(this.$el).modal(methodName)
+				$(this.element).modal(methodName)
 			},
 			show () {
 				this.modal('show')
@@ -201,7 +204,6 @@
 		ready () {
 			this.emit('ready')
 			this.setupEvents()
-			this.ready = true
 			if ($('body').hasClass('modal-open')) {
 				this.show()
 			}

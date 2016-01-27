@@ -29,8 +29,15 @@
 		},
 		props: {
 			timeout: {
+				type: Boolean,
+				default: true
+			},
+			timeoutDelay: {
 				type: Number,
-				default: 5000
+				default: 5000,
+				coerce: function (val) {
+					return Number(val)
+				}
 			},
 			fixed: {
 				type: Boolean
@@ -73,10 +80,11 @@
 		events: {
 			'alert-notification': function (alert) {
 				this.alertNotificationModel = alert
-				if (alert.type !== 'error') {
+				
+				if (alert.type !== 'error' && this.timeout) {
 					setTimeout(() => {
 						this.alertNotificationModel = null
-					}, this.timeout)
+					}, this.timeoutDelay)
 				}
 				return true
 			}
