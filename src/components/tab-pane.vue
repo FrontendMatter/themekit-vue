@@ -31,15 +31,30 @@
 			},
 			id: {
 				type: String
+			},
+			visible: {
+				type: Boolean,
+				default: true
 			}
 		},
 		computed: {
 			tabId () {
 				return this.id ? this.id : `tab-${ randString() }`
+			},
+			modifiers () {
+				return ['active', 'label', 'icon', 'visible']
+			}
+		},
+		methods: {
+			emit () {
+				this.$dispatch('tab-pane.tk.tabs', this)
 			}
 		},
 		created () {
-			this.$dispatch('tab-pane.tk.tabs', this)
+			this.emit()
+			this.modifiers.forEach((m) => {
+				this.$watch(m, this.emit)
+			})
 		},
 		events: {
 			'shown.tk.tab': function (tabId) {

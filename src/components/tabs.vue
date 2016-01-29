@@ -81,12 +81,15 @@
 		},
 		events: {
 			'tab-pane.tk.tabs': function (tab) {
-				this.tabs.push(tab)
+				const exists = this.tabs.find((t) => t.tabId === tab.tabId)
+				if (!exists) {
+					this.tabs.push(tab)
+				}
 				if (this.navId) {
 					this.$root.$broadcast('tabs-nav-item.tk.tabs', {
 						navId: this.navId,
 						tab: tab
-					})	
+					})
 				}
 			}
 		},
