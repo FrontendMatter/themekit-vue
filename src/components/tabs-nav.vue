@@ -33,6 +33,11 @@
 			emit (eventName, e) {
 				let tabId = e.target.getAttribute('href').split('#')[1]
 				this.$root.$broadcast(`${ eventName }.tk.tab`, tabId)
+			},
+			showActive () {
+				if (this.active) {
+					$(`[href="#${ this.active.tabId }"]`).tab('show')
+				}
 			}
 		},
 		computed: {
@@ -58,6 +63,7 @@
 			this.events.forEach((eventName) => {
 				$(this.$el).on(`${ eventName }.bs.tab`, '[data-toggle="tab"]', this.emit.bind(this, eventName))
 			})
+			this.showActive()
 		},
 		beforeDestroy () {
 			this.events.forEach((eventName) => {
@@ -65,11 +71,7 @@
 			})
 		},
 		watch: {
-			active (tab) {
-				if (tab) {
-					$(`[href="#${ tab.tabId }"]`).tab('show')
-				}
-			}
+			active: 'showActive'
 		},
 		events: {
 			'tabs-nav-item.tk.tabs': function (data) {

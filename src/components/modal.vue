@@ -1,5 +1,5 @@
 <template>
-	<div :class="modalClass" :id="id" v-transfer-dom>
+	<div :class="modalClass" :id="id" v-if="true" v-transfer-dom>
 		<div class="modal-dialog" :class="dialog">
 			<div class="v-cell">
 				<div class="modal-content" :class="content">
@@ -20,7 +20,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- !!! Fragment !!!  -->
 </template>
 
 <script>

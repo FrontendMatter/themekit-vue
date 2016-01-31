@@ -13,7 +13,7 @@
 			alert: `
 				<button class="close" data-dismiss="alert">&times;</button>
 				<template v-if="alertNotificationModel.type === 'error'">
-					<h4>Error</h4>
+					<h4>{{ alertNotificationErrorMsg }}</h4>
 					<pre v-text="alertNotificationModel.message | json" class="m-b-0"></pre>
 				</template>
 				<template v-else>
@@ -54,6 +54,9 @@
 					'alert-default': !this.alertNotificationModel.type,
 					'alert-notification-fixed': this.fixed
 				}
+			},
+			alertNotificationErrorMsg () {
+				return this.alertNotificationModel.message.message || 'Error'
 			}
 		},
 		methods: {
