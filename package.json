@@ -1,7 +1,7 @@
 {
   "name": "themekit-vue",
   "version": "0.1.0",
-  "description": "Vue.js components for rapid development.",
+  "description": "Vue.js components for rapid development & prototyping. Easily create layouts, sidebars and much more.",
   "main": "dist/themekit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

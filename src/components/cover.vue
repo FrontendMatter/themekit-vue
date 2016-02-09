@@ -1,5 +1,12 @@
 <script>
-	import 'load_image/load_image'
+	try {
+		require('jquery.breakpoints/breakpoints')
+	}
+	catch (e) {
+		// do nothing
+		// try catch required to avoid 'jQuery is not defined' error
+		// when required in a node (non-browser) environment
+	}
 
 	export default {
 		name: 'cover',

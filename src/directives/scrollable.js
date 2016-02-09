@@ -1,4 +1,11 @@
-require('simplebar/src/simplebar')
+try {
+	require('simplebar/src/simplebar')
+}
+catch (e) {
+	// do nothing
+	// try catch required to avoid 'jQuery is not defined' error
+	// when required in a node (non-browser) environment
+}
 
 export default {
 	params: {

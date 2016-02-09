@@ -19,7 +19,14 @@
 </template>
 
 <script>
-	import 'jquery.breakpoints/breakpoints'
+	try {
+		require('jquery.breakpoints/breakpoints')
+	}
+	catch (e) {
+		// do nothing
+		// try catch required to avoid 'jQuery is not defined' error
+		// when required in a node (non-browser) environment
+	}
 	import randString from 'mout/random/randString'
 
 	export default {
