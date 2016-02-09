@@ -1,5 +1,5 @@
 <template>
-	<ul :class="navClass">
+	<ul :class="navClass" v-show="visibleTabs.length > 1">
 		<li v-for="tab in tabs" v-show="tab.visible">
 			<a href="#{{ tab.tabId }}" data-toggle="tab">
 				<i v-if="tab.icon" :class="tab.icon"></i>
@@ -57,6 +57,9 @@
 			},
 			events () {
 				return ['show', 'shown', 'hide', 'hidden']
+			},
+			visibleTabs () {
+				return this.tabs.filter((t) => t.visible === true)
 			}
 		},
 		ready () {
