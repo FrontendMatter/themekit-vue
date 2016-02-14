@@ -2,10 +2,6 @@
 
 Vue.js components for rapid development & prototyping. Easily create layouts, sidebars and much more.
 
-### Pre-release notice
-
-> **Work in progress!** For the moment, themekit-vue is to be considered in heavy development towards an inital release. After the initial release (which is TBA), we'll be in Beta for the foreseeable future, which means the API might change without notice. If you'd like to use themekit-vue in production, keep that in mind.
-
 ## Demos & Documentation
 
 > **Work in progress!**
