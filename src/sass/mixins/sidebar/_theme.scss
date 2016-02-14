@@ -62,7 +62,6 @@
 }
 @mixin sidebar-brand-variant() {
     .sidebar-brand {
-        height: $sidebar-brand-height;
         line-height: $sidebar-brand-height;
         background: $sidebar-brand-bg;
         border-bottom: 1px solid $sidebar-brand-border-color;

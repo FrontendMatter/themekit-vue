@@ -48,6 +48,7 @@
 					return
 				}
 				this.open = !this.open
+				e.stopPropagation()
 			},
 			show () {
 				this.open = true

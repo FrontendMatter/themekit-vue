@@ -19,9 +19,7 @@ export default {
 			$(this.el).addClass('horizontal')
 		}
 		var vm = this.vm
-		$(this.el).simplebar({
-			autoHide: false
-		})
+		$(this.el).simplebar()
 		$(this.el).simplebar().on('scroll', function () {
 			var scrollable = $(this)
 			let scrollTop = scrollable.simplebar('getScrollElement').scrollTop()

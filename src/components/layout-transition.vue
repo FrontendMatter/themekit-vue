@@ -26,13 +26,17 @@
 				<div class="st-cnt">
 
 					<!-- extra div for emulating position:fixed of the menu -->
-					<div class="la-cnt" v-scrollable>
+					<div class="la-cnt">
 
 						<!-- Navbar Content -->
 						<slot name="navbar-content"></slot>
 
-						<!-- Content -->
-						<slot></slot>
+						<div v-scrollable>
+
+							<!-- Content -->
+							<slot></slot>
+
+						</div>
 
 					</div>
 					<!-- /la-cnt -->

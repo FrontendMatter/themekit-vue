@@ -9,6 +9,7 @@ import DropdownAreaList from './components/dropdown-area-list'
 import DropdownArea from './components/dropdown-area'
 import DropdownListItem from './components/dropdown-list-item'
 import DropdownMenu from './components/dropdown-menu'
+import DropdownSearch from './components/dropdown-search'
 import Dropdown from './components/dropdown'
 import ExpandablePanel from './components/expandable-panel'
 import Expandable from './components/expandable'
@@ -43,6 +44,7 @@ let ThemeKit = {
 	DropdownArea,
 	DropdownListItem,
 	DropdownMenu,
+	DropdownSearch,
 	Dropdown,
 	ExpandablePanel,
 	Expandable,
